@@ -24,7 +24,7 @@ iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
 
 In Windows, symlinks can be created only on the Command Prompt and when running it as an admin with the following commands:
 ```bat
-mklink LINK TARGET        & ::creates symlinks for files (the & is not included)
+mklink LINK TARGET        & :: creates symlinks for files (the & is not included)
 mklink /D LINK TARGET     & :: creates symlinks for directories (the & is not included)
 ```
 
