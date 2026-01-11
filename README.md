@@ -30,4 +30,4 @@ mklink /D LINK TARGET     & :: creates symlinks for directories (the & is not in
 
 # More About This Repo
 
-While I indeed would like to create a script to automate the process of create files/directories and symlinks, I will refrain from doing so since there's too little files to handle and also because I honestly don't feel like it.
+While I indeed would like to create a script to automate the process of creating files/directories and symlinks, I will refrain from doing so since there's too few files to handle and also because I honestly don't feel like it.
