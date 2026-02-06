@@ -30,5 +30,6 @@ set number
 set relativenumber
 set noshowmatch
 set scrolloff=9999
+set linebreak
 
 
