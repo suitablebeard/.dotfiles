@@ -2,6 +2,9 @@ set nocompatible
 let g:netrw_list_hide= '.*\.swp$'
 let g:netrw_dirhistmax = 0   
 
+set encoding=utf-8
+set fileencoding=utf-8
+
 set clipboard=unnamed
 set noshowmode
 set showcmd " shows the (partial) command as it's being typed
