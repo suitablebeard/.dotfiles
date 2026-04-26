@@ -1,12 +1,14 @@
 augroup formatter
-  autocmd!
-  autocmd BufWritePre *.js,*.ts,*.jsx,*.tsx,*.html,*.css call s:format()
+    autocmd!
+    autocmd BufWritePre *.js,*.ts,*.jsx,*.tsx,*.html,*.css,*.md call s:format()
 augroup END
 
 function! s:format()
-  if executable('prettier') && &modified
+    if executable('prettier') && &modified
+        return
+    endif
+
     normal! m`
     silent %!prettier --stdin-filepath % --tab-width 4
     normal! ``
-  endif
 endfunction
