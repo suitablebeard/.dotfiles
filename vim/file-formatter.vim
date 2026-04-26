@@ -4,7 +4,7 @@ augroup formatter
 augroup END
 
 function! s:format()
-    if executable('prettier') && &modified
+    if !(executable('prettier') && &modified)
         return
     endif
 
