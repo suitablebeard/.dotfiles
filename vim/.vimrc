@@ -4,7 +4,8 @@ let s:sourceFiles = [
     \ 'centralize-vim-metadata.vim',
     \ 'plugins.vim',
     \ 'keybinds.vim',
-    \ 'colors.vim'
+    \ 'colors.vim',
+    \ 'file-formatter.vim',
     \ ]
 
 for file in s:sourceFiles
