@@ -1,26 +1,30 @@
+" Miscellaneous
 let mapleader = " "
 
 inoremap kj <Esc>
+nnoremap <Esc> :noh<CR> " removes highlights after a search
 
-nnoremap <leader>so :so %<CR>
-nnoremap <leader>cd :Ex<CR>
+" Saving and quitting the file
+nnoremap <leader>w :w<CR> " saves files
+nnoremap <leader><leader>w :wq<CR> " saves and quits file
+nnoremap <leader>q :q<CR> " quits file
+nnoremap <leader><leader>q :q!<CR> " force quits file
+nnoremap <leader>so :so %<CR> " sources the current file
+nnoremap <leader>cd :Ex<CR> " opens netwr (vim's file explorer)
 
-nnoremap <leader>h :bprevious<CR>
-nnoremap <leader>l :bnext<CR>
-nnoremap <leader>bd :bdelete<CR>
+" Move around buffers in a window
+nnoremap <leader>h :bprevious<CR> " goes to previous buffer
+nnoremap <leader>l :bnext<CR> " goes to next buffer
+nnoremap <leader>bd :bdelete<CR> " delete buffer
 
-nnoremap <leader>H <C-w>h
-nnoremap <leader>L <C-w>l
-nnoremap <leader>J <C-w>j
-nnoremap <leader>K <C-w>k
-nnoremap <leader>< <C-w><
-nnoremap <leader>> <C-w>>
-nnoremap <leader>- <C-w>-
-nnoremap <leader>= <C-w>+
+" Move around windows
+nnoremap <leader>H <C-w>h " goes to window on the left
+nnoremap <leader>L <C-w>l " goes to window on the right
+nnoremap <leader>J <C-w>j " goes to window bellow
+nnoremap <leader>K <C-w>k " goes to window above
+nnoremap <leader>< <C-w>< " make window narrower
+nnoremap <leader>> <C-w>> " make window wider
+nnoremap <leader>- <C-w>- " make window shorter
+nnoremap <leader>= <C-w>+ " make window taller
 
-nnoremap <leader>w :w<CR>
-nnoremap <leader><leader>w :wq<CR>
-nnoremap <leader>q :q<CR>
-nnoremap <leader><leader>q :q!<CR>
 
-nnoremap <Esc> :noh<CR>
