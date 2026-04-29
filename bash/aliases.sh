@@ -12,7 +12,7 @@ alias so='source ~/.bashrc'
 
 alias lua='lua54'
 
-alias gp='git push'
+alias gp='git push && git push --tags'
 alias gtt='git status'
 alias gl='git log --oneline'
 alias gff='git diff'
