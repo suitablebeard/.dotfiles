@@ -13,6 +13,8 @@ alias so='source ~/.bashrc'
 alias lua='lua54'
 
 alias gp='git push'
+alias gtt='git status'
+alias gl='git log --oneline'
 alias gc='git commit -m'
 gac() {
   git add . && git commit -m "$*"
