@@ -3,7 +3,8 @@
 For Bash you simply create a symlink of the .bashrc file to `~/.bashrc`.
 
 As for Vim, you first need to:
-1. Create a symlink of .vimrc file  to `~/.vimrc`
+
+1. Create a symlink of .vimrc file to `~/.vimrc`
 2. Then, in order for the plugins to work, you need to download the [vim-plug plugin manager](https://github.com/junegunn/vim-plug) file and add it to `~/.vim/autoload/` with the following command:
 
 ```bash
@@ -11,7 +12,9 @@ As for Vim, you first need to:
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
+
 or
+
 ```ps1
 # Using PowerShell
 iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
@@ -23,10 +26,20 @@ iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
 # About the Symlinks
 
 In Windows, symlinks can be created only on the Command Prompt and when running it as an admin with the following commands:
+
 ```bat
 mklink LINK TARGET        & :: creates symlinks for files (the & is not included)
 mklink /D LINK TARGET     & :: creates symlinks for directories (the & is not included)
 ```
+
+Example:
+
+```bat
+mklink "%USERPROFILE%\.bashrc" "%USERPROFILE%\.dotfiles\bash\.bashrc"
+```
+
+- All paths must be surrended by double quotes;
+- You can use the variable `%USERPROFILE%` to get the home directory;
 
 # More About This Repo
 
