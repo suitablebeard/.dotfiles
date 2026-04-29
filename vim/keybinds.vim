@@ -27,4 +27,9 @@ nnoremap <leader>> <C-w>> " make window wider
 nnoremap <leader>- <C-w>- " make window shorter
 nnoremap <leader>= <C-w>+ " make window taller
 
+" Disables arrow keys
+noremap <Up>    <NOP>
+noremap <Down>  <NOP>
+noremap <Left>  <NOP>
+noremap <Right> <NOP>
 
