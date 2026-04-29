@@ -15,7 +15,18 @@ alias lua='lua54'
 alias gp='git push'
 alias gtt='git status'
 alias gl='git log --oneline'
-alias gc='git commit -m'
+alias gff='git diff'
+gc() {
+    if [ -z "$*" ]; then
+        echo "Usage: gc \"commit message\""
+        return 1
+    fi
+    git commit -m "$*"
+}
 gac() {
-  git add . && git commit -m "$*"
+    if [ -z "$*" ]; then
+        echo "Usage: gac \"commit message\""
+        return 1
+    fi
+    git add . && git commit -m "$*"
 }
