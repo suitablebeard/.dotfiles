@@ -1,7 +1,9 @@
+# Setting Variables
 export VISUAL=vim
 export EDITOR=vim
 export GIT_EDITOR=vim
 
+# Aliases
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -14,8 +16,23 @@ alias cls='clear'
 alias grep='grep --color=auto'
 alias so='source ~/.bashrc'
 
+alias gp='git push'
+alias gcm='git commit -m'
+alias gcam='git commit -am'
+
 alias lua='lua54'
 
+# Add blank between command runs
+last_cmd=""
+PROMPT_COMMAND='
+current_cmd=$(history 1 | sed "s/^[ ]*[0-9]\+[ ]*//")
+if [[ "$current_cmd" != "$last_cmd" ]]; then
+    [[ ! "$current_cmd" =~ ^(clear|reset)$ ]] && echo
+fi
+last_cmd="$current_cmd"
+'
+
+# Customize PS1
 GREEN="\[\e[32m\]"
 BLUE="\[\e[34m\]"
 YELLOW="\[\e[33m\]"
