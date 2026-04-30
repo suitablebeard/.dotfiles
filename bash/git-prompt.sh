@@ -576,8 +576,8 @@ __git_ps1 ()
 					git describe --tags --exact-match HEAD ;;
 				esac 2>/dev/null)" ||
 
-				b="$short_sha..."
-                b="($b)"
+				b="$short_sha"
+				b="$b"
 			else
 				b="$head"
 			fi
