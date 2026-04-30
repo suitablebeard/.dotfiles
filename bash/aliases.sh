@@ -14,6 +14,7 @@ alias lua='lua54'
 
 alias gp='git push && git push --tags'
 alias gtt='git status'
+alias ggt='gtt'
 alias gll='git log --color=always --graph --pretty=format:"%C(auto)%h %C(reset)%s %C(auto)%d" --date=short | less -R'
 alias glp='git log --color=always --graph --pretty=format:"%C(auto)%h %C(blue)%ad %C(reset)%s %C(brightblack)(%an)%C(auto)%d" --date=short | less -R'
 alias gck='git checkout'
@@ -21,6 +22,7 @@ alias gch='git switch'
 alias gsh='git stash'
 alias gpp='git stash pop'
 alias gff='git diff'
+alias gres='git restore --stage'
 
 gc() {
     if [ -z "$*" ]; then
