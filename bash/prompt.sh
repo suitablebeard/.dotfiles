@@ -1,3 +1,9 @@
+export GIT_PS1_SHOWDIRTYSTATE=1      # shows * or + for dirty repo
+export GIT_PS1_SHOWSTASHSTATE=1      # shows $ if stash exists
+export GIT_PS1_SHOWUNTRACKEDFILES=1  # shows % if untracked files
+export GIT_PS1_SHOWUPSTREAM="auto"   # shows ahead/behind
+
+
 # Add blank between command runs
 last_cmd=""
 PROMPT_COMMAND='
@@ -18,7 +24,7 @@ RESETCOLOR="\[\e[0m\]"
 PS1=""
 PS1+="${GREEN}\u@\h${RESETCOLOR} " # username@host
 PS1+="${YELLOW}\$(short_path)${RESETCOLOR}" # path
-PS1+="${CYAN}\$(parse_git_branch)${RESETCOLOR}" # git branch
+PS1+="${CYAN}\$(__git_ps1 ' (%s)')${RESETCOLOR}" # git branch
 PS1+=" \$ " # prompt symbol
 
 short_path() {
@@ -29,7 +35,7 @@ short_path() {
     "$HOME"*) p="~${p#$HOME}" ;;
   esac
 
-  IFS='/' read -ra parts <<< "$p"
+  IFS="/" read -ra parts <<< "$p"
   local n=${#parts[@]}
 
   if (( n <= 2 )); then
@@ -40,11 +46,12 @@ short_path() {
 }
 
 is_git_dirty() {
-  git diff --quiet 2>/dev/null || echo "*"
+    git diff --no-ext-diff --quiet || echo "*"
+    git diff --no-ext-diff --cached --quiet || echo "+"
 }
 
 parse_git_branch() {
-  branch=$(git branch 2>/dev/null | grep '*' | sed -E 's/^\* \(?|\)$//g')
+  branch=$(git branch 2>/dev/null | grep "*" | sed -E "s/^\* \(?|\)$//g")
   if [ -n "$branch" ]; then
       echo " ($branch$(is_git_dirty))"
   fi
