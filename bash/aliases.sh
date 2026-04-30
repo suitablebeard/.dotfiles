@@ -20,9 +20,8 @@ alias gck='git checkout'
 alias gch='git switch'
 alias gsh='git stash'
 alias gpp='git stash pop'
-
-
 alias gff='git diff'
+
 gc() {
     if [ -z "$*" ]; then
         echo "Usage: gc \"commit message\""

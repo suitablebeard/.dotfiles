@@ -1,3 +1,7 @@
+shopt -s nullglob # makes the code run only if  matches are found
+
 for file in ~/.dotfiles/bash/*.sh; do
-  source "$file"
+    [[ -f "$file" ]] && source "$file" # makes sure it only matches files and not folders
 done
+
+shopt -u nullglob # unsets option
