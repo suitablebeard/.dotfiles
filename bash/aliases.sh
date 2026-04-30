@@ -14,7 +14,7 @@ alias lua='lua54'
 
 alias gp='git push && git push --tags'
 alias gtt='git status'
-alias gl='git log --oneline'
+alias gll='git log --oneline'
 alias gff='git diff'
 gc() {
     if [ -z "$*" ]; then
