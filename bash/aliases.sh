@@ -14,7 +14,8 @@ alias lua='lua54'
 
 alias gp='git push && git push --tags'
 alias gtt='git status'
-alias gll='git log --oneline'
+alias gll='git log --color=always --graph --pretty=format:"%C(auto)%h %C(reset)%s %C(auto)%d" --date=short | less -R'
+alias glp='git log --color=always --graph --pretty=format:"%C(auto)%h %C(blue)%ad %C(reset)%s %C(brightblack)(%an)%C(auto)%d" --date=short | less -R'
 alias gff='git diff'
 gc() {
     if [ -z "$*" ]; then
