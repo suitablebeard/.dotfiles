@@ -30,12 +30,9 @@ In Windows, symlinks can be created only on the Command Prompt and when running 
 ```bat
 mklink LINK TARGET        & :: creates symlinks for files (the & is not included)
 mklink /D LINK TARGET     & :: creates symlinks for directories (the & is not included)
-```
 
-Example:
-
-```bat
-mklink "%USERPROFILE%\.bashrc" "%USERPROFILE%\.dotfiles\bash\.bashrc"
+:: Example
+mklink "%USERPROFILE%\.bashrc" "%USERPROFILE%\.dotfiles\bash\.bashrc" & :: creates a link for .bashrc
 ```
 
 - All paths must be surrended by double quotes;
