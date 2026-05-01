@@ -9,6 +9,7 @@ let s:sourceFiles = [
     \ ]
 
 for file in s:sourceFiles
-    exec 'source' . expand('~/.dotfiles/vim') . '/' . file
+    let s:escapedFilePath = fnameescape(simplify(expand('~/.dotfiles/vim' . '/' . file)))
+    exec 'source ' . s:escapedFilePath
 endfor
 
