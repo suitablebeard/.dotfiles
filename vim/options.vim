@@ -1,3 +1,6 @@
+" Add your custom folder to the beginning of the runtime path
+let &rtp = expand('~/.vim') . ',' . &rtp
+
 set nocompatible
 let g:netrw_list_hide= '.*\.swp$'
 let g:netrw_dirhistmax = 0   
