@@ -5,7 +5,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'machakann/vim-highlightedyank'
 Plug 'jiangmiao/auto-pairs'
-Plug 'prabirshrestha/vim-lsp'
-" Plug 'mattn/vim-lsp-settings'
+Plug 'yegappan/lsp'
 
 call plug#end()
