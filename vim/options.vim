@@ -9,6 +9,7 @@ set encoding=utf-8
 set fileencoding=utf-8
 
 set clipboard=unnamed
+set guicursor=a:block
 set noshowmode
 set showcmd " shows the (partial) command as it's being typed
 set laststatus=2
