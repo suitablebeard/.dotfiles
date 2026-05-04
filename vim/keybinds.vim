@@ -9,8 +9,12 @@ nnoremap <leader>w :w<CR> " saves files
 nnoremap <leader><leader>w :wq<CR> " saves and quits file
 nnoremap <leader>q :q<CR> " quits file
 nnoremap <leader><leader>q :q!<CR> " force quits file
+
 nnoremap <leader>so :so %<CR> " sources the current file
 nnoremap <leader>cd :Ex<CR> " opens netwr (vim's file explorer)
+
+" Open files
+nnoremap <leader>v :vnew<CR>
 
 " Move around buffers in a window
 nnoremap <leader>h :bprevious<CR> " goes to previous buffer
