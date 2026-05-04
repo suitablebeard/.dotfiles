@@ -1,5 +1,16 @@
-" All this code was taken from the reddit thread bellow:
-" https://www.reddit.com/r/vim/comments/40ymts/comment/cyz56ma/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+let &rtp = expand('~/.vim') . ',' . &rtp         " add custom runtime path folder
+let g:netrw_list_hide= '.*\.swp$'                " hides swap files from netrw
+let g:netrw_dirhistmax = 0                       " disables netrw directories history
+
+
+" ======================================================================================
+" ======================================================================================
+
+    " All the code bellow was taken from the reddit thread bellow:
+    " https://www.reddit.com/r/vim/comments/40ymts/comment/cyz56ma
+
+" ======================================================================================
+" ======================================================================================
 
 " Save your backups to a less annoying place than the current directory.
 " If you have .vim-backup in the current directory, it'll use that.

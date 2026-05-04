@@ -1,9 +1,10 @@
+" Uses Prettier to format some file types
 augroup formatter
     autocmd!
-    autocmd BufWritePre *.js,*.ts,*.jsx,*.tsx,*.html,*.css,*.md call s:format()
+    autocmd BufWritePre *.js,*.ts,*.jsx,*.tsx,*.html,*.css,*.md call s:prettierFormat()
 augroup END
 
-function! s:format()
+function! s:prettierFormat()
     if !(executable('prettier') && &modified)
         return
     endif

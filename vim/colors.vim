@@ -1,4 +1,5 @@
-set termguicolors
+set termguicolors   " enables true color support in vim
+
 let g:tokyonight_style = 'night'
 let g:lightline = {'colorscheme' : 'tokyonight'}
 let g:highlightedyank_highlight_duration = 250
