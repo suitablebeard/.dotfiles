@@ -5,6 +5,7 @@
 let mapleader = " "|                             " sets space as the leader key
 
 inoremap kj <Esc>|                               " exits insert mode with 'kj'
+vnoremap <space> <Esc>|
 nnoremap <Esc> :noh<CR>|                         " removes highlights after a search
 
 nnoremap <leader>so :so %<CR>|                   " sources the current file
