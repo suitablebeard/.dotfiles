@@ -5,12 +5,13 @@
 let mapleader = " "|                             " sets space as the leader key
 
 inoremap kj <Esc>|                               " exits insert mode with 'kj'
-vnoremap <space> <Esc>|
+vnoremap <space> <Esc>|                          " exits visual mode with space
 nnoremap <Esc> :noh<CR>|                         " removes highlights after a search
 
 nnoremap <leader>so :so %<CR>|                   " sources the current file
 nnoremap <leader>cd :Ex<CR>|                     " opens netwr (vim's file explorer)
 nnoremap <leader>v :vnew<CR>|                    " opens empty buffer in vertical split (on the left)
+nnoremap <leader>x :call ExecFile()<CR>|         " executes current file according to filetype
 
 " Motions
 nnoremap J mzJ`z|                                " ensures cursor stays inplace when joining lines
