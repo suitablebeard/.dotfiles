@@ -11,7 +11,8 @@ nnoremap <Esc> :noh<CR>|                         " removes highlights after a se
 nnoremap <leader>so :so %<CR>|                   " sources the current file
 nnoremap <leader>cd :Ex<CR>|                     " opens netwr (vim's file explorer)
 nnoremap <leader>v :vnew<CR>|                    " opens empty buffer in vertical split (on the left)
-nnoremap <leader>x :call ExecFile()<CR>|         " executes current file according to filetype
+nnoremap <leader>x :call ExecFile()<CR><C-w>h|         " executes current file according to filetype
+nnoremap <leader><leader>x <C-w>l:bd<CR>:call ExecFile()<CR><C-w>h|         " executes current file according to filetype
 
 " Motions
 nnoremap J mzJ`z|                                " ensures cursor stays inplace when joining lines
@@ -33,18 +34,12 @@ nnoremap <leader>l :bnext<CR>|                   " goes to next buffer
 nnoremap <leader>bd :bdelete<CR>|                " delete buffer
 
 " Move around windows
-nnoremap <leader>H <C-w>h|                       " goes to window on the left
-nnoremap <leader>L <C-w>l|                       " goes to window on the right
-nnoremap <leader>J <C-w>j|                       " goes to window bellow
-nnoremap <leader>K <C-w>k|                       " goes to window above
-nnoremap <leader>< <C-w><|                       " make window narrower
-nnoremap <leader>> <C-w>>|                       " make window wider
-nnoremap <leader>- <C-w>-|                       " make window shorter
-nnoremap <leader>= <C-w>+|                       " make window taller
-
-" Disables arrow keys
-noremap <Up>    <NOP>
-noremap <Down>  <NOP>
-noremap <Left>  <NOP>
-noremap <Right> <NOP>
+nnoremap <leader><leader>h <C-w>h|               " goes to window on the left
+nnoremap <leader><leader>l <C-w>l|               " goes to window on the right
+nnoremap <leader><leader>j <C-w>j|               " goes to window bellow
+nnoremap <leader><leader>k <C-w>k|               " goes to window above
+noremap <Up>    <C-w>+|                          " make window taller
+noremap <Down>  <C-w>-|                          " make window shorter
+noremap <Left>  <C-w><|                          " make window narrower
+noremap <Right> <C-w>>|                          " make window wider
 
