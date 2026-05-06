@@ -1,4 +1,4 @@
-call plug#begin()
+call plug#begin('~/.vim/plugged')
 
 Plug 'ghifarit53/tokyonight-vim'
 Plug 'itchyny/lightline.vim'
