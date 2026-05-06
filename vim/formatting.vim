@@ -19,6 +19,6 @@ function! s:format(formatter, cmd) abort
     endif
 
     normal! m`
-    execute 'silent %!' . a:cmd
+    execute 'silent! %!' . a:cmd
     normal! ``
 endfunction
