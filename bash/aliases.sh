@@ -1,10 +1,13 @@
 #!/bin/bash
 
+# =====================
+# ====  Utilities  ====
+# =====================
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
-alias cdcode='cd ~/Documents/myFiles/Programming'
 
 alias ls='ls --color=auto'
 alias ll='ls --color=auto -la'
@@ -12,7 +15,18 @@ alias cls='clear'
 alias grep='grep --color=auto'
 alias so='source ~/.bashrc'
 
+
+# ======================
+# ==== More Aliases ====
+# ======================
+
 alias lua='lua54'
+alias cdcode='cd ~/Documents/myFiles/Programming'
+alias obs='cd ~/Documents/Obsidian/ && vim .'
+
+# =====================
+# ==== Git Aliases ====
+# =====================
 
 alias ga='git add'
 alias gp='git push && git push --tags'
