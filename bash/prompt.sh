@@ -3,7 +3,7 @@
 export GIT_PS1_SHOWDIRTYSTATE=1      # shows * or + for dirty repo
 export GIT_PS1_SHOWSTASHSTATE=1      # shows $ if stash exists
 export GIT_PS1_SHOWUNTRACKEDFILES=1  # shows % if untracked files
-export GIT_PS1_SHOWUPSTREAM="auto"   # shows ahead/behind
+export GIT_PS1_SHOWUPSTREAM=""   # shows ahead/behind
 
 
 # Add blank between command runs
