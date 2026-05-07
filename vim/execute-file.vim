@@ -2,13 +2,13 @@ function! ExecFile()
     let s:origin = bufnr('%')
 
     let s:cmd = s:FindExecutableCmd()
-    if !s:cmd
+    if s:cmd == -1
         echo 'No executable for filetype: ' . &filetype
         return
     endif
 
     let s:terminal_buf = s:FindExecTerminal()
-    if s:terminal_buf
+    if s:terminal_buf != -1
         execute 'bdelete ' .. s:terminal_buf
     endif
 
@@ -30,8 +30,9 @@ function! s:FindExecutableCmd()
         \ 'sh': 'bash',
         \ }
 
+
     if !has_key(s:executables, &filetype)
-        return 0
+        return -1
     endif
     
     return s:executables[&filetype] . ' %'
@@ -44,7 +45,7 @@ function! s:FindExecTerminal()
         endif
     endfor
 
-    return 0
+    return -1
 endfunction
 
 function! s:GoBackToExecutedFile(bufNum)
