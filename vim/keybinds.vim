@@ -11,12 +11,14 @@ nnoremap <Esc> :noh<CR>|                         " removes highlights after a se
 nnoremap <leader>so :so %<CR>|                   " sources the current file
 nnoremap <leader>cd :Ex<CR>|                     " opens netwr (vim's file explorer)
 nnoremap <leader>v :vnew<CR>|                    " opens empty buffer in vertical split (on the left)
-nnoremap <leader>x :call ExecFile()<CR><C-w>h|         " executes current file according to filetype
-nnoremap <leader><leader>x <C-w>l:bd<CR>:call ExecFile()<CR><C-w>h|         " executes current file according to filetype
-inoremap [[ [[]]<Esc>hh:FuzzyFiles<CR>|           " mimics Obsidian's file linking when typing [[]]
+nnoremap <leader>x :call ExecFile()<CR>|         " executes current file according to filetype
+inoremap [[ [[]]<Esc>hh:FuzzyFiles<CR>|          " mimics Obsidian's file linking when typing [[]]
+                                                     " basically it opens FuzzyFiles where you can press 
+                                                     " <C-h> to past the selected file's name which is a
+                                                     " remap I made by tweaking the plugins code
 
 " Motions
-nnoremap J mzJ`z|                                " ensures cursor stays inplace when joining lines
+nnoremap J mzJ`z|                                " ensures cursor stays inplace when joining multiple lines
 nnoremap <C-d> <C-d>zz|                          " centers screen when up by half-page
 nnoremap <C-u> <C-u>zz|                          " centers screen when down by half-page
 nnoremap n nzzzv|                                " centers screen when searching forward
@@ -27,7 +29,9 @@ xnoremap <leader>p "_dP|                         " ensures to not lose copied te
 nnoremap <leader>w :w<CR>|                       " saves files
 nnoremap <leader><leader>w :wq<CR>|              " saves and quits file
 nnoremap <leader>q :q<CR>|                       " quits file
+nnoremap <leader>qa :qa<CR>|                     " quits file
 nnoremap <leader><leader>q :q!<CR>|              " force quits file
+nnoremap <leader><leader>qa :qa!<CR>|            " force quits file
 
 " Move around buffers in a window
 nnoremap <leader>h :bprevious<CR>|               " goes to previous buffer
