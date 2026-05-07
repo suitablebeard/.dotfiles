@@ -1,15 +1,53 @@
 function! ExecFile()
-    let executables = {
+    let s:origin = bufnr('%')
+
+    let s:cmd = s:FindExecutableCmd()
+    if !s:cmd
+        echo 'No executable for filetype: ' . &filetype
+        return
+    endif
+
+    let s:terminal_buf = s:FindExecTerminal()
+    if s:terminal_buf
+        execute 'bdelete ' .. s:terminal_buf
+    endif
+
+    execute 'vert rightb terminal ' . s:cmd
+    execute 'vert resize ' .. float2nr(&columns * 0.2)
+
+    let b:exec_term_buf = 1
+
+    call s:GoBackToExecutedFile(s:origin)
+
+    return
+endfunction
+
+function! s:FindExecutableCmd()
+    let s:executables = {
         \ 'lua': 'lua54',
         \ 'python': 'python',
         \ 'javascript': 'node',
         \ 'sh': 'bash',
         \ }
 
-    if !has_key(executables, &filetype)
-        echo 'No executable for filetype: ' . &filetype
-        return
+    if !has_key(s:executables, &filetype)
+        return 0
     endif
+    
+    return s:executables[&filetype] . ' %'
+endfunction
 
-    execute 'vert rightb terminal ' . executables[&filetype] . ' %'
+function! s:FindExecTerminal()
+    for bufnr in tabpagebuflist()
+        if getbufvar(bufnr, 'exec_term_buf', 0)
+            return bufnr
+        endif
+    endfor
+
+    return 0
+endfunction
+
+function! s:GoBackToExecutedFile(bufNum)
+    call win_gotoid(bufwinid(a:bufNum))
+    return
 endfunction
