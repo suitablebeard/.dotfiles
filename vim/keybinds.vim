@@ -13,6 +13,7 @@ nnoremap <leader>cd :Ex<CR>|                     " opens netwr (vim's file explo
 nnoremap <leader>v :vnew<CR>|                    " opens empty buffer in vertical split (on the left)
 nnoremap <leader>x :call ExecFile()<CR><C-w>h|         " executes current file according to filetype
 nnoremap <leader><leader>x <C-w>l:bd<CR>:call ExecFile()<CR><C-w>h|         " executes current file according to filetype
+inoremap [[ [[]]<Esc>hh:FuzzyFiles<CR>|           " mimics Obsidian's file linking when typing [[]]
 
 " Motions
 nnoremap J mzJ`z|                                " ensures cursor stays inplace when joining lines
