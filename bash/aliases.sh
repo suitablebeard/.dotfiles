@@ -22,7 +22,7 @@ alias so='source ~/.bashrc'
 
 alias lua='lua54'
 alias cdcode='cd ~/Documents/myFiles/Programming'
-alias obs='cd ~/Documents/Obsidian/ && vim .'
+alias obs='cd ~/Documents/Obsidian/ && vim . +FuzzyFiles'
 
 # =====================
 # ==== Git Aliases ====
