@@ -1,4 +1,8 @@
 function! ExecFile()
+    if &modified
+        silent write
+    endif
+
     let s:origin = bufnr('%')
 
     let s:cmd = s:FindExecutableCmd()
