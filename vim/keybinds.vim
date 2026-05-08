@@ -17,6 +17,10 @@ inoremap <silent> [[ [[]]<Esc>hh:FuzzyFiles<CR>|                " mimics Obsidia
                                                                     " <C-h> to past the selected file's name which is a
                                                                     " remap I made by tweaking the plugins code
 
+" Autocompletion
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+    
 " Motions
 nnoremap J mzJ`z|                                               " ensures cursor stays inplace when joining multiple lines
 nnoremap <C-d> <C-d>zz|                                         " centers screen when up by half-page

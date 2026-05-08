@@ -46,7 +46,5 @@ function! s:on_lsp_attached() abort
     nnoremap <leader>nd :LspDiag next \| LspDiag current<CR>
     nnoremap <leader>pd :LspDiag prev \| LspDiag current<CR>
     inoremap <silent> <C-Space> <C-x><C-o>
-    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 endfunction
 
