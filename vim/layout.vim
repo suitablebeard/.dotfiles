@@ -11,7 +11,8 @@ set guicursor=a:block                            " ensures cursus is always bloc
 set vb t_vb=                                     " removes the flash or audio when reaching the end of a line 
 set showcmd                                      " shows the (partial) command as it's being typed
 set noshowmode                                   " hides default mode display (e.g. -- insert --)
-set laststatus=2                                 " shows status line (wiht file info, etc)
+set laststatus=2                                 " shows status line (wiht file info, etc) [useful for lightline plugin]
+set completeopt=menuone,noinsert,popup,fuzzy     " improves the autocompletion menu
 
 " Turns linewrapping on for text (e.g. .txt, .md, etc)
 " and adds indentation for wrapped line
