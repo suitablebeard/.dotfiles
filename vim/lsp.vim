@@ -24,8 +24,13 @@ let lspServers = [
     \   	  path: 'C:\Users\umber\AppData\Roaming\npm\bash-language-server.cmd',
     \   	  args: ['start'],
     \    },
+    \    #{
+    \         name:'vim-language-server',
+    \         filetype:['vim'],
+    \   	  path: 'C:\Users\umber\AppData\Roaming\npm\vim-language-server.cmd',
+    \   	  args: ['--stdio'],
+    \    },
     \ ]
-
 
 autocmd User LspSetup call LspAddServer(lspServers)
 autocmd User LspSetup call LspOptionsSet(lspOpts)
@@ -36,14 +41,14 @@ augroup lsp_mappings
 augroup END
 
 function! s:on_lsp_attached() abort
-    nnoremap gd :LspGotoDefinition<CR>
-    nnoremap gr :LspShowReferences<CR>
-    nnoremap K  :LspHover<CR>
-    nnoremap gl :LspDiag current<CR>
-    nnoremap <F2> :LspRename<CR>
-    nnoremap <F3> :LspFormat<CR>
-    nnoremap <leader>nd :LspDiag next \| LspDiag current<CR>
-    nnoremap <leader>pd :LspDiag prev \| LspDiag current<CR>
-    inoremap <silent> <C-Space> <C-x><C-o>
+    nnoremap <buffer> gd :LspGotoDefinition<CR>
+    nnoremap <buffer> gr :LspShowReferences<CR>
+    nnoremap <buffer> K  :LspHover<CR>
+    nnoremap <buffer> gl :LspDiag current<CR>
+    nnoremap <buffer> <F2> :LspRename<CR>
+    nnoremap <buffer> <F3> :LspFormat<CR>
+    nnoremap <buffer> <leader>nd :LspDiag next \| LspDiag current<CR>
+    nnoremap <buffer> <leader>pd :LspDiag prev \| LspDiag current<CR>
+    inoremap <buffer> <silent> <C-Space> <C-x><C-o>
 endfunction
 
