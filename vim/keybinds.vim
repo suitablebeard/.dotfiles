@@ -9,17 +9,15 @@ vnoremap <space> <Esc>|                                         " exits visual m
 nnoremap <silent> <Esc> :noh<CR>|                               " removes highlights after a search
 
 nnoremap <leader>so :so %<CR>|                                  " sources the current file
+nnoremap <leader><leader>so :so ~/.vimrc<CR>|                   " sources the vimrc
 nnoremap <silent> <leader>cd :Ex<CR>|                           " opens netwr (vim's file explorer)
 nnoremap <leader>v :vnew<CR>|                                   " opens empty buffer in vertical split (on the left)
 nnoremap <silent> <leader>x :call ExecFile()<CR>|               " executes current file according to filetype
-inoremap <silent> [[ [[]]<Esc>hh:FuzzyFiles<CR>|                " mimics Obsidian's file linking when typing [[]]
-                                                                    " basically it opens FuzzyFiles where you can press 
-                                                                    " <C-h> to past the selected file's name which is a
-                                                                    " remap I made by tweaking the plugins code
 
 " Autocompletion
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"|
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"|
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"|
     
 " Motions
 nnoremap J mzJ`z|                                               " ensures cursor stays inplace when joining multiple lines
