@@ -7,6 +7,7 @@ let mapleader = " "|                                                 " sets spac
 inoremap kj <Esc>|                                                   " exits insert mode with 'kj'
 vnoremap <space> <Esc>|                                              " exits visual mode with space
 nnoremap <silent> <Esc> :noh<CR>|                                    " removes highlights after a search
+nnoremap <silent> <leader>no :noh<CR>|                                    " removes highlights after a search
 
 nnoremap <leader>so :so %<CR>|                                       " sources the current file
 nnoremap <leader><leader>so :so ~/.vimrc<CR>|                        " sources the vimrc
