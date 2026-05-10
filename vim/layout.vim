@@ -12,7 +12,6 @@ set vb t_vb=                                     " removes the flash or audio wh
 set showcmd                                      " shows the (partial) command as it's being typed
 set noshowmode                                   " hides default mode display (e.g. -- insert --)
 set laststatus=2                                 " shows status line (wiht file info, etc) [useful for lightline plugin]
-set completeopt=menuone,noinsert,popup,fuzzy     " improves the autocompletion menu
 
 " Turns linewrapping on for text (e.g. .txt, .md, etc)
 " and adds indentation for wrapped line

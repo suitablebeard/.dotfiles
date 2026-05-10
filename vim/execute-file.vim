@@ -34,7 +34,6 @@ function! s:FindExecutableCmd()
         \ 'sh': 'bash',
         \ }
 
-
     if !has_key(s:executables, &filetype)
         return -1
     endif
