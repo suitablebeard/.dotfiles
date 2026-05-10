@@ -14,3 +14,8 @@ set shortmess-=S                                 " shows num of matches when sea
 set clipboard=unnamed                            " use system clipboard
 set wildmenu                                     " better command-line autocomplete in vim
 
+set completeopt=menuone                          " improves the autocompletion menu
+set completeopt+=noinsert
+set completeopt+=noselect
+set completeopt+=popup
+set completeopt+=fuzzy
