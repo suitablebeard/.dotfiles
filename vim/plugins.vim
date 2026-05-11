@@ -14,7 +14,7 @@ Plug 'tpope/vim-commentary'
 Plug '~/Documents/myFiles/Programming/vim-obsidian-wikilinks'
 
 " ========== My own Plugins ==========
-" Uncomment these lines in case you don't have them in your machine
+" Uncomment these lines in case you don't have them locally
 " Plug 'suitablebeard/vim-obsidian-wikilinks'
 
 call plug#end()
