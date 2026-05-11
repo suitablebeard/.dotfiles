@@ -37,7 +37,8 @@ autocmd User LspSetup call LspOptionsSet(lspOpts)
 
 augroup lsp_mappings
 " Only remaps for languages with a server registered
-    au! | autocmd User LspAttached call s:on_lsp_attached()
+    autocmd!
+    autocmd User LspAttached call s:on_lsp_attached()
 augroup END
 
 function! s:on_lsp_attached() abort

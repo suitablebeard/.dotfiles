@@ -21,6 +21,7 @@ alias so='source ~/.bashrc'
 # ======================
 
 alias v='vim'
+alias vi='vim'
 alias vg='vim +0G'
 alias lua='lua54'
 alias cdcode='cd ~/Documents/myFiles/Programming'
