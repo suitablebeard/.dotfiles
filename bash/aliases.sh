@@ -21,6 +21,7 @@ alias so='source ~/.bashrc'
 # ======================
 
 alias v='vim'
+alias vg='vim +0G'
 alias lua='lua54'
 alias cdcode='cd ~/Documents/myFiles/Programming'
 alias obs='cd ~/Documents/Obsidian/ && vim . +FuzzyFiles'
