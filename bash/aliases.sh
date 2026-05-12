@@ -32,6 +32,7 @@ alias obs='cd ~/Documents/Obsidian/ && vim . +FuzzyFiles'
 # =====================
 
 alias ga='git add'
+alias gap='git add -p'
 alias gp='git push && git push --tags'
 alias gtt='git status'
 alias ggt='gtt'
@@ -42,6 +43,7 @@ alias gch='git switch'
 alias gsh='git stash'
 alias gpp='git stash pop'
 alias gff='git diff'
+alias gffs='git diff --staged'
 alias gres='git restore --stage'
 
 gc() {
