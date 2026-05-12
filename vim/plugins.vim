@@ -17,6 +17,7 @@ Plug 'Sirver/ultisnips' | Plug 'honza/vim-snippets'
 " Improve md tables experince
 Plug 'dhruvasagar/vim-table-mode'
 
+Plug 'airblade/vim-gitgutter'
 
 " =============== My own Plugins and Forks===============
 " Uncomment these lines in case you don't have them locally

@@ -37,6 +37,7 @@ set shortmess-=S                                 " shows num of matches when sea
 " Others
 set clipboard=unnamed                            " use system clipboard
 set wildmenu                                     " better command-line autocomplete in vim
+set updatetime=500|                              " faster response from vim-gitgutter plugin
 
 set completeopt=menuone                          " improves the autocompletion menu
 set completeopt+=noinsert
