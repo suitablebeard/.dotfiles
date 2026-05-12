@@ -15,7 +15,8 @@ Plug 'tpope/vim-commentary'
 " Useful language related snippets (ultisnips is the engine)
 Plug 'Sirver/ultisnips' | Plug 'honza/vim-snippets'
 
-Plug '~/Documents/myFiles/Programming/vim-obsidian-wikilinks'
+" Improve md tables experince
+Plug 'dhruvasagar/vim-table-mode'
 
 " ========== My own Plugins ==========
 " Uncomment these lines in case you don't have them locally

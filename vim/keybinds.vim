@@ -58,3 +58,9 @@ nnoremap <expr> <BS> !empty(popup_list()) ? "\<C-c>" : "\<BS>"|      " closes po
 " == For my scripts ==
 nnoremap <silent> <leader>x :call ExecFile()<CR>|                    " executes current file according to filetype
 
+" ======= For plugins =======
+" Table-mode
+let g:table_mode_motion_up_map = 'tt['
+let g:table_mode_motion_down_map = 'tt]'
+let g:table_mode_motion_left_map = 't['
+let g:table_mode_motion_right_map = 't]'
