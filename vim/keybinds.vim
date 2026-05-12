@@ -13,7 +13,6 @@ nnoremap <silent> <leader>no :noh<CR>|                               " removes h
 nnoremap <leader>so :so ~/.vimrc<CR>|                                " sources the vimrc
 
 nnoremap <silent> <leader>cd :Ex<CR>|                                " opens netwr (vim's file explorer)
-nnoremap <leader>v :vnew<CR>|                                        " opens empty buffer in vertical split (on the left)
 xnoremap <leader>p "_dP|                                             " ensures to not lose copied text when pasting
 xnoremap <expr> I mode() ==# 'V' ? '^<C-v>I' : 'I'|                  " prepends text to multiple lines in v-line mode
 xnoremap <expr> A mode() ==# 'V' ? '$<C-v>A' : 'A'|                  " appends text to multiple lines in v-line mode
@@ -37,8 +36,9 @@ nnoremap <leader><leader>qa :qa!<CR>|                                " force qui
 nnoremap <silent> <leader>h :bprevious<CR>|                          " goes to previous buffer
 nnoremap <silent> <leader>l :bnext<CR>|                              " goes to next buffer
 nnoremap <leader>bd :bdelete<CR>|                                    " delete buffer
+nnoremap <leader>v :vnew<CR>|                                        " opens empty buffer in vertical split (on the left)
 
-" Move around windows
+" Windows
 nnoremap <leader><leader>h <C-w>h|                                   " goes to window on the left
 nnoremap <leader><leader>l <C-w>l|                                   " goes to window on the right
 nnoremap <leader><leader>j <C-w>j|                                   " goes to window bellow
