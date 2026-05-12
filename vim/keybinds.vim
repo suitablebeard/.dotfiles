@@ -64,3 +64,4 @@ let g:table_mode_motion_up_map = 'tt['
 let g:table_mode_motion_down_map = 'tt]'
 let g:table_mode_motion_left_map = 't['
 let g:table_mode_motion_right_map = 't]'
+let g:table_mode_eval_formula_map = '<Char-230>'|                     " workaround trying to remaps ALT+k
