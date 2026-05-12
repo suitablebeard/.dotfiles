@@ -15,6 +15,8 @@ nnoremap <leader>so :so ~/.vimrc<CR>|                                " sources t
 nnoremap <silent> <leader>cd :Ex<CR>|                                " opens netwr (vim's file explorer)
 nnoremap <leader>v :vnew<CR>|                                        " opens empty buffer in vertical split (on the left)
 xnoremap <leader>p "_dP|                                             " ensures to not lose copied text when pasting
+xnoremap <expr> I mode() ==# 'V' ? '^<C-v>I' : 'I'|                  " prepends text to multiple lines in v-line mode
+xnoremap <expr> A mode() ==# 'V' ? '$<C-v>A' : 'A'|                  " appends text to multiple lines in v-line mode
 
 " Centralizing cursor
 nnoremap J mzJ`z|                                                    " ensures cursor stays inplace when joining multiple lines
