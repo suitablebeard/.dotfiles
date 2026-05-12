@@ -11,6 +11,10 @@ Plug 'pangloss/vim-javascript'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+
+" Useful language related snippets (ultisnips is the engine)
+Plug 'Sirver/ultisnips' | Plug 'honza/vim-snippets'
+
 Plug '~/Documents/myFiles/Programming/vim-obsidian-wikilinks'
 
 " ========== My own Plugins ==========
@@ -18,3 +22,4 @@ Plug '~/Documents/myFiles/Programming/vim-obsidian-wikilinks'
 " Plug 'suitablebeard/vim-obsidian-wikilinks'
 
 call plug#end()
+
