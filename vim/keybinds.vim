@@ -9,8 +9,9 @@ nnoremap Q <nop>|                                                    " disable E
 vnoremap <space> <Esc>|                                              " exits visual mode with space
 nnoremap <silent> <Esc> :noh<CR>|                                    " removes highlights after a search
 nnoremap <silent> <leader>no :noh<CR>|                               " removes highlights after a search
-nnoremap <leader>so :so %<CR>|                                       " sources the current file
-nnoremap <leader><leader>so :so ~/.vimrc<CR>|                        " sources the vimrc
+
+nnoremap <leader>so :so ~/.vimrc<CR>|                                " sources the vimrc
+
 nnoremap <silent> <leader>cd :Ex<CR>|                                " opens netwr (vim's file explorer)
 nnoremap <leader>v :vnew<CR>|                                        " opens empty buffer in vertical split (on the left)
 xnoremap <leader>p "_dP|                                             " ensures to not lose copied text when pasting
