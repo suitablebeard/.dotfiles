@@ -5,6 +5,7 @@ let mapleader = " "|                                                 " sets spac
 
 " Utility
 inoremap kj <Esc>|                                                   " exits insert mode with 'kj'
+nnoremap Q <nop>|                                                    " disable Ex mode
 vnoremap <space> <Esc>|                                              " exits visual mode with space
 nnoremap <silent> <Esc> :noh<CR>|                                    " removes highlights after a search
 nnoremap <silent> <leader>no :noh<CR>|                               " removes highlights after a search
