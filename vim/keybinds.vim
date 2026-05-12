@@ -63,6 +63,9 @@ nnoremap <expr> <BS> !empty(popup_list()) ? "\<C-c>" : "\<BS>"|      " closes po
 nnoremap <silent> <leader>x :call ExecFile()<CR>|                    " executes current file according to filetype
 
 " ======= For plugins =======
+" Fugitive
+nnoremap <leader>0g :0G<CR>|                                          " open fugitive's status
+
 " Table-mode
 let g:table_mode_motion_up_map = 'tt['
 let g:table_mode_motion_down_map = 'tt]'
