@@ -8,11 +8,11 @@ set smartindent                                  " adds basic language-aware ind
 set backspace=indent,eol,start                   " fixes backspace behavior in insert mode
 
 
-let prettier_cmd = 'prettier --stdin-filepath % --tab-width 4 --single-quote'
+let prettier_cmd = 'prettier --tab-width 4 --single-quote --stdin-filepath %'
 let lua_cmd = 'luafmt --stdin %'
 augroup formatter
     autocmd!
-    autocmd BufWritePre *.js,*.ts,*.jsx,*.tsx,*.html,*.css,*.md call s:format('prettier', prettier_cmd)
+    autocmd BufWritePre *.js,*.ts,*.jsx,*.tsx,*.json,*.html,*.css,*.md call s:format('prettier', prettier_cmd)
     autocmd BufWritePre *.lua call s:format('luafmt', lua_cmd)
 augroup END
 
