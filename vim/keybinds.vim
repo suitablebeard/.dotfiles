@@ -1,31 +1,18 @@
 " There's a pipe character after every command for the inline comments
 " otherwise vim would also read the space characters until the commnet
 
-" Miscellaneous
 let mapleader = " "|                                                 " sets space as the leader key
 
+" Utility
 inoremap kj <Esc>|                                                   " exits insert mode with 'kj'
 vnoremap <space> <Esc>|                                              " exits visual mode with space
 nnoremap <silent> <Esc> :noh<CR>|                                    " removes highlights after a search
-nnoremap <silent> <leader>no :noh<CR>|                                    " removes highlights after a search
-
+nnoremap <silent> <leader>no :noh<CR>|                               " removes highlights after a search
 nnoremap <leader>so :so %<CR>|                                       " sources the current file
 nnoremap <leader><leader>so :so ~/.vimrc<CR>|                        " sources the vimrc
 nnoremap <silent> <leader>cd :Ex<CR>|                                " opens netwr (vim's file explorer)
 nnoremap <leader>v :vnew<CR>|                                        " opens empty buffer in vertical split (on the left)
-nnoremap <silent> <leader>x :call ExecFile()<CR>|                    " executes current file according to filetype
 xnoremap <leader>p "_dP|                                             " ensures to not lose copied text when pasting
-
-" Popups
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"|            " enables tab in autocomplete menu
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"|        " enables tab in autocomplete menu
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"|              " enables enter in autocomplete menu
-nnoremap <expr> <BS> !empty(popup_list()) ? "\<C-c>" : "\<BS>"|      " closes popup with <backspace> (for lsp)
-
-" ---------------- CONFLICT WITH Autopairs plugin ----------------
-" cancels autocomplete suggestion with <backspace>
-" inoremap <expr> <Esc> pumvisible() ? '\<C-e>' : '\<Esc>'|              
-" ---------------- CONFLICT WITH Autopairs plugin  ----------------
 
 " Centralizing cursor
 nnoremap J mzJ`z|                                                    " ensures cursor stays inplace when joining multiple lines
@@ -42,7 +29,7 @@ nnoremap <leader>qa :qa<CR>|                                         " quits fil
 nnoremap <leader><leader>q :q!<CR>|                                  " force quits file
 nnoremap <leader><leader>qa :qa!<CR>|                                " force quits file
 
-" Move around buffers in a window
+" Buffers
 nnoremap <silent> <leader>h :bprevious<CR>|                          " goes to previous buffer
 nnoremap <silent> <leader>l :bnext<CR>|                              " goes to next buffer
 nnoremap <leader>bd :bdelete<CR>|                                    " delete buffer
@@ -56,4 +43,18 @@ noremap <Up>    <C-w>+|                                              " make wind
 noremap <Down>  <C-w>-|                                              " make window shorter
 noremap <Left>  <C-w><|                                              " make window narrower
 noremap <Right> <C-w>>|                                              " make window wider
+
+" Popups
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"|            " enables tab in autocomplete menu
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"|        " enables tab in autocomplete menu
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"|              " enables enter in autocomplete menu
+nnoremap <expr> <BS> !empty(popup_list()) ? "\<C-c>" : "\<BS>"|      " closes popup with <backspace> (for lsp)
+
+" ---------------- CONFLICT WITH Autopairs plugin ----------------
+" cancels autocomplete suggestion with <backspace>
+" inoremap <expr> <Esc> pumvisible() ? '\<C-e>' : '\<Esc>'|              
+" ---------------- CONFLICT WITH Autopairs plugin  ----------------
+
+" == For my scripts ==
+nnoremap <silent> <leader>x :call ExecFile()<CR>|                    " executes current file according to filetype
 
