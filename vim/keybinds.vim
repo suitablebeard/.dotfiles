@@ -56,7 +56,7 @@ nnoremap <expr> <BS> !empty(popup_list()) ? "\<C-c>" : "\<BS>"|      " closes po
 
 " ---------------- CONFLICT WITH Autopairs plugin ----------------
 " cancels autocomplete suggestion with <backspace>
-" inoremap <expr> <Esc> pumvisible() ? '\<C-e>' : '\<Esc>'|              
+" inoremap <expr> <Esc> pumvisible() ? '\<C-e>' : '\<Esc>'|
 " ---------------- CONFLICT WITH Autopairs plugin  ----------------
 
 " == For my scripts ==

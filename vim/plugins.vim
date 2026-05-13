@@ -2,21 +2,24 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'vim-airline/vim-airline'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+
 Plug 'machakann/vim-highlightedyank'
 Plug 'jiangmiao/auto-pairs'
-Plug 'yegappan/lsp'
-Plug 'pangloss/vim-javascript'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+
+Plug 'yegappan/lsp'
+Plug 'pangloss/vim-javascript'
+Plug 'tbastos/vim-lua'
+
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 " Useful language related snippets (ultisnips is the engine)
 Plug 'Sirver/ultisnips' | Plug 'honza/vim-snippets'
 
 " Improve md tables experince
 Plug 'dhruvasagar/vim-table-mode'
-
-Plug 'airblade/vim-gitgutter'
 
 " =============== My own Plugins and Forks===============
 " Uncomment these lines in case you don't have them locally
