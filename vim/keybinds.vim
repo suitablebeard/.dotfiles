@@ -39,10 +39,10 @@ nnoremap <leader>bd :bdelete<CR>|                                    " delete bu
 nnoremap <leader>v :vnew<CR>|                                        " opens empty buffer in vertical split (on the left)
 
 " Windows
-nnoremap <leader><leader>h <C-w>h|                                   " goes to window on the left
-nnoremap <leader><leader>l <C-w>l|                                   " goes to window on the right
-nnoremap <leader><leader>j <C-w>j|                                   " goes to window bellow
-nnoremap <leader><leader>k <C-w>k|                                   " goes to window above
+nnoremap <C-h> <C-w>h|                                               " goes to window on the left
+nnoremap <C-l> <C-w>l|                                               " goes to window on the right
+nnoremap <C-j> <C-w>j|                                               " goes to window bellow
+nnoremap <C-k> <C-w>k|                                               " goes to window above
 noremap <Up>    <C-w>+|                                              " make window taller
 noremap <Down>  <C-w>-|                                              " make window shorter
 noremap <Left>  <C-w><|                                              " make window narrower
