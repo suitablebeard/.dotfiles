@@ -47,14 +47,3 @@ short_path() {
   fi
 }
 
-is_git_dirty() {
-    git diff --no-ext-diff --quiet || echo "*"
-    git diff --no-ext-diff --cached --quiet || echo "+"
-}
-
-parse_git_branch() {
-  branch=$(git branch 2>/dev/null | grep "*" | sed -E "s/^\* \(?|\)$//g")
-  if [ -n "$branch" ]; then
-      echo " ($branch$(is_git_dirty))"
-  fi
-}
