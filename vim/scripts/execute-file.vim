@@ -28,7 +28,7 @@ endfunction
 
 function! s:FindExecutableCmd()
     let s:executables = {
-        \ 'lua': 'lua54',
+        \ 'lua': 'lua',
         \ 'python': 'python',
         \ 'javascript': 'node',
         \ 'sh': 'bash',
