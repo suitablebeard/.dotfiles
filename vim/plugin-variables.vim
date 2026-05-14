@@ -9,6 +9,10 @@ let g:fuzzbox_preview = 0
 let g:fuzzbox_dropdown = 1
 let g:fuzzbox_compact = 1
 
+" Gitgutter
+let g:gitgutter_sign_priority = 5
+let g:gitgutter_close_preview_on_escape = 1
+
 " Airline
 augroup formatAirlineZSection                                             " fix weird default formatting of airline's z-section
     autocmd User AirlineAfterInit  call AirlineInit()
