@@ -5,6 +5,7 @@ syntax on                                        " syntax highlighting (e.g. com
 set number                                       " shows line number
 set relativenumber                               " shows how distant a line is from you
 set noshowmatch                                  " disables jump to pair character like ) or ]
+set colorcolumn=80
 set scrolloff=9999                               " makes cursor stay in the center
 set nowrap                                       " no linewrapping as the default
 set linebreak                                    " ensures linewrapping won't happen mid-word
@@ -37,7 +38,7 @@ set encoding=utf-8                               " vim's internal enconding
 set fileencoding=utf-8                           " encoding of files when saved to disk
 
 " Search options
-set hlsearch                                     " highlights all matches
+set nohlsearch                                     " highlights all matches
 set incsearch                                    " highlights as you type
 set ignorecase                                   " searches are case insensitive
 set smartcase                                    " enforces case sensitivity for capital letters (e.g. /Foo)
