@@ -51,7 +51,7 @@ noremap <Right> <C-w>>|                                              " make wind
 " Popups
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"|            " enables tab in autocomplete menu
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"|        " enables tab in autocomplete menu
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"|              " enables enter in autocomplete menu
+inoremap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"|         " enables enter in autocomplete menu
 nnoremap <expr> <BS> !empty(popup_list()) ? "\<C-c>" : "\<BS>"|      " closes popup with <backspace> (for lsp)
 
 " ---------------- CONFLICT WITH Autopairs plugin ----------------
@@ -72,3 +72,6 @@ let g:table_mode_motion_down_map = 'tt]'
 let g:table_mode_motion_left_map = 't['
 let g:table_mode_motion_right_map = 't]'
 let g:table_mode_eval_formula_map = '<Char-230>'|                     " workaround trying to remaps ALT+k
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger="0"
