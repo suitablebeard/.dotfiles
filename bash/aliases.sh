@@ -24,6 +24,7 @@ alias v='vim'
 alias vi='vim'
 alias vg='vim +0G'
 alias lua='lua54'
+alias dot='cd ~/.dotfiles && vim .'
 alias cdcode='cd ~/Documents/myFiles/Programming'
 alias obs='cd ~/Documents/Obsidian/ && vim . +FuzzyFiles'
 vimplug() {
