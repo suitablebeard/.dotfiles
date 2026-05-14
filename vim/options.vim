@@ -17,9 +17,16 @@ set laststatus=2                                 " shows status line (wiht file 
 set termguicolors                                " enables true color support in vim
 colorscheme catppuccin_macchiato
 
-augroup wrapForText                              " Turns on linewrapping and adds indentation for wrapped line
+" Turns on linewrapping and adds indentation for wrapped line
+augroup wrapForText
     autocmd!
     autocmd FileType markdown,text,gitcommit setlocal wrap breakindent
+augroup END
+
+" hides colorcolumn for markdown
+augroup unColorColumn
+    autocmd!
+    autocmd FileType markdown setlocal colorcolumn=|
 augroup END
 
 " Formatting
@@ -38,7 +45,7 @@ set encoding=utf-8                               " vim's internal enconding
 set fileencoding=utf-8                           " encoding of files when saved to disk
 
 " Search options
-set nohlsearch                                     " highlights all matches
+set nohlsearch                                   " highlights all matches
 set incsearch                                    " highlights as you type
 set ignorecase                                   " searches are case insensitive
 set smartcase                                    " enforces case sensitivity for capital letters (e.g. /Foo)
@@ -50,11 +57,6 @@ set wildmenu                                     " better command-line autocompl
 set updatetime=500|                              " faster response from vim-gitgutter plugin
 
 set completeopt=menuone                          " improves the autocompletion menu
-" hides colorcolumn for markdown
-augroup UNColorColumn
-    autocmd
-    autocmd FileType markdown setlocal colorcolumn=
-augroup END
 set completeopt+=noinsert
 set completeopt+=noselect
 set completeopt+=popup
