@@ -26,6 +26,12 @@ alias vg='vim +0G'
 alias lua='lua54'
 alias cdcode='cd ~/Documents/myFiles/Programming'
 alias obs='cd ~/Documents/Obsidian/ && vim . +FuzzyFiles'
+vimplug() {
+    local target="${@:-.}"
+    vim "$target" +PlugClean +wqa && \
+    vim +PlugInstall +wqa && \
+    vim "$target"
+}
 
 # =====================
 # ==== Git Aliases ====
@@ -34,7 +40,8 @@ alias obs='cd ~/Documents/Obsidian/ && vim . +FuzzyFiles'
 alias ga='git add'
 alias gap='git add -p'
 alias gp='git push && git push --tags'
-alias gtt='git status'
+alias gtt='git status -s'
+alias gttt='git status'
 alias ggt='gtt'
 alias gll='git log --color=always --graph --pretty=format:"%C(auto)%h %C(reset)%s %C(auto)%d" --date=short | less -R'
 alias glp='git log --color=always --graph --pretty=format:"%C(auto)%h %C(blue)%ad %C(reset)%s %C(brightblack)(%an)%C(auto)%d" --date=short | less -R'
