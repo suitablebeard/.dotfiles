@@ -6,6 +6,7 @@ let g:obsidian_wikilinks_default_dir = '~/Documents/Obsidian/'            " set 
 
 " Fuzzbox
 let g:fuzzbox_preview = 0
+let g:fuzzbox_window_options = { 'highlights': { 'preview': 1 } }
 let g:fuzzbox_dropdown = 1
 let g:fuzzbox_compact = 1
 
