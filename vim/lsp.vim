@@ -4,6 +4,12 @@ let lspOpts = #{
     \   diagSignWarningText: '▲',
     \   diagSignInfoText: '»',
     \   diagSignHintText: '⚑',
+    \   showDiagWithVirtualText: v:true,
+    \   diagVirtualTextAlign: 'after',
+    \   highlightDiagInline: v:false,
+    \   showDiagWithSign: v:false,
+    \   usePopupInCodeAction: v:true,
+    \   ultisnipsSupport: v:true,
     \ }
 
 let lspServers = [
