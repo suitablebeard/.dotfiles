@@ -50,6 +50,11 @@ set wildmenu                                     " better command-line autocompl
 set updatetime=500|                              " faster response from vim-gitgutter plugin
 
 set completeopt=menuone                          " improves the autocompletion menu
+" hides colorcolumn for markdown
+augroup UNColorColumn
+    autocmd
+    autocmd FileType markdown setlocal colorcolumn=
+augroup END
 set completeopt+=noinsert
 set completeopt+=noselect
 set completeopt+=popup
