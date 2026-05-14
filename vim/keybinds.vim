@@ -16,6 +16,8 @@ nnoremap <silent> <leader>cd :Ex<CR>|                                " opens net
 xnoremap <leader>p "_dP|                                             " ensures to not lose copied text when pasting
 xnoremap <expr> I mode() ==# 'V' ? '^<C-v>I' : 'I'|                  " prepends text to multiple lines in v-line mode
 xnoremap <expr> A mode() ==# 'V' ? '$<C-v>A' : 'A'|                  " appends text to multiple lines in v-line mode
+vnoremap J :m '>+1<CR>gv=gv|                                         " move selected text down
+vnoremap K :m '<-2<CR>gv=gv|                                         " move selected text up
 
 " Centralizing cursor
 nnoremap J mzJ`z|                                                    " ensures cursor stays inplace when joining multiple lines
