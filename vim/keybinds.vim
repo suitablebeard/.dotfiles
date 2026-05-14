@@ -76,4 +76,4 @@ let g:table_mode_motion_right_map = 't]'
 let g:table_mode_eval_formula_map = '<Char-230>'|                     " workaround trying to remaps ALT+k
 
 " UltiSnips
-let g:UltiSnipsExpandTrigger="0"
+let g:UltiSnipsExpandTrigger="<C-0>"
