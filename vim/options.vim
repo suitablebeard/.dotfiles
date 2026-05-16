@@ -1,7 +1,8 @@
 " Layout
+colorscheme catppuccin_macchiato
+syntax on                                        " syntax highlighting (e.g. comments, variables, etc)
 set title                                        " changes terminal's tab title
 set cursorline                                   " highlights current line cursor is in
-syntax on                                        " syntax highlighting (e.g. comments, variables, etc)
 set number                                       " shows line number
 set relativenumber                               " shows how distant a line is from you
 set noshowmatch                                  " disables jump to pair character like ) or ]
@@ -15,7 +16,8 @@ set showcmd                                      " shows the (partial) command a
 set noshowmode                                   " hides default mode display (e.g. -- insert --)
 set laststatus=2                                 " shows status line (wiht file info, etc) [useful for lightline plugin]
 set termguicolors                                " enables true color support in vim
-colorscheme catppuccin_macchiato
+set splitright                                   " ensures vertical split ends on the right
+set splitbelow                                   " ensures horizontal split ends on the bottom
 
 " Turns on linewrapping and adds indentation for wrapped line
 augroup wrapForText
@@ -26,7 +28,7 @@ augroup END
 " hides colorcolumn for markdown
 augroup unColorColumn
     autocmd!
-    autocmd FileType markdown setlocal colorcolumn=|
+    autocmd FileType markdown setlocal colorcolumn=
 augroup END
 
 " Formatting
@@ -54,7 +56,8 @@ set shortmess-=S                                 " shows num of matches when sea
 " Others
 set clipboard=unnamed                            " use system clipboard
 set wildmenu                                     " better command-line autocomplete in vim
-set updatetime=500|                              " faster response from vim-gitgutter plugin
+set updatetime=500                               " faster response from vim-gitgutter plugin
+set timeoutlen=300                               " decrease wait time for mapped sequence to complete
 
 set completeopt=menuone                          " improves the autocompletion menu
 set completeopt+=noinsert
