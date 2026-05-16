@@ -26,7 +26,7 @@ nnoremap <C-u> <C-u>zz|                                              " centers s
 nnoremap n nzzzv|                                                    " centers screen when searching forward
 nnoremap N Nzzzv|                                                    " centers screen when searching backward
 
-" Saving and quitting the file
+" Saving and quitting
 nnoremap <leader>w :w<CR>|                                           " saves files
 nnoremap <leader><leader>w :wq<CR>|                                  " saves and quits file
 nnoremap <leader>q :q<CR>|                                           " quits file
@@ -61,19 +61,3 @@ nnoremap <expr> <BS> !empty(popup_list()) ? "\<C-c>" : "\<BS>"|      " closes po
 " inoremap <expr> <Esc> pumvisible() ? '\<C-e>' : '\<Esc>'|
 " ---------------- CONFLICT WITH Autopairs plugin  ----------------
 
-" == For my scripts ==
-nnoremap <silent> <leader>x :call ExecFile()<CR>|                    " executes current file according to filetype
-
-" ======= For plugins =======
-" Fugitive
-nnoremap <leader>0g :0G<CR>|                                          " open fugitive's status
-
-" Table-mode
-let g:table_mode_motion_up_map = 'tt['
-let g:table_mode_motion_down_map = 'tt]'
-let g:table_mode_motion_left_map = 't['
-let g:table_mode_motion_right_map = 't]'
-let g:table_mode_eval_formula_map = '<Char-230>'|                     " workaround trying to remaps ALT+k
-
-" UltiSnips
-let g:UltiSnipsExpandTrigger="<C-0>"
