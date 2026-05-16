@@ -55,6 +55,7 @@ function! s:on_lsp_attached() abort
     nnoremap <buffer> K  :LspHover<CR>
     nnoremap <buffer> [d :LspDiag prev<CR>
     nnoremap <buffer> ]d :LspDiag next<CR>
+    nnoremap <buffer> <leader>gl :LspDiagCurrent<CR>
     nnoremap <buffer> <F3> :LspFormat<CR>
     nnoremap <buffer> <leader>vrn :LspRename<CR>
     nnoremap <buffer> <leader>vca :LspCodeAction<CR>
