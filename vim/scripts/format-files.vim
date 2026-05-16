@@ -3,7 +3,7 @@ let s:lua_cmd = 'luafmt --stdin %'
 
 augroup formatter
     autocmd!
-    autocmd BufWritePre *.js,*.ts,*.jsx,*.tsx,*.json,*.html,*.css,*.md call s:format('prettier', s:prettier_cmd)
+    autocmd BufWritePre *.js,*.ts,*.jsx,*.tsx,*.json,*.html,*.css call s:format('prettier', s:prettier_cmd)
     autocmd BufWritePre *.lua call s:format('luafmt', s:lua_cmd)
 augroup END
 
