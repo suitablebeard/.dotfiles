@@ -39,6 +39,7 @@ var lspServers = [
         filetype: ['vim'],
         path: npmPath .. 'vim-language-server.cmd',
         args: ['--stdio'],
+        features: { diagnostics: false }
     },
 ]
 
