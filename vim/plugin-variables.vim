@@ -41,6 +41,32 @@ let g:table_mode_eval_formula_map = '<Char-230>'|                         " work
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<C-0>"
 
+" NerdTree
+nnoremap <leader>n :NERDTreeFocus<CR>
+augroup NerdTreeConf
+    autocmd!
+    autocmd BufEnter * call CloseNerdTreeWhenLastWindow()
+
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * {
+        if argc() == 0 && !exists('s:std_in') 
+            echom 'if'
+            NERDTree 
+            wincmd p
+        elseif argc() > 0 && !isdirectory(argv()[0])
+            echom 'else'
+            NERDTree
+            wincmd p
+        endif
+    }
+augroup END
+
+function! CloseNerdTreeWhenLastWindow()
+    if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()
+        call feedkeys(":quit\<CR>:\<BS>")
+    endif
+endfunction
+
 " Airline
 augroup formatAirlineZSection                                             " fix weird default formatting of airline's z-section
     autocmd!
