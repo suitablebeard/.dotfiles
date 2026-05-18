@@ -1,7 +1,7 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'vim-airline/vim-airline'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'vim-airline/vim-airline'
 
 Plug 'machakann/vim-highlightedyank'
 Plug 'jiangmiao/auto-pairs'
