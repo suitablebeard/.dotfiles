@@ -5,7 +5,8 @@
 nnoremap <silent> <leader>x :call ExecFile(fnamemodify(expand('%'), ':p'))<CR>
 
 " Obsidian-wikilinks
-let g:obsidian_wikilinks_default_dir = '~/Documents/Obsidian/'            " set default folder for obisidian_wikilinks plugin
+let g:obsidian_vault_dir = '~/Documents/Obsidian/'            " set default folder for obisidian_wikilinks plugin
+let g:obsidian_newfile_dir = '~/Documents/Obsidian/+'         " set default folder for obisidian_wikilinks plugin
 
 " =============================
 " ==== Third-party Plugins ====
