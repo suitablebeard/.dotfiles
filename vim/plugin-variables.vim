@@ -1,12 +1,15 @@
 " ========================
 " ==== For my scripts ====
+" ========================
 " executes current file according to filetype
 nnoremap <silent> <leader>x :call ExecFile(fnamemodify(expand('%'), ':p'))<CR>
 
 " Obsidian-wikilinks
 let g:obsidian_wikilinks_default_dir = '~/Documents/Obsidian/'            " set default folder for obisidian_wikilinks plugin
 
+" =============================
 " ==== Third-party Plugins ====
+" =============================
 " HightlightedYank
 let g:highlightedyank_highlight_duration = 250
 
@@ -39,6 +42,7 @@ let g:UltiSnipsExpandTrigger="<C-0>"
 
 " Airline
 augroup formatAirlineZSection                                             " fix weird default formatting of airline's z-section
+    autocmd!
     autocmd User AirlineAfterInit  call AirlineInit()
 augroup END
 function! AirlineInit()
