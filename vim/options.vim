@@ -57,7 +57,7 @@ set shortmess-=S                                 " shows num of matches when sea
 set clipboard=unnamed                            " use system clipboard
 set wildmenu                                     " better command-line autocomplete in vim
 set updatetime=500                               " faster response from vim-gitgutter plugin
-set timeoutlen=300                               " decrease wait time for mapped sequence to complete
+set timeoutlen=400                               " decrease wait time for mapped sequence to complete
 
 set completeopt=menuone                          " improves the autocompletion menu
 set completeopt+=noinsert
