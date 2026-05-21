@@ -18,6 +18,11 @@ set laststatus=2                                 " shows status line (wiht file 
 set termguicolors                                " enables true color support in vim
 set splitright                                   " ensures vertical split ends on the right
 set splitbelow                                   " ensures horizontal split ends on the bottom
+let g:markdown_fenced_languages = [
+\   'json',
+\   'javascript',
+\   'css',
+\]
 
 " Turns on linewrapping and adds indentation for wrapped line
 augroup wrapForText
