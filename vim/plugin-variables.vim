@@ -36,7 +36,7 @@ let g:table_mode_motion_up_map = 'tt['
 let g:table_mode_motion_down_map = 'tt]'
 let g:table_mode_motion_left_map = 't['
 let g:table_mode_motion_right_map = 't]'
-let g:table_mode_eval_formula_map = '<Char-230>'|                         " workaround trying to remaps ALT+k
+let g:table_mode_eval_formula_map = '<Char-230>'|                         " workaround trying to remap ALT+k
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<C-0>"
@@ -49,9 +49,9 @@ augroup NerdTreeConf
 
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * {
-        if argc() == 0 && !exists('s:std_in') 
+        if argc() == 0 && !exists('s:std_in')
             echom 'if'
-            NERDTree 
+            NERDTree
             wincmd p
         elseif argc() > 0 && !isdirectory(argv()[0])
             echom 'else'

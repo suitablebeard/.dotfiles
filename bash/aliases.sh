@@ -20,13 +20,18 @@ alias so='source ~/.bashrc'
 # ==== More Aliases ====
 # ======================
 
+alias dot='cd ~/.dotfiles && vim .'
+alias cdcode='cd ~/Documents/myFiles/Programming'
+
 alias v='vim'
 alias vi='vim'
 alias vg='vim +0G'
-alias lua='lua54'
-alias dot='cd ~/.dotfiles && vim .'
-alias cdcode='cd ~/Documents/myFiles/Programming'
-alias obs='cd ~/Documents/Obsidian/ && vim . +FuzzyFiles'
+
+# Use single quotes so $OBSIDIAN_VAULT is evaluated when run, 
+# not when the terminal starts (avoids order-of-sourcing bugs).
+alias oo='cd $OBSIDIAN_VAULT && vim .'
+alias oi='cd $OBSIDIAN_VAULT && cd ./\+ && vim .'
+alias on='cd $OBSIDIAN_VAULT && vim . +ObsidianNewNote'
 vimplug() {
     local target="${@:-.}"
     vim "$target" +PlugClean +wqa && \
