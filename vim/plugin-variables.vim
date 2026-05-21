@@ -5,8 +5,11 @@
 nnoremap <silent> <leader>x :call ExecFile(fnamemodify(expand('%'), ':p'))<CR>
 
 " Obsidian-wikilinks
-let g:obsidian_vault_dir = '~/Documents/Obsidian/'            " set default folder for obisidian_wikilinks plugin
-let g:obsidian_newfile_dir = '~/Documents/Obsidian/+'         " set default folder for obisidian_wikilinks plugin
+let g:obsidian_vault_dir = '~/Documents/Obsidian/'                        " set default folder for obisidian_wikilinks plugin
+let g:obsidian_newfile_dir = '~/Documents/Obsidian/+'                     " set default folder for obisidian_wikilinks plugin
+nnoremap <leader>om :!mv '%' '~/Documents/Obsidian/Atlas/Notes'
+nnoremap <leader>of :FuzzyFilesDir ~/Documents/Obsidian/<CR>
+nnoremap <leader>og :FuzzyGrepDir ~/Documents/Obsidian/<CR>
 
 " =============================
 " ==== Third-party Plugins ====
