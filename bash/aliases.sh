@@ -15,28 +15,33 @@ alias cls='clear'
 alias grep='grep --color=auto'
 alias so='source ~/.bashrc'
 
+alias dot='cd ~/.dotfiles && vim .'
+alias cdcode='cd ~/Documents/myFiles/Programming'
 
 # ======================
 # ==== More Aliases ====
 # ======================
 
-alias dot='cd ~/.dotfiles && vim .'
-alias cdcode='cd ~/Documents/myFiles/Programming'
-
 alias v='vim'
 alias vi='vim'
 alias vg='vim +0G'
-
-# Use single quotes so $OBSIDIAN_VAULT is evaluated when run, 
-# not when the terminal starts (avoids order-of-sourcing bugs).
-alias oo='cd $OBSIDIAN_VAULT && vim .'
-alias oi='cd $OBSIDIAN_VAULT && cd ./\+ && vim .'
-alias on='cd $OBSIDIAN_VAULT && vim . +ObsidianNewNote'
 vimplug() {
     local target="${@:-.}"
     vim "$target" +PlugClean +wqa && \
     vim +PlugInstall +wqa && \
     vim "$target"
+}
+
+# Use single quotes so $OBSIDIAN_VAULT is evaluated when run, 
+# not when the terminal starts (avoids order-of-sourcing bugs).
+alias oo='cd $OBSIDIAN_VAULT && vim .'
+alias oi='cd $OBSIDIAN_VAULT && cd ./\+ && vim .'
+on() {
+    if [ $# -eq 0 ]; then
+        cd $OBSIDIAN_VAULT && vim . -c "call feedkeys(':ObsidianNewNote ', 'n')"
+    else
+        cd $OBSIDIAN_VAULT && vim . -c "ObsidianNewNote $*"
+    fi
 }
 
 # =====================
