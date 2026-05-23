@@ -1,5 +1,6 @@
 " Layout
 colorscheme catppuccin_macchiato
+set nocompatible                                 " turns off compatibility with VI (vim's antecessor)
 syntax on                                        " syntax highlighting (e.g. comments, variables, etc)
 set title                                        " changes terminal's tab title
 set cursorline                                   " highlights current line cursor is in
@@ -47,7 +48,6 @@ set smartindent                                  " adds basic language-aware ind
 set backspace=indent,eol,start                   " fixes backspace behavior in insert mode
 
 " Enconding
-set nocompatible                                 " turns off compatibility with VI (vim's antecessor)
 set encoding=utf-8                               " vim's internal enconding
 set fileencoding=utf-8                           " encoding of files when saved to disk
 
