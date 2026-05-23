@@ -53,11 +53,9 @@ augroup NerdTreeConf
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * {
         if argc() == 0 && !exists('s:std_in')
-            echom 'if'
             NERDTree
             wincmd p
         elseif argc() > 0 && !isdirectory(argv()[0])
-            echom 'else'
             NERDTree
             wincmd p
         endif
