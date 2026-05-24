@@ -17,6 +17,7 @@ set laststatus=2                                 " shows status line (wiht file 
 set termguicolors                                " enables true color support in vim
 set splitright                                   " ensures vertical split ends on the right
 set splitbelow                                   " ensures horizontal split ends on the bottom
+set pumheight=10                                 " sets maximum height for autocomplete popup
 let g:markdown_fenced_languages = [
 \   'json',
 \   'javascript',
