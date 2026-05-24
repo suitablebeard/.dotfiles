@@ -27,8 +27,8 @@ Plug 'dhruvasagar/vim-table-mode'
 
 " =============== My own Plugins and Forks===============
 " Uncomment these lines in case you don't have them locally
-Plug '~/Documents/myFiles/Programming/active_projects/vim-obsidian'
-Plug '~/Documents/myFiles/Programming/active_projects/bearded-fuzzbox.vim'
+Plug '~/myFiles/Programming/vim-obsidian'
+Plug '~/myFiles/Programming/bearded-fuzzbox.vim'
 
 " Plug 'suitablebeard/vim-obsidian'
 " Plug 'suitablebeard/bearded-fuzzbox.vim'
