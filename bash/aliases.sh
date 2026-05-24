@@ -8,6 +8,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+alias files='explorer'
 
 alias ls='ls --color=auto'
 alias ll='ls --color=auto -la'
@@ -16,12 +17,13 @@ alias grep='grep --color=auto'
 alias so='source ~/.bashrc'
 
 alias dot='cd ~/.dotfiles && vim .'
-alias cdcode='cd ~/Documents/myFiles/Programming'
+alias cdcode='cd ~/myFiles/Programming'
 
 # ======================
 # ==== More Aliases ====
 # ======================
 
+alias v.='vim .'
 alias v='vim'
 alias vi='vim'
 alias vg='vim +0G'
@@ -32,8 +34,9 @@ vimplug() {
     vim "$target"
 }
 
-# Use single quotes so $OBSIDIAN_VAULT is evaluated when run, 
+# Use single quotes so $OBSIDIAN_VAULT is evaluated when run,
 # not when the terminal starts (avoids order-of-sourcing bugs).
+alias coo='cd $OBSIDIAN_VAULT'
 alias oo='cd $OBSIDIAN_VAULT && vim .'
 alias oi='cd $OBSIDIAN_VAULT && cd ./\+ && vim .'
 on() {
