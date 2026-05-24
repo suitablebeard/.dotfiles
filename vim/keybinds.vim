@@ -37,8 +37,8 @@ nnoremap <leader><leader>qa :qa!<CR>|                                " force qui
 " Buffers
 nnoremap <silent> <leader>h :bprevious<CR>|                          " goes to previous buffer
 nnoremap <silent> <leader>l :bnext<CR>|                              " goes to next buffer
-nnoremap <leader>bd :bdelete<CR>|                                    " delete buffer
-nnoremap <leader>v :vnew<CR>|                                        " opens empty buffer in vertical split (on the left)
+nnoremap <silent> <leader>bd :bdelete<CR>|                           " delete buffer
+nnoremap <script> <leader>v :vnew<CR>|                               " opens empty buffer in vertical split (on the left)
 
 " Windows
 nnoremap <C-h> <C-w>h|                                               " goes to window on the left
