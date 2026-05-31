@@ -2,6 +2,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'vim-airline/vim-airline'
+Plug 'preservim/nerdtree'
 
 Plug 'machakann/vim-highlightedyank'
 Plug 'jiangmiao/auto-pairs'
@@ -9,7 +10,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
-Plug 'preservim/nerdtree'
 Plug 'mbbill/undotree'
 
 Plug 'yegappan/lsp'

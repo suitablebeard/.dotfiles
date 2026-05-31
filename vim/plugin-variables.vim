@@ -4,12 +4,16 @@
 " executes current file according to filetype
 nnoremap <silent> <leader>x :call ExecFile(fnamemodify(expand('%'), ':p'))<CR>
 
-" Obsidian-wikilinks
-let g:obsidian_vault_dir = '~/Documents/Obsidian/'                        " set default folder for obisidian_wikilinks plugin
-let g:obsidian_newfile_dir = '~/Documents/Obsidian/+'                     " set default folder for obisidian_wikilinks plugin
+" vim-obsidian
+let g:obsidian_vault_dir = '~/Documents/Obsidian/'
+let g:obsidian_newfile_dir = '~/Documents/Obsidian/+'
+
 nnoremap <leader>om :!mv '%' '~/Documents/Obsidian/Atlas/Notes'
-nnoremap <leader>of :FuzzyFilesDir ~/Documents/Obsidian/<CR>
-nnoremap <leader>og :FuzzyGrepDir ~/Documents/Obsidian/<CR>
+nnoremap <leader>of :FuzzyFindNotes<CR>
+nnoremap <leader>og :FuzzyGrepNotes<CR>
+
+command! FuzzyFindNotes call fuzzbox#Launch('files', #{ cwd: expand('~/Documents/Obsidian'), title: 'Find Notes' })
+command! FuzzyGrepNotes call fuzzbox#Launch('grep', #{ cwd: expand('~/Documents/Obsidian'), title: 'Grep Notes' })
 
 " =============================
 " ==== Third-party Plugins ====
