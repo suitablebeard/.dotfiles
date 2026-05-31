@@ -26,14 +26,6 @@ nnoremap <C-u> <C-u>zz|                                              " centers s
 nnoremap n nzzzv|                                                    " centers screen when searching forward
 nnoremap N Nzzzv|                                                    " centers screen when searching backward
 
-" Saving and quitting
-nnoremap <leader>w :w<CR>|                                           " saves files
-nnoremap <leader><leader>w :wq<CR>|                                  " saves and quits file
-nnoremap <leader>q :q<CR>|                                           " quits file
-nnoremap <leader>qa :qa<CR>|                                         " quits file
-nnoremap <leader><leader>q :q!<CR>|                                  " force quits file
-nnoremap <leader><leader>qa :qa!<CR>|                                " force quits file
-
 " Buffers
 nnoremap <silent> <leader>h :bprevious<CR>|                          " goes to previous buffer
 nnoremap <silent> <leader>l :bnext<CR>|                              " goes to next buffer
