@@ -30,10 +30,6 @@ let g:fuzzbox_compact = 1
 let g:gitgutter_sign_priority = 5
 let g:gitgutter_close_preview_on_escape = 1
 
-" AutoPairs
-let g:AutoPairsMapBS = 0
-let g:AutoPairsMapCR = 0
-
 " Table-mode
 let g:table_mode_motion_up_map = 'tt['
 let g:table_mode_motion_down_map = 'tt]'
