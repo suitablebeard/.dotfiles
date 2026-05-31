@@ -19,6 +19,8 @@ Plug 'tbastos/vim-lua'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
+Plug 'vim-fuzzbox/fuzzbox.vim'
+
 " Useful language related snippets (ultisnips is the engine)
 Plug 'Sirver/ultisnips' | Plug 'honza/vim-snippets'
 
@@ -28,10 +30,8 @@ Plug 'dhruvasagar/vim-table-mode'
 " =============== My own Plugins and Forks===============
 " Uncomment these lines in case you don't have them locally
 Plug '~/myFiles/Programming/vim-obsidian'
-Plug '~/myFiles/Programming/bearded-fuzzbox.vim'
 
 " Plug 'suitablebeard/vim-obsidian'
-" Plug 'suitablebeard/bearded-fuzzbox.vim'
 
 call plug#end()
 
