@@ -46,13 +46,13 @@ var lspServers = [
 autocmd User LspSetup g:LspAddServer(lspServers)
 autocmd User LspSetup g:LspOptionsSet(lspOpts)
 
-augroup LspMappings
-    # Only remaps for languages with a server registered
+augroup LspSetup 
+    # Only triggered for languages with a server registered
     autocmd!
-    autocmd User LspAttached OnLspAttached()
+    autocmd User LspAttached LspMappings() | set completeopt+=fuzzy
 augroup END
 
-def OnLspAttached()
+def LspMappings()
     nnoremap <buffer> gd :LspGotoDefinition<CR>
     nnoremap <buffer> gr :LspShowReferences<CR>
     nnoremap <buffer> K  :LspHover<CR>
