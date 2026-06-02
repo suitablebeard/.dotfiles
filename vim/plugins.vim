@@ -24,13 +24,13 @@ Plug 'vim-fuzzbox/fuzzbox.vim'
 " Useful language related snippets (ultisnips is the engine)
 Plug 'Sirver/ultisnips' | Plug 'honza/vim-snippets'
 
-" Improve md tables experince
+" Improve markdown experience
 Plug 'dhruvasagar/vim-table-mode'
+Plug 'junegunn/goyo.vim'
 
 " =============== My own Plugins and Forks===============
 " Uncomment these lines in case you don't have them locally
 Plug '~/myFiles/Programming/vim-obsidian'
-
 " Plug 'suitablebeard/vim-obsidian'
 
 call plug#end()
