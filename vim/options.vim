@@ -24,12 +24,6 @@ let g:markdown_fenced_languages = [
 \   'css',
 \]
 
-" hides colorcolumn for markdown
-augroup unColorColumn
-    autocmd!
-    autocmd FileType markdown setlocal colorcolumn=
-augroup END
-
 " Formatting
 filetype plugin indent on                        " checks filetype and handles indentation
 set expandtab                                    " tabs becomes spaces when typing
@@ -41,12 +35,6 @@ set smartindent                                  " adds basic language-aware ind
 set backspace=indent,eol,start                   " fixes backspace behavior in insert mode
 set nowrap                                       " no linewrapping as the default
 set linebreak                                    " ensures linewrapping won't happen mid-word
-
-" Turns on linewrapping and adds indentation for wrapped line
-augroup wrapForText
-    autocmd!
-    autocmd FileType markdown,text,gitcommit setlocal wrap breakindent
-augroup END
 
 " Search options
 set nohlsearch                                   " highlights all matches
@@ -70,3 +58,12 @@ set completeopt+=noinsert
 set completeopt+=noselect
 set completeopt+=popup
 set completeopt+=fuzzy
+
+augroup WritingSetup
+    autocmd!
+    autocmd FileType markdown,text,gitcommit {
+        setlocal spell wrap breakindent
+        if &filetype !=# 'gitcommit' | setlocal colorcolumn= | endif
+    }
+augroup END
+
