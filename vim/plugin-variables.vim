@@ -27,8 +27,6 @@ nnoremap <leader>0g :0G<CR>|                                              " open
 " Fuzzbox
 let g:fuzzbox_preview = 0
 let g:fuzzbox_window_options = { 'highlights': { 'preview': 1 } }
-let g:fuzzbox_dropdown = 1
-let g:fuzzbox_compact = 1
 
 " Gitgutter
 let g:gitgutter_sign_priority = 5
