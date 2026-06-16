@@ -37,6 +37,7 @@ vimplug() {
 # Use single quotes so $OBSIDIAN_VAULT is evaluated when run,
 # not when the terminal starts (avoids order-of-sourcing bugs).
 alias coo='cd $OBSIDIAN_VAULT'
+alias foo='cd $OBSIDIAN_VAULT && vim . +FuzzyFiles'
 alias oo='cd $OBSIDIAN_VAULT && vim .'
 alias oi='cd $OBSIDIAN_VAULT && cd ./\+ && vim .'
 on() {
