@@ -47,6 +47,11 @@ set shortmess-=S                                 " shows num of matches when sea
 set encoding=utf-8                               " vim's internal enconding
 set fileencodings=utf-8,latin1                   " encoding of files when saved to disk
 set spelllang=en,pt,es,fr
+set spellfile=
+set spellfile+=$HOME/.vim/spell/en.utf-8.add
+set spellfile+=$HOME/.vim/spell/pt.utf-8.add
+set spellfile+=$HOME/.vim/spell/es.utf-8.add
+set spellfile+=$HOME/.vim/spell/fr.utf-8.add
 
 set clipboard=unnamed                            " use system clipboard
 set wildmenu                                     " better command-line autocomplete in vim
