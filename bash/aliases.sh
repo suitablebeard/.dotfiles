@@ -16,17 +16,17 @@ alias cls='clear'
 alias grep='grep --color=auto'
 alias so='source ~/.bashrc'
 
-alias dot='cd ~/.dotfiles && vim .'
+alias dot='cd ~/.dotfiles && $EDITOR .'
 alias cdcode='cd ~/myFiles/Programming'
 
 # ======================
-# ==== More Aliases ====
+# ==== VIM Aliases ====
 # ======================
 
-alias v.='vim .'
-alias v='vim'
-alias vi='vim'
-alias vg='vim +0G'
+alias v.='$EDITOR .'
+alias v='$EDITOR'
+alias vi='$EDITOR'
+alias vg='$EDITOR +0G'
 vimplug() {
     local target="${@:-.}"
     vim "$target" +PlugClean +wqa && \
@@ -34,18 +34,20 @@ vimplug() {
     vim "$target"
 }
 
+# ========================
+# ==== OBSIDIAN VAULT ====
+# ========================
+
 # Use single quotes so $OBSIDIAN_VAULT is evaluated when run,
 # not when the terminal starts (avoids order-of-sourcing bugs).
 alias coo='cd $OBSIDIAN_VAULT'
-alias foo='cd $OBSIDIAN_VAULT && vim . +FuzzyFiles'
-alias oo='cd $OBSIDIAN_VAULT && vim .'
-alias oi='cd $OBSIDIAN_VAULT && cd ./\+ && vim .'
+alias oo='cd $OBSIDIAN_VAULT && $EDITOR .'
+alias foo='cd $OBSIDIAN_VAULT && $EDITOR -c "autocmd VimEnter * call feedkeys(g:mapleader . \"of\")"'
+alias ooi='cd $OBSIDIAN_VAULT && cd ./\+ && $EDITOR .'
+
 on() {
-    if [ $# -eq 0 ]; then
-        cd $OBSIDIAN_VAULT && vim . -c "call feedkeys(':ObsidianNewNote ', 'n')"
-    else
-        cd $OBSIDIAN_VAULT && vim . -c "ObsidianNewNote $*"
-    fi
+    # Creates new note in $OBSIDIAN_VAULT
+    ~/.dotfiles/bash/scripts/parse-obsidian-newnote-name.sh "$*"
 }
 
 # =====================

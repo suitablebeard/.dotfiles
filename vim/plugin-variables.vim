@@ -5,15 +5,17 @@
 nnoremap <silent> <leader>x :call ExecFile(fnamemodify(expand('%'), ':p'))<CR>
 
 " vim-obsidian
-let g:obsidian_vault_dir = '~/Documents/Obsidian/'
-let g:obsidian_newfile_dir = '~/Documents/Obsidian/+'
+let g:obsidian_vault_dir = $OBSIDIAN_VAULT
+let g:obsidian_newfile_dir = $OBSIDIAN_VAULT .. '/+'
 
-nnoremap <leader>om :!mv '%' '~/Documents/Obsidian/Atlas/Notes'
+let move_note_cmd = printf("!mv '%s' '%s/Atlas/Notes'", expand('%'), $OBSIDIAN_VAULT)
+nnoremap <leader>om :execute move_note_cmd<CR>
+
 nnoremap <leader>of :FuzzyFindNotes<CR>
 nnoremap <leader>og :FuzzyGrepNotes<CR>
 
-command! FuzzyFindNotes call fuzzbox#Launch('files', #{ cwd: expand('~/Documents/Obsidian'), title: 'Find Notes' })
-command! FuzzyGrepNotes call fuzzbox#Launch('grep', #{ cwd: expand('~/Documents/Obsidian'), title: 'Grep Notes' })
+command! FuzzyFindNotes call fuzzbox#Launch('files', #{ cwd: expand($OBSIDIAN_VAULT), title: 'Find Notes' })
+command! FuzzyGrepNotes call fuzzbox#Launch('grep', #{ cwd: expand($OBSIDIAN_VAULT), title: 'Grep Notes' })
 
 " =============================
 " ==== Third-party Plugins ====
