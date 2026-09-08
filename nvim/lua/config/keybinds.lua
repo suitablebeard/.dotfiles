@@ -53,7 +53,6 @@ vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
 -- Others
 vim.keymap.set('n', '<leader>cd', vim.cmd.Ex)
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<CR>')
 
 -- Obsidian

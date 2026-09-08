@@ -92,6 +92,32 @@ vim.list_extend(ensure_installed, {
     -- You can add other tools here that you want Mason to install
 })
 
+-- Diagnostic Config & Keymaps
+vim.diagnostic.config {
+    update_in_insert = false,
+    severity_sort = true,
+    float = { border = 'rounded', source = 'if_many' },
+    underline = { severity = { min = vim.diagnostic.severity.WARN } },
+
+    signs = false,
+    virtual_text = true,
+    virtual_lines = false,
+
+    -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
+    jump = {
+        on_jump = function(_, bufnr)
+            vim.diagnostic.open_float {
+                bufnr = bufnr,
+                scope = 'cursor',
+                focus = false,
+            }
+        end,
+    },
+}
+
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float, { desc = 'Show Diagnostic (floating)' })
+
 for name, server in pairs(servers) do
     vim.lsp.config(name, server)
     vim.lsp.enable(name)

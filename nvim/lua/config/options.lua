@@ -86,25 +86,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     callback = function() vim.hl.on_yank({ timeout = 250 }) end,
 })
 
--- Diagnostic Config & Keymaps
-vim.diagnostic.config {
-    update_in_insert = false,
-    severity_sort = true,
-    float = { border = 'rounded', source = 'if_many' },
-    underline = { severity = { min = vim.diagnostic.severity.WARN } },
-
-    signs = false,
-    virtual_text = true,
-    virtual_lines = false,
-
-    -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
-    jump = {
-        on_jump = function(_, bufnr)
-            vim.diagnostic.open_float {
-                bufnr = bufnr,
-                scope = 'cursor',
-                focus = false,
-            }
-        end,
-    },
-}
