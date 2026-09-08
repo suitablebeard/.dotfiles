@@ -19,6 +19,8 @@ alias so='source ~/.bashrc'
 alias dot='cd ~/.dotfiles && $EDITOR .'
 alias cdcode='cd ~/myFiles/Programming'
 
+alias battery='~/.dotfiles/bash/scripts/battery-health-charging.sh'
+
 # ======================
 # ==== VIM Aliases ====
 # ======================
