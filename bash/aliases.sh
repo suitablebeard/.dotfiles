@@ -26,6 +26,7 @@ alias cdcode='cd ~/myFiles/Programming'
 alias v.='$EDITOR .'
 alias v='$EDITOR'
 alias vi='$EDITOR'
+alias nv='nvim'
 
 vg() {
     "$EDITOR" -c "autocmd VimEnter * call feedkeys(g:mapleader . \"0g\")"
