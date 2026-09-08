@@ -23,6 +23,13 @@ return {
         vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
         vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 
+        vim.keymap.set('n', '<leader>fi', function()
+            builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+                winblend = 10,
+                previewer = false,
+            })
+        end, { desc = 'Telescope in-buffer' })
+
         vim.keymap.set('n', '<leader>fn', function()
             builtin.find_files { cwd = vim.fn.stdpath 'config', follow = true }
         end, { desc = 'Telescope Neovim files' })

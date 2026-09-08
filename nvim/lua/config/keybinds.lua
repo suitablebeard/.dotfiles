@@ -10,6 +10,12 @@ vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
 vim.keymap.set('x', '<leader>p', '"_dP')
+vim.keymap.set("n", "<leader>y", "\"+y")
+vim.keymap.set("v", "<leader>y", "\"+y")
+vim.keymap.set("n", "<leader>Y", "\"+Y")
+vim.keymap.set('n', '<leader>d', '"_d')
+vim.keymap.set('v', '<leader>d', '"_d')
+
 vim.keymap.set("x", "I", function()
     return vim.fn.mode() == "V" and "^<C-v>I" or "I"
 end, { expr = true, desc = "Prepend to selection in line-visual mode" })
@@ -48,6 +54,12 @@ vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 -- Others
 vim.keymap.set('n', '<leader>cd', vim.cmd.Ex)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<CR>')
+
+-- Obsidian
+vim.keymap.set('n', '<leader>om', function()
+    vim.cmd(string.format("!mv '%s' '%s/Atlas/Notes'", vim.fn.expand('%'), vim.env.OBSIDIAN_VAULT))
+end)
 
 -- Popups
 -- vim.keymap.set('i', <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
