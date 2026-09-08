@@ -5,17 +5,17 @@ vim.g.maplocalleader = ' '
 
 vim.keymap.set('i', 'kj', '<Esc>')
 vim.keymap.set('v', '<Enter>', '<Esc>')
-vim.keymap.set('n', '<leader>cd', vim.cmd.Ex)
-vim.keymap.set('x', '<leader>p', '"_dP')
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
+vim.keymap.set('x', '<leader>p', '"_dP')
 vim.keymap.set("x", "I", function()
-  return vim.fn.mode() == "V" and "^<C-v>I" or "I"
+    return vim.fn.mode() == "V" and "^<C-v>I" or "I"
 end, { expr = true, desc = "Prepend to selection in line-visual mode" })
 
 vim.keymap.set("x", "A", function()
-  return vim.fn.mode() == "V" and "$<C-v>A" or "A"
+    return vim.fn.mode() == "V" and "$<C-v>A" or "A"
 end, { expr = true, desc = "Append to selection in line-visual mode" })
 
 -- Centralizing cursor
@@ -46,8 +46,8 @@ vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
 -- Others
+vim.keymap.set('n', '<leader>cd', vim.cmd.Ex)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Popups
 -- vim.keymap.set('i', <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
