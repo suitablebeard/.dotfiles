@@ -26,7 +26,11 @@ alias cdcode='cd ~/myFiles/Programming'
 alias v.='$EDITOR .'
 alias v='$EDITOR'
 alias vi='$EDITOR'
-alias vg='$EDITOR +0G'
+
+vg() {
+    "$EDITOR" -c "autocmd VimEnter * call feedkeys(g:mapleader . \"0g\")"
+}
+
 vimplug() {
     local target="${@:-.}"
     vim "$target" +PlugClean +wqa && \

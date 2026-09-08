@@ -24,7 +24,7 @@ command! FuzzyGrepNotes call fuzzbox#Launch('grep', #{ cwd: expand($OBSIDIAN_VAU
 let g:highlightedyank_highlight_duration = 250
 
 " Fugitive
-nnoremap <leader>0g :0G<CR>|                                              " open fugitive's status
+nnoremap <silent> <leader>0g :0G<CR>|                                              " open fugitive's status
 
 " Fuzzbox
 let g:fuzzbox_preview = 0
