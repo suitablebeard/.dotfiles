@@ -97,8 +97,6 @@ for name, server in pairs(servers) do
     vim.lsp.enable(name)
 end
 
-
-
 return {
     { 'j-hui/fidget.nvim', opts = {} },
     {
@@ -108,7 +106,7 @@ return {
         opts = { automatic_enable = false },
         dependencies = {
             { "mason-org/mason.nvim", opts = {} },
-            { "neovim/nvim-lspconfig", opts = {} },
+            { "neovim/nvim-lspconfig" },
         },
     },
     {
