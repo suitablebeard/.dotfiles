@@ -7,6 +7,16 @@ return {
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     },
     opts = {
+        defaults = {
+            layout_strategy = "vertical",
+            layout_config = {
+                vertical = {
+                    width = 0.65,
+                    preview_height = 0.60,
+                    preview_cutoff = 20,
+                },
+            },
+        },
         extensions = {
          --   ['ui-select'] = { require('telescope.themes').get_dropdown() },
         },
