@@ -19,7 +19,7 @@ return {
 
         -- Add/delete/replace surroundings (brackets, quotes, etc.)
         -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-        require('mini.surround').setup()
+        -- require('mini.surround').setup()
         -- workaround for substitute character since mini.surround remaps 's' to '<Nop>'
         vim.keymap.set('n', 'ss', 's')
 
