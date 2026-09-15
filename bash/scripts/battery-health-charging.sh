@@ -29,7 +29,9 @@ run_as_user gnome-extensions enable Battery-Health-Charging@maniacx.github.com
 
 if [ "$(cat /sys/bus/wmi/drivers/acer-wmi-battery/health_mode)" -eq 1 ]; then
     echo 'Battery Health mode ACTIVATED.'
+    exit 0
 else
-    echo 'Battery Health mode DISABLED.'
+    echo 'Error: Battery Health mode was NOT enabled.'
+    exit 1
 fi
 
