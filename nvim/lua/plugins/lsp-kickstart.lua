@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
                 group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
                 callback = function(event2)
                     vim.lsp.buf.clear_references()
-                    vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
+                    vim.api.nvim_clear_autocmds({ group = 'kickstart-lsp-highlight', buffer = event2.buf })
                 end,
             })
         end
@@ -43,7 +43,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- code, if the language server you are using supports them
         -- This may be unwanted, since they displace some of your code
         if client and client:supports_method('textDocument/inlayHint', event.buf) then
-            map('<leader>th', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }) end, '[T]oggle Inlay [H]ints')
+            map('<leader>th', function()
+                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+            end, '[T]oggle Inlay [H]ints')
         end
     end,
 })
@@ -61,7 +63,12 @@ local servers = {
 
             if client.workspace_folders then
                 local path = client.workspace_folders[1].name
-                if path ~= vim.fn.stdpath 'config' and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc')) then return end
+                if
+                    path ~= vim.fn.stdpath('config')
+                    and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
+                then
+                    return
+                end
             end
 
             local current_settings = client.config.settings --[[@as lspconfig.settings.lua_ls]]
@@ -93,7 +100,7 @@ vim.list_extend(ensure_installed, {
 })
 
 -- Diagnostic Config & Keymaps
-vim.diagnostic.config {
+vim.diagnostic.config({
     update_in_insert = false,
     severity_sort = true,
     float = { border = 'rounded', source = 'if_many' },
@@ -106,14 +113,14 @@ vim.diagnostic.config {
     -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
     jump = {
         on_jump = function(_, bufnr)
-            vim.diagnostic.open_float {
+            vim.diagnostic.open_float({
                 bufnr = bufnr,
                 scope = 'cursor',
                 focus = false,
-            }
+            })
         end,
     },
-}
+})
 
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float, { desc = 'Show Diagnostic (floating)' })
@@ -131,12 +138,12 @@ return {
         -- that are installed manually (e.g. via :Mason / :MasonInstall)
         opts = { automatic_enable = false },
         dependencies = {
-            { "mason-org/mason.nvim", opts = {} },
-            { "neovim/nvim-lspconfig" },
+            { 'mason-org/mason.nvim', opts = {} },
+            { 'neovim/nvim-lspconfig' },
         },
     },
     {
         'WhoIsSethDaniel/mason-tool-installer.nvim',
-        opts = { ensure_installed = ensure_installed }
+        opts = { ensure_installed = ensure_installed },
     },
 }
