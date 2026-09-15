@@ -43,6 +43,15 @@ var lspServers = [
     },
 ]
 
+for server in lspServers
+    if getftype(server['path']) == ''
+        var msg = $'LSP server not found: {fnameescape(server['path'])}'
+        # autocmd VimEnter * ++once echohl WarningMsg | echomsg msg | echohl None
+        execute $'autocmd VimEnter * ++once echohl WarningMsg | echomsg "{msg}" | echohl None'
+        finish
+    endif
+endfor
+
 autocmd User LspSetup g:LspAddServer(lspServers)
 autocmd User LspSetup g:LspOptionsSet(lspOpts)
 
