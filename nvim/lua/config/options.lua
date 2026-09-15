@@ -70,6 +70,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
+vim.opt.undofile = true
 
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
