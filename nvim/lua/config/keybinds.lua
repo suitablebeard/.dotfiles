@@ -61,7 +61,7 @@ vim.keymap.set('n', '<leader>om', function()
 end)
 
 -- Popups
--- vim.keymap.set('i', <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
--- vim.keymap.set('n', <expr> <BS> !empty(popup_list()) ? "\<C-c>" : "\<BS>"
--- vim.keymap.set('i', <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
--- vim.keymap.set('i', <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+-- inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+-- inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+-- inoremap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
+-- nnoremap <expr> <BS> !empty(popup_list()) ? "\<C-c>" : "\<BS>"
