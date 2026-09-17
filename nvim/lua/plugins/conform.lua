@@ -1,12 +1,12 @@
 return {
-    "stevearc/conform.nvim",
+    'stevearc/conform.nvim',
     keys = {
         {
-            "<leader>ft",
+            '<leader>ft',
             function()
-                require("conform").format({ async = true })
+                require('conform').format({ async = true })
             end,
-            mode = { 'n', 'v' }
+            mode = { 'n', 'v' },
         },
     },
     opts = {
