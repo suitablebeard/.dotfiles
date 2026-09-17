@@ -92,21 +92,21 @@ gac() {
     git add . && git commit -m "$*"
 }
 
-# ==========================
-# ===== yt-dlp aliases ===== 
-# ==========================
+# ====================================
+# ===== yt-dlp aliases (youtube) ===== 
+# ====================================
 
 # Update yt-dlp directly
-alias ytu='sudo yt-dlp -U'
+alias ytu="sudo yt-dlp -U"
 
 # Download best available quality (merged into MP4)
-alias ytb='yt-dlp -f "bv*+ba/b" --merge-output-format mp4'
+alias ytb="yt-dlp -f 'bv*+ba/b' --merge-output-format mp4 -P $HOME/Downloads/"
 
 # Force max 1080p quality (saves bandwidth and storage, outputs MP4)
-alias ytb1080='yt-dlp -f "bv*[height<=1080]+ba/b" --merge-output-format mp4'
+alias ytb1080="yt-dlp -f 'bv*[height<=1080]+ba/b' --merge-output-format mp4 -P $HOME/Downloads/"
 
 # Extract best audio and convert to MP3
-alias ytmp3='yt-dlp -x --audio-format mp3 --audio-quality 0'
+alias ytmp3="yt-dlp -x --audio-format mp3 --audio-quality 0 -P $HOME/Downloads/"
 
 # Download entire playlist with numbered filenames (01 - Title.mp4)
-alias ytpl='yt-dlp -o "%(playlist_index)02d - %(title)s.%(ext)s" -f "bv*+ba/b" --merge-output-format mp4'
+alias ytpl="yt-dlp -o '%(playlist_index)02d - %(title)s.%(ext)s' -f 'bv*+ba/b' --merge-output-format mp4 -P $HOME/Downloads/"
