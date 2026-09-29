@@ -11,7 +11,7 @@ alias .....='cd ../../../..'
 alias files='explorer'
 
 alias ls='ls --color=auto'
-alias ll='ls --color=auto -la'
+alias ll='ls --color=auto -lah'
 alias cls='clear'
 alias grep='grep --color=auto'
 alias so='source ~/.bashrc'
