@@ -5,3 +5,8 @@ for file in ~/.dotfiles/bash/*.sh; do
 done
 
 shopt -u nullglob # unsets option
+
+# Device-specific overrides
+if [ -f "$HOME/.bashrc.local" ]; then
+    . "$HOME/.bashrc.local"
+fi
