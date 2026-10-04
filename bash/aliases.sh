@@ -20,6 +20,7 @@ alias dot='cd ~/.dotfiles && $EDITOR .'
 alias cdcode='cd ~/myFiles/Programming'
 
 alias battery='sudo ~/.dotfiles/bash/scripts/battery-health-charging.sh'
+alias fixfonts='rm -rf ~/.cache/fontconfig ~/.var/app/*/cache/fontconfig && fc-cache -r -v'
 
 # ======================
 # ==== VIM Aliases ====
