@@ -1,9 +1,12 @@
 #!/bin/bash
 
-export PATH="/c/Program Files/Vim/vim92:$PATH" # force Bash to open vim 9.2
-
-export VISUAL=vim
+# Default fallbacks (will be overridden by `~/.bashrc.local`)
 export EDITOR=vim
-export GIT_EDITOR=vim
+export VISUAL="$EDITOR"
+export GIT_EDITOR="$EDITOR"
+export SUDO_EDITOR="$EDITOR"
 
-export OBSIDIAN_VAULT="$HOME/Documents/Obsidian"
+export DOTFILES="$HOME/.dotfiles"
+export OBSIDIAN_VAULT="$HOME/obsidian"
+
+
