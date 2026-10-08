@@ -44,5 +44,5 @@ curl -fsSL -O https://github.com/neovim/neovim/releases/latest/download/nvim-lin
 }
 
 # Remove Windows-specific config files
-git update-index --skip-worktree "$DOTFILES/bash/windows-terminal-split-in-cwd.sh" && rm "$DOTFILES/bash/windows-terminal-split-in-cwd.sh"
+git update-index --skip-worktree ~/.dotfiles/bash/windows-terminal-split-in-cwd.sh && rm ~/.dotfiles/bash/windows-terminal-split-in-cwd.sh
 
