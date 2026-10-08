@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
+
+if [ "$EUID" -ne 0 ]; then
+  echo "Error: Please run this script with sudo."
+  exit 1
+fi
+
 # ======================
 # == System Specific ==
 # ======================
@@ -18,31 +25,32 @@ done
 gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-6 "['<Super><Shift>6', '<Super><Shift>#15']"
 
 # Create necessary directories
-mkdir -p ~/src
-mkdir -p ~/.local/bin ~/.local/share/applications ~/.local/share/icons
+mkdir -p "$USER_HOME/src"
+mkdir -p "$USER_HOME/.local/bin" "$USER_HOME/.local/share/applications" "$USER_HOME/.local/share/icons"
 
 # ======================
 # == Program Specific ==
 # ======================
 
 # Bash
-ln -sfn ~/.dotfiles/bash/.bashrc ~/
+ln -sfn "$USER_HOME/.dotfiles/bash/.bashrc" "$USER_HOME/"
 
 # Vim
-ln -sfn ~/.dotfiles/vim/.vimrc ~/
+ln -sfn "$USER_HOME/.dotfiles/vim/.vimrc" "$USER_HOME/"
 
 # Neovim
-mkdir -p ~/src/nvim ~/.config/nvim/
+mkdir -p "$USER_HOME/src/nvim" "$USER_HOME/.config/nvim/"
 curl -fsSL -O https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz && {
-  tar xzvf nvim-linux-x86_64.tar.gz -C ~/src/nvim --strip-components=1
-  ln -sfn ~/src/nvim/bin/nvim ~/.local/bin/nvim
-  ln -sfn ~/src/nvim/share/applications/nvim.desktop ~/.local/share/applications/
-  ln -sfn ~/src/nvim/share/icons/hicolor ~/.local/share/icons/
-  rm -rf ~/.config/nvim && ln -sfn ~/.dotfiles/nvim ~/.config/nvim
-  ln -sfn ~/.dotfiles/.stylua.toml ~/
+  tar xzvf nvim-linux-x86_64.tar.gz -C "$USER_HOME/src/nvim" --strip-components=1
+  ln -sfn "$USER_HOME/src/nvim/bin/nvim" "$USER_HOME/.local/bin/nvim"
+  ln -sfn "$USER_HOME/src/nvim/share/applications/nvim.desktop" "$USER_HOME/.local/share/applications/"
+  ln -sfn "$USER_HOME/src/nvim/share/icons/hicolor" "$USER_HOME/.local/share/icons/"
+  rm -rf "$USER_HOME/.config/nvim" && ln -sfn "$USER_HOME/.dotfiles/nvim" "$USER_HOME/.config/nvim"
+  ln -sfn "$USER_HOME/.dotfiles/.stylua.toml" "$USER_HOME/"
   rm nvim-linux-x86_64.tar.gz
 }
 
 # Remove Windows-specific config files
-git update-index --skip-worktree ~/.dotfiles/bash/windows-terminal-split-in-cwd.sh && rm ~/.dotfiles/bash/windows-terminal-split-in-cwd.sh
+git update-index --skip-worktree "$USER_HOME/.dotfiles/bash/windows-terminal-split-in-cwd.sh" &&
+  rm "$USER_HOME/.dotfiles/bash/windows-terminal-split-in-cwd.sh"
 
