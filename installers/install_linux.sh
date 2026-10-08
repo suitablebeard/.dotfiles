@@ -26,14 +26,22 @@ mkdir -p ~/.local/bin ~/.local/share/applications ~/.local/share/icons
 # ======================
 
 # Bash
-ln -s "$HOME/.dotfiles/bash/.bashrc" "$HOME/"
+ln -sfn ~/.dotfiles/bash/.bashrc ~/
 
 # Vim
-ln -s "$HOME/.dotfiles/vim/.vimrc" "$HOME/"
+ln -sfn ~/.dotfiles/vim/.vimrc ~/
 
 # Neovim
-mkdir -p "$HOME/.config/nvim/" && ln -s "$HOME/.dotfiles/nvim/*" "$HOME/.config/nvim/"
-ln -s "$HOME/.dotfiles/.stylua.toml" "$HOME/"
+mkdir -p ~/src/nvim ~/.config/nvim/
+curl -fsSL -O https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz && {
+  tar xzvf nvim-linux-x86_64.tar.gz -C ~/src/nvim --strip-components=1
+  ln -sfn ~/src/nvim/bin/nvim ~/.local/bin/nvim
+  ln -sfn ~/src/nvim/share/applications/nvim.desktop ~/.local/share/applications/
+  ln -sfn ~/src/nvim/share/icons/hicolor ~/.local/share/icons/
+  rm -rf ~/.config/nvim && ln -sfn ~/.dotfiles/nvim ~/.config/nvim
+  ln -sfn ~/.dotfiles/.stylua.toml ~/
+  rm nvim-linux-x86_64.tar.gz
+}
 
 # Remove Windows-specific config files
 git update-index --skip-worktree "$DOTFILES/bash/windows-terminal-split-in-cwd.sh" && rm "$DOTFILES/bash/windows-terminal-split-in-cwd.sh"
