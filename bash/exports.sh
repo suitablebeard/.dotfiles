@@ -10,3 +10,6 @@ export DOTFILES="$HOME/.dotfiles"
 export OBSIDIAN_VAULT="$HOME/obsidian"
 
 
+if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
