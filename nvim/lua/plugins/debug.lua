@@ -4,7 +4,7 @@ return {
         -- 'rcarriga/nvim-dap-ui',
         --'nvim-neotest/nvim-nio',
         'mason-org/mason.nvim',
-        'igorlfs/nvim-dap-view',
+        { 'igorlfs/nvim-dap-view', version = '1.*' },
         {
             'jay-babu/mason-nvim-dap.nvim',
             opts = {
