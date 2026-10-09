@@ -56,6 +56,7 @@ remove_repo_file_locally() {
     git update-index --skip-worktree "$file" && delete_item "$file"
 }
 
+apt-get update
 
 # ======================
 # == System Specific ==
@@ -89,15 +90,28 @@ create_link "$DOTFILES_DIR/bash/.bashrc" "$USER_HOME/"
 create_link "$DOTFILES_DIR/vim/.vimrc" "$USER_HOME/"
 
 # Neovim
-create_dir "$USER_HOME/src/nvim" "$USER_HOME/.config/nvim/"
-download_file https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz && {
-    extract_archive nvim-linux-x86_64.tar.gz "$USER_HOME/src/nvim"
-    create_link "$USER_HOME/src/nvim/bin/nvim" "$USER_HOME/.local/bin/nvim"
-    create_link "$USER_HOME/src/nvim/share/applications/nvim.desktop" "$USER_HOME/.local/share/applications/"
-    create_link "$USER_HOME/src/nvim/share/icons/hicolor" "$USER_HOME/.local/share/icons/"
-    delete_item "$USER_HOME/.config/nvim" && create_link "$DOTFILES_DIR/nvim" "$USER_HOME/.config/nvim"
-    create_link "$DOTFILES_DIR/.stylua.toml" "$USER_HOME/"
-    delete_item nvim-linux-x86_64.tar.gz
+{
+    create_dir "$USER_HOME/src/nvim" "$USER_HOME/.config/nvim/"
+    download_file https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz && {
+        extract_archive nvim-linux-x86_64.tar.gz "$USER_HOME/src/nvim"
+        create_link "$USER_HOME/src/nvim/bin/nvim" "$USER_HOME/.local/bin/nvim"
+        create_link "$USER_HOME/src/nvim/share/applications/nvim.desktop" "$USER_HOME/.local/share/applications/"
+        create_link "$USER_HOME/src/nvim/share/icons/hicolor" "$USER_HOME/.local/share/icons/"
+        delete_item "$USER_HOME/.config/nvim" && create_link "$DOTFILES_DIR/nvim" "$USER_HOME/.config/nvim"
+        create_link "$DOTFILES_DIR/.stylua.toml" "$USER_HOME/"
+        delete_item nvim-linux-x86_64.tar.gz
+    } && {
+        # install neovim plugin dependencies
+        apt-get install -y fd-find ripgrep
+        download_file https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-cli-linux-x64.zip && {
+            create_dir "$USER_HOME/src/tree-sitter-cli/"
+            extract_archive tree-sitter-cli-linux-x64.zip "$USER_HOME/src/tree-sitter-cli/"
+            delete_item tree-sitter-cli-linux-x64.zip
+        }
+
+        create_link $(which fdfind) "$USER_HOME/.local/bin/fd"
+        create_link "$USER_HOME/src/tree-sitter-cli/tree-sitter" "$USER_HOME/.local/bin/tree-sitter"
+    }
 }
 
 # Remove Windows-specific config files
