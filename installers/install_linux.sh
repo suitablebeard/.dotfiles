@@ -1,11 +1,59 @@
 #!/usr/bin/env bash
 
+REAL_USER="${SUDO_USER:-$USER}"
 USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
+DOTFILES_DIR="$USER_HOME/.dotfiles"
 
 if [ "$EUID" -ne 0 ]; then
   echo "Error: Please run this script with sudo."
   exit 1
 fi
+
+create_dir() {
+    sudo -u "$REAL_USER" mkdir -p "$@"
+}
+
+create_link() {
+    local target="$1"
+    local destiny="$2"
+    sudo -u "$REAL_USER" ln -sfn "$target" "$destiny"
+}
+
+download_file() {
+    local file_url="$1"
+    sudo -u "$REAL_USER" curl -fsSL -O "$file_url"
+}
+
+delete_item() {
+    sudo -u "$REAL_USER" rm -rf "$@" 
+}
+
+extract_archive() {
+    local archive="$1"
+    local dest="$2"
+
+    case "$archive" in
+      *.tar.gz|*.tgz)
+        sudo -u "$REAL_USER" tar xzvf "$archive" -C "$dest" --strip-components=1
+        ;;
+      *.zip)
+        sudo -u "$REAL_USER" unzip "$archive" -d "$dest"
+        ;;
+#     *.gz)
+#       sudo -u "$REAL_USER" gzip -dc "$archive" > "$dest/${archive%.gz}"
+#       ;;
+      *)
+        echo "Unsupported archive format: $archive" >&2
+        return 1
+        ;;
+    esac
+}
+
+remove_repo_file_locally() {
+    local file="$1"
+    git update-index --skip-worktree "$file" && delete_item "$file"
+}
+
 
 # ======================
 # == System Specific ==
@@ -25,32 +73,31 @@ done
 gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-6 "['<Super><Shift>6', '<Super><Shift>#15']"
 
 # Create necessary directories
-mkdir -p "$USER_HOME/src"
-mkdir -p "$USER_HOME/.local/bin" "$USER_HOME/.local/share/applications" "$USER_HOME/.local/share/icons"
+create_dir "$USER_HOME/src"
+create_dir "$USER_HOME/.local/bin" "$USER_HOME/.local/share/applications" "$USER_HOME/.local/share/icons"
 
 # ======================
 # == Program Specific ==
 # ======================
 
 # Bash
-ln -sfn "$USER_HOME/.dotfiles/bash/.bashrc" "$USER_HOME/"
+create_link "$DOTFILES_DIR/bash/.bashrc" "$USER_HOME/"
 
 # Vim
-ln -sfn "$USER_HOME/.dotfiles/vim/.vimrc" "$USER_HOME/"
+create_link "$DOTFILES_DIR/vim/.vimrc" "$USER_HOME/"
 
 # Neovim
-mkdir -p "$USER_HOME/src/nvim" "$USER_HOME/.config/nvim/"
-curl -fsSL -O https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz && {
-  tar xzvf nvim-linux-x86_64.tar.gz -C "$USER_HOME/src/nvim" --strip-components=1
-  ln -sfn "$USER_HOME/src/nvim/bin/nvim" "$USER_HOME/.local/bin/nvim"
-  ln -sfn "$USER_HOME/src/nvim/share/applications/nvim.desktop" "$USER_HOME/.local/share/applications/"
-  ln -sfn "$USER_HOME/src/nvim/share/icons/hicolor" "$USER_HOME/.local/share/icons/"
-  rm -rf "$USER_HOME/.config/nvim" && ln -sfn "$USER_HOME/.dotfiles/nvim" "$USER_HOME/.config/nvim"
-  ln -sfn "$USER_HOME/.dotfiles/.stylua.toml" "$USER_HOME/"
-  rm nvim-linux-x86_64.tar.gz
+create_dir "$USER_HOME/src/nvim" "$USER_HOME/.config/nvim/"
+download_file https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz && {
+    extract_archive nvim-linux-x86_64.tar.gz "$USER_HOME/src/nvim"
+    create_link "$USER_HOME/src/nvim/bin/nvim" "$USER_HOME/.local/bin/nvim"
+    create_link "$USER_HOME/src/nvim/share/applications/nvim.desktop" "$USER_HOME/.local/share/applications/"
+    create_link "$USER_HOME/src/nvim/share/icons/hicolor" "$USER_HOME/.local/share/icons/"
+    delete_item "$USER_HOME/.config/nvim" && create_link "$DOTFILES_DIR/nvim" "$USER_HOME/.config/nvim"
+    create_link "$DOTFILES_DIR/.stylua.toml" "$USER_HOME/"
+    delete_item nvim-linux-x86_64.tar.gz
 }
 
 # Remove Windows-specific config files
-git update-index --skip-worktree "$USER_HOME/.dotfiles/bash/windows-terminal-split-in-cwd.sh" &&
-  rm "$USER_HOME/.dotfiles/bash/windows-terminal-split-in-cwd.sh"
+remove_repo_file_locally "$DOTFILES_DIR/bash/windows-terminal-split-in-cwd.sh"
 
