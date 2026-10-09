@@ -86,6 +86,9 @@ create_dir "$USER_HOME/.local/bin" "$USER_HOME/.local/share/applications" "$USER
 # Bash
 create_link "$DOTFILES_DIR/bash/.bashrc" "$USER_HOME/"
 
+# Git
+create_link "$DOTFILES_DIR/.gitconfig" "$USER_HOME/"
+
 # Vim
 create_link "$DOTFILES_DIR/vim/.vimrc" "$USER_HOME/"
 
