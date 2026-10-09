@@ -5,7 +5,7 @@ BATTERY_HEALTH_EXTENSION_DIR="$USER_HOME/.local/share/gnome-shell/extensions/Bat
 ACER_BATTERY_DRIVER="$USER_HOME/src/acer-wmi-battery/acer-wmi-battery.ko"
 SYSTEM_HEALTH_MODE_FILE="/sys/bus/wmi/drivers/acer-wmi-battery/health_mode"
 
-if [ -z "$SUDO_USER" ]; then
+if [ "$EUID" -ne 0 ]; then
     echo "Error: This script must be run with sudo."
     exit 1
 fi

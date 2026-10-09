@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 export GIT_PS1_SHOWDIRTYSTATE=1      # shows * or + for dirty repo
 export GIT_PS1_SHOWSTASHSTATE=1      # shows $ if stash exists

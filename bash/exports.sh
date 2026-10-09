@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Default fallbacks (will be overridden by `~/.bashrc.local`)
 export EDITOR=vim
