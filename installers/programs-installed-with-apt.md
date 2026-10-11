@@ -1,5 +1,7 @@
 build-essential
 git
+curl
+stow
 ripgrep
 ffmpeg
 fonts-jetbrains-mono
