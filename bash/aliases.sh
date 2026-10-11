@@ -16,10 +16,10 @@ alias cls='clear'
 alias grep='grep --color=auto'
 alias so='source ~/.bashrc'
 
-alias dot='cd ~/.dotfiles && $EDITOR .'
+alias dot='cd $DOTFILES && $EDITOR .'
 alias cdcode='cd ~/myFiles/Programming'
 
-alias battery='sudo ~/.dotfiles/bash/scripts/battery-health-charging.sh'
+alias battery='sudo $DOTFILES/bash/scripts/battery-health-charging.sh'
 alias fixfonts='rm -rf ~/.cache/fontconfig ~/.var/app/*/cache/fontconfig && fc-cache -r -v'
 
 # ======================
@@ -55,7 +55,7 @@ alias ooi='cd $OBSIDIAN_VAULT && cd ./\+ && $EDITOR .'
 
 on() {
     # Creates new note in $OBSIDIAN_VAULT
-    local newnote_creator="$HOME/.dotfiles/bash/scripts/parse-obsidian-newnote-name.sh"
+    local newnote_creator="$DOTFILES/bash/scripts/parse-obsidian-newnote-name.sh"
     "$newnote_creator" "$*"
 }
 
