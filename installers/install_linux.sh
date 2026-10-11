@@ -4,7 +4,7 @@ set -euo pipefail
 
 REAL_USER="${SUDO_USER:-$USER}"
 USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
-DOTFILES_DIR="$USER_HOME/.dotfiles"
+DOTFILES_DIR="${DOTFILES:-$USER_HOME/.dotfiles}"
 
 COL_YELLOW=$'\033[0;93m'
 COL_BOLD=$'\033[1m'
