@@ -48,6 +48,14 @@ vim.opt.smartindent = true
 vim.opt.wrap = false
 vim.opt.linebreak = true
 
+--- dev setup ---
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "make",
+  callback = function()
+    vim.opt_local.expandtab = false
+  end,
+})
+
 --- writing setup ---
 local writing_setup = vim.api.nvim_create_augroup("WritingSetup", { clear = true })
 
