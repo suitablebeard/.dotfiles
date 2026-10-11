@@ -17,6 +17,13 @@ return {
                 },
             },
         },
+        pickers = {
+            find_files = {
+                hidden = true,
+                -- Optional: also include files in .gitignore if needed
+                -- no_ignore = true, 
+            }
+        },
         extensions = {
          --   ['ui-select'] = { require('telescope.themes').get_dropdown() },
         },
