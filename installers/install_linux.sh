@@ -36,7 +36,7 @@ extract_archive() {
 
     case "$archive" in
       *.tar.gz|*.tgz)
-        sudo -u "$REAL_USER" tar xzvf "$archive" -C "$dest" --strip-components=1
+        sudo -u "$REAL_USER" tar xzf "$archive" -C "$dest" --strip-components=1
         ;;
       *.zip)
         sudo -u "$REAL_USER" unzip "$archive" -d "$dest"
