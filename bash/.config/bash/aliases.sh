@@ -16,7 +16,7 @@ alias cls='clear'
 alias grep='grep --color=auto'
 alias so='source ~/.bashrc'
 
-alias dot='cd $DOTFILES && $EDITOR .'
+alias dot='cd $DOTFILES'
 alias cdcode='cd ~/myFiles/Programming'
 
 alias battery='sudo $DOTFILES/scripts/battery-health-charging.sh'
@@ -32,8 +32,9 @@ alias v.='$EDITOR .'
 alias v='$EDITOR'
 alias vi='$EDITOR'
 alias nv='nvim'
+alias nivm='nvim'
 
-vg() {
+0g() {
     "$EDITOR" -c "autocmd VimEnter * call feedkeys(g:mapleader . \"0g\")"
 }
 
@@ -68,17 +69,18 @@ on() {
 alias ga='git add'
 alias gap='git add -p'
 alias gp='git push && git push --tags'
-alias gtt='git status -s'
-alias gttt='git status'
+alias gt='git status -s'
+alias gtt='git status'
 alias ggt='gtt'
-alias gll='git log --color=always --graph --pretty=format:"%C(auto)%h %C(reset)%s %C(auto)%d" --date=short | less -R'
-alias glp='git log --color=always --graph --pretty=format:"%C(auto)%h %C(blue)%ad %C(reset)%s %C(brightblack)(%an)%C(auto)%d" --date=short | less -R'
+alias gl='git log --color=always --graph --pretty=format:"%C(auto)%h %C(reset)%s %C(auto)%d" --date=short | less -R'
+alias gll='git log --color=always --graph --pretty=format:"%C(auto)%h %C(blue)%ad %C(reset)%s %C(brightblack)(%an)%C(auto)%d" --date=short | less -R'
 alias gck='git checkout'
-alias gch='git switch'
-alias gsh='git stash'
-alias gpp='git stash pop'
-alias gff='git diff'
-alias gffs='git diff --staged'
+alias gsw='git switch'
+alias gzz='git stash'
+alias gza='git stash apply'
+alias gzp='git stash pop'
+alias gf='git diff'
+alias gfs='git diff --staged'
 alias gres='git restore --stage'
 
 gc() {
