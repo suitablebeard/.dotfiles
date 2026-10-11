@@ -25,6 +25,7 @@ let g:highlightedyank_highlight_duration = 250
 
 " Fugitive
 nnoremap <silent> <leader>0g :0G<CR>|                                              " open fugitive's status
+command! Gl G log --oneline
 
 " Fuzzbox
 let g:fuzzbox_preview = 0
