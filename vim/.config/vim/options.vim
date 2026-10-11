@@ -36,6 +36,19 @@ set backspace=indent,eol,start                   " fixes backspace behavior in i
 set nowrap                                       " no linewrapping as the default
 set linebreak                                    " ensures linewrapping won't happen mid-word
 
+augroup DevSetup
+  autocmd!
+  autocmd FileType make setlocal noexpandtab
+augroup END
+
+augroup WritingSetup
+    autocmd!
+    autocmd FileType markdown,text,gitcommit {
+        setlocal spell wrap breakindent
+        if &filetype !=# 'gitcommit' | setlocal colorcolumn= | endif
+    }
+augroup END
+
 " Search options
 set nohlsearch                                   " highlights all matches
 set incsearch                                    " highlights as you type
@@ -64,11 +77,4 @@ set completeopt+=noselect
 set completeopt+=popup
 set completeopt+=fuzzy
 
-augroup WritingSetup
-    autocmd!
-    autocmd FileType markdown,text,gitcommit {
-        setlocal spell wrap breakindent
-        if &filetype !=# 'gitcommit' | setlocal colorcolumn= | endif
-    }
-augroup END
 
