@@ -10,6 +10,11 @@ export DOTFILES="$HOME/.dotfiles"
 export OBSIDIAN_VAULT="$HOME/obsidian"
 
 
-if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
-    export PATH="$HOME/.local/bin:$PATH"
-fi
+ADD_TO_PATH=(
+    "$HOME/.local/bin"
+    "$HOME/.spicetify"
+)
+
+for p in "${ADD_TO_PATH[@]}"; do
+    [[ ":$PATH:" != *":$p:"* ]] && export PATH="$PATH:$p"
+done
