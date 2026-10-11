@@ -82,6 +82,8 @@ alias gzp='git stash pop'
 alias gf='git diff'
 alias gfs='git diff --staged'
 alias gres='git restore --stage'
+alias grr='git rebase --continue'
+alias gra='git rebase --abort'
 
 gc() {
     if [ -z "$*" ]; then
