@@ -2,6 +2,11 @@
 
 set -euo pipefail
 
+if [ "$EUID" -ne 0 ]; then
+    echo "Error: Please run this script with sudo."
+    exit 1
+fi
+
 REAL_USER="${SUDO_USER:-$USER}"
 USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
 DOTFILES_DIR="${DOTFILES:-$USER_HOME/.dotfiles}"
@@ -13,10 +18,6 @@ COL_BOLD=$'\033[1m'
 COL_RESET=$'\033[0m'
 
 
-if [ "$EUID" -ne 0 ]; then
-  echo "Error: Please run this script with sudo."
-  exit 1
-fi
 
 create_dir() {
     sudo -u "$REAL_USER" mkdir -p "$@"
