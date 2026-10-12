@@ -69,6 +69,8 @@ set_text_color() {
     printf '%s%s%s\n' "$color" "$text" "$COL_RESET"
 }
 
+apt-get update
+
 
 # ======================
 # == System Specific ==
