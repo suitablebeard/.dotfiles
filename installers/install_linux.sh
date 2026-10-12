@@ -95,7 +95,35 @@ create_dir "$USER_HOME/.local/bin" "$USER_HOME/.local/share/applications" "$USER
 # == Program Specific ==
 # ======================
 
+CORE_UTILS=( build-essential git curl stow tar unzip gzip )
 
+DEV_TOOLS=(
+    # npm
+    # cargo
+    # ffmpeg
+    fd-find
+    ripgrep
+)
+
+DESKTOP_UTILS=(
+    wmctrl
+    wl-clipboard
+    fonts-jetbrains-mono
+    gnome-tweaks
+    gnome-shell-extension-manager
+)
+
+TEST_TOOLS=( vim )
+
+PACKAGES=(
+    "${CORE_UTILS[@]}"
+    "${DEV_TOOLS[@]}"
+    "${TEST_TOOLS[@]}"
+    # "${DESKTOP_UTILS[@]}"
+)
+
+set_text_color "[STATUS] (apt) Installing the following packages: ${PACKAGES[*]}" "$COL_GREEN"
+apt-get install -y "${PACKAGES[@]}"
 
 # Vim
 set_text_color "[NOTICE] Vim install instructions are missing!" "$COL_RED"
@@ -150,7 +178,6 @@ set_text_color "[STATUS] Running GNU Stow to symlink these packages: $DISPLAY_ST
 stow --dir="$DOTFILES_DIR" --target="$USER_HOME" --adopt -R "${STOW_PACKAGES[@]}"
 
 STOW_MODIFIED_FILES=$(git status --porcelain | grep '^ M' | cut -c4-)
-
 if [[ -n $STOW_MODIFIED_FILES ]]; then
    cat <<EOF
 ${COL_YELLOW}[NOTICE] Stow might have adopted existing local files for some of your packages:${COL_RESET}
