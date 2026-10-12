@@ -186,11 +186,11 @@ remove_repo_file_locally "$DOTFILES_DIR/bash/windows-terminal-split-in-cwd.sh"
 # =================================
 
 STOW_PACKAGES=($(basename -a "$DOTFILES_DIR"/*/))
-EXCLUDE_STOW_PKGS=( installers scripts )
-DISPLAY_STOW_PKGS=$(echo "${STOW_PACKAGES[*]}" | sed -E "s/\b($(IFS='|'; echo "${EXCLUDE_STOW_PKGS[*]}"))\b//g" | tr -s ' ')
+IGNORED_STOW_PKGS=( installers scripts )
+DISPLAY_STOW_PKGS=$(sed -E "s/\b($(IFS='|'; echo "${IGNORED_STOW_PKGS[*]}"))\b//g" <<< "${STOW_PACKAGES[*]}" | tr -s ' ')
 
-stow --dir="$DOTFILES_DIR" --target="$USER_HOME" --adopt -R "${STOW_PACKAGES[@]}"
 status_msg "Running GNU Stow to symlink these packages: $DISPLAY_STOW_PKGS"
+stow -v --dir="$DOTFILES_DIR" --target="$USER_HOME" --adopt -R "${STOW_PACKAGES[@]}"
 
 STOW_MODIFIED_FILES=$(git status --porcelain | grep '^ M' | cut -c4-)
 
