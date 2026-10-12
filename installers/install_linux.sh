@@ -17,6 +17,24 @@ COL_WARNING=$'\033[0;91m'
 COL_BOLD=$'\033[1m'
 COL_RESET=$'\033[0m'
 
+# Ubuntu APT Packages
+UBUNTU_CORE_PKGS=( git curl stow tar unzip gzip )
+UBUNTU_DEV_PKGS=( build-essential npm fd-find ripgrep fonts-jetbrains-mono )
+UBUNTU_OPTIONAL_PKGS=(
+    ffmpeg
+    wmctrl
+    wl-clipboard
+    gnome-tweaks
+    gnome-shell-extension-manager
+)
+# TEST_TOOLS=( vim )
+
+UBUNTU_PACKAGES=(
+    "${UBUNTU_CORE_PKGS[@]}"
+    "${UBUNTU_DEV_PKGS[@]}"
+    "${UBUNTU_OPTIONAL_PKGS[@]}"
+    # "${TEST_TOOLS[@]}"
+)
 
 
 create_dir() {
@@ -85,7 +103,16 @@ warning_msg() {
     set_text_color "[WARNING] $message" "$COL_WARNING"
 }
 
+
+# ======================
+# == Install Packages ==
+# ======================
+
 apt-get update
+
+status_msg "(apt) Installing the following packages: ${UBUNTU_PACKAGES[*]}"
+
+apt-get install -y "${UBUNTU_PACKAGES[@]}"
 
 
 # ======================
@@ -112,36 +139,6 @@ create_dir "$USER_HOME/.local/bin" "$USER_HOME/.local/share/applications" "$USER
 # ======================
 # == Program Specific ==
 # ======================
-
-CORE_UTILS=( build-essential git curl stow tar unzip gzip )
-
-DEV_TOOLS=(
-    # npm
-    # cargo
-    # ffmpeg
-    fd-find
-    ripgrep
-)
-
-DESKTOP_UTILS=(
-    wmctrl
-    wl-clipboard
-    fonts-jetbrains-mono
-    gnome-tweaks
-    gnome-shell-extension-manager
-)
-
-TEST_TOOLS=( vim )
-
-PACKAGES=(
-    "${CORE_UTILS[@]}"
-    "${DEV_TOOLS[@]}"
-    "${TEST_TOOLS[@]}"
-    # "${DESKTOP_UTILS[@]}"
-)
-
-set_text_color "[STATUS] (apt) Installing the following packages: ${PACKAGES[*]}" "$COL_GREEN"
-apt-get install -y "${PACKAGES[@]}"
 
 # Vim
 warning_msg "Vim install instructions are missing!"
