@@ -30,6 +30,9 @@ require("lazy").setup({
   install = { colorscheme = { "catppuccin-macchiato" } },
   -- Configure any other settings here. See the documentation for more details.
   -- automatically check for plugin updates
-  checker = { enabled = true },
+  checker = {
+    enabled = true,
+    frequency = 86400,
+  },
   change_detection = { notify = false },
 })
