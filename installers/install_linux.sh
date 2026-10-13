@@ -48,8 +48,9 @@ create_link() {
 }
 
 download_file() {
-    local file_url="$1"
-    sudo -u "$REAL_USER" curl -fsSL -O "$file_url"
+    local url="$1"
+    local name="$2"
+    sudo -u "$REAL_USER" curl -fsSL --create-dirs -o "$name" "$url"
 }
 
 delete_item() {
@@ -152,8 +153,8 @@ warning_msg "Vim install instructions are missing!"
     TREESITTER_DOWNLOAD_LINK='https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-cli-linux-x64.zip'
 
     create_dir "$USER_HOME/src/nvim"
-    download_file "$NVIM_DOWNLOAD_LINK" && {
         extract_archive nvim-linux-x86_64.tar.gz "$USER_HOME/src/nvim"
+    download_file "$NVIM_DOWNLOAD_LINK" 'nvim-linux-x86_64.tar.gz'  && {
         delete_item nvim-linux-x86_64.tar.gz
 
         # setup and expose to desktop
@@ -162,9 +163,9 @@ warning_msg "Vim install instructions are missing!"
         create_link "$USER_HOME/src/nvim/share/icons/hicolor" "$USER_HOME/.local/share/icons/"
     }
 
-    download_file "$TREESITTER_DOWNLOAD_LINK" && {
         create_dir "$USER_HOME/src/tree-sitter-cli/"
         extract_archive tree-sitter-cli-linux-x64.zip "$USER_HOME/src/tree-sitter-cli/"
+    download_file "$TREESITTER_DOWNLOAD_LINK" 'tree-sitter-cli-linux-x64.zip' && {
         delete_item tree-sitter-cli-linux-x64.zip
         create_link "$USER_HOME/src/tree-sitter-cli/tree-sitter" "$USER_HOME/.local/bin/tree-sitter"
     }
