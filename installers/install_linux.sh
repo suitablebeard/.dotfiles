@@ -128,18 +128,23 @@ apt-get install -y "${UBUNTU_PACKAGES[@]}"
 # == System Specific ==
 # ======================
 
-# Set workspaces in GNOME 
-gsettings set org.gnome.mutter dynamic-workspaces false
-gsettings set org.gnome.desktop.wm.preferences num-workspaces 10
+# GNOME
+if [[ -n "${XDG_CURRENT_DESKTOP-}" ]] && [[ "${XDG_CURRENT_DESKTOP,,}" == *gnome* ]]; then
+    status_msg "Customizing the GNOME Desktop"
 
-for i in {1..10}; do
-  k=$((i % 10))
-  gsettings set org.gnome.shell.keybindings switch-to-application-$i "[]"
-  gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-$i "['<Super>$k']"
-  gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-$i "['<Super><Shift>$k']"
-done
+    # Workspaces
+    gsettings set org.gnome.mutter dynamic-workspaces false
+    gsettings set org.gnome.desktop.wm.preferences num-workspaces 10
 
-gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-6 "['<Super><Shift>6', '<Super><Shift>#15']"
+    for i in {1..10}; do
+        k=$((i % 10))
+        gsettings set org.gnome.shell.keybindings switch-to-application-$i "[]"
+        gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-$i "['<Super>$k']"
+        gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-$i "['<Super><Shift>$k']"
+    done
+
+    gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-6 "['<Super><Shift>6', '<Super><Shift>#15']"
+fi
 
 # Create necessary directories
 create_dir "$SRC_DIR"
