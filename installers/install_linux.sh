@@ -10,6 +10,8 @@ fi
 REAL_USER="${SUDO_USER:-$USER}"
 USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
 DOTFILES_DIR="${DOTFILES:-$USER_HOME/.dotfiles}"
+SRC_DIR="$USER_HOME/src"
+LOCAL_BIN_DIR="$USER_HOME/.local/bin"
 
 COL_STATUS=$'\033[0;32m'
 COL_NOTICE=$'\033[0;93m'
@@ -134,8 +136,8 @@ done
 gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-6 "['<Super><Shift>6', '<Super><Shift>#15']"
 
 # Create necessary directories
-create_dir "$USER_HOME/src"
-create_dir "$USER_HOME/.local/bin" "$USER_HOME/.local/share/applications" "$USER_HOME/.local/share/icons"
+create_dir "$SRC_DIR"
+create_dir "$LOCAL_BIN_DIR" "$USER_HOME/.local/share/applications" "$USER_HOME/.local/share/icons"
 
 # ======================
 # == Program Specific ==
@@ -152,26 +154,26 @@ warning_msg "Vim install instructions are missing!"
     NVIM_DOWNLOAD_LINK='https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz'
     TREESITTER_DOWNLOAD_LINK='https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-cli-linux-x64.zip'
 
-    create_dir "$USER_HOME/src/nvim"
-        extract_archive nvim-linux-x86_64.tar.gz "$USER_HOME/src/nvim"
+    create_dir "$SRC_DIR/nvim"
     download_file "$NVIM_DOWNLOAD_LINK" 'nvim-linux-x86_64.tar.gz'  && {
+        extract_archive nvim-linux-x86_64.tar.gz "$SRC_DIR/nvim"
         delete_item nvim-linux-x86_64.tar.gz
 
         # setup and expose to desktop
-        create_link "$USER_HOME/src/nvim/bin/nvim" "$USER_HOME/.local/bin/nvim"
-        create_link "$USER_HOME/src/nvim/share/applications/nvim.desktop" "$USER_HOME/.local/share/applications/"
-        create_link "$USER_HOME/src/nvim/share/icons/hicolor" "$USER_HOME/.local/share/icons/"
+        create_link "$SRC_DIR/nvim/bin/nvim" "$LOCAL_BIN_DIR/nvim"
+        create_link "$SRC_DIR/nvim/share/applications/nvim.desktop" "$USER_HOME/.local/share/applications/"
+        create_link "$SRC_DIR/nvim/share/icons/hicolor" "$USER_HOME/.local/share/icons/"
     }
 
-        create_dir "$USER_HOME/src/tree-sitter-cli/"
-        extract_archive tree-sitter-cli-linux-x64.zip "$USER_HOME/src/tree-sitter-cli/"
     download_file "$TREESITTER_DOWNLOAD_LINK" 'tree-sitter-cli-linux-x64.zip' && {
+        create_dir "$SRC_DIR/tree-sitter-cli/"
+        extract_archive tree-sitter-cli-linux-x64.zip "$SRC_DIR/tree-sitter-cli/"
         delete_item tree-sitter-cli-linux-x64.zip
-        create_link "$USER_HOME/src/tree-sitter-cli/tree-sitter" "$USER_HOME/.local/bin/tree-sitter"
+        create_link "$SRC_DIR/tree-sitter-cli/tree-sitter" "$LOCAL_BIN_DIR/tree-sitter"
     }
 
     if command -v fdfind &> /dev/null; then
-        create_link "$(which fdfind)" "$USER_HOME/.local/bin/fd"
+        create_link "$(which fdfind)" "$LOCAL_BIN_DIR/fd"
     else
         warning_msg 'No binaries for fd-find (fd) were found. You might have to install it manually. After installation, create a symlink in your $PATH and name it "fd".'
     fi
