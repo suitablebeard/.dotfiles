@@ -8,6 +8,7 @@ vim.opt.colorcolumn = '80'
 vim.o.signcolumn = 'yes'
 vim.opt.scrolloff = 999
 vim.opt.relativenumber = true
+vim.opt.mouse = ''
 vim.opt.guicursor = {
     "n-v-c-sm:block",
     "i-ci-ve:block",
