@@ -179,6 +179,13 @@ warning_msg "Vim install instructions are missing!"
     fi
 }
 
+# ==== Command-line Tools ====
+# yt-dlp
+YTDLP_DOWNLOAD_LINK='https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp'
+download_file "$YTDLP_DOWNLOAD_LINK" "$SRC_DIR/yt-dlp"
+create_link "$SRC_DIR/yt-dlp" "$LOCAL_BIN_DIR/yt-dlp"
+chmod a+x "$LOCAL_BIN_DIR/yt-dlp"
+
 # Remove Windows-specific config files
 status_msg "Removing unnecessary files from local repo..."
 remove_repo_file_locally "$DOTFILES_DIR/bash/windows-terminal-split-in-cwd.sh"
