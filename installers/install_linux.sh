@@ -3,7 +3,7 @@
 set -euo pipefail
 
 if [ "$EUID" -ne 0 ]; then
-    echo "Error: Please run this script with sudo."
+    printf '\033[0;91m%s\033[0m\n' "[Error] Please run this script with sudo."
     exit 1
 fi
 
@@ -13,9 +13,10 @@ DOTFILES_DIR="${DOTFILES:-$USER_HOME/.dotfiles}"
 SRC_DIR="$USER_HOME/src"
 LOCAL_BIN_DIR="$USER_HOME/.local/bin"
 
-COL_STATUS=$'\033[0;32m'
-COL_NOTICE=$'\033[0;93m'
-COL_WARNING=$'\033[0;91m'
+COL_STATUS=$'\033[0;32m' # green
+COL_NOTICE=$'\033[0;94m' # blue
+COL_WARNING=$'\033[0;93m' # yellow
+COL_ERROR=$'\033[0;91m' # red
 COL_BOLD=$'\033[1m'
 COL_RESET=$'\033[0m'
 
@@ -106,6 +107,11 @@ warning_msg() {
     set_text_color "[WARNING] $message" "$COL_WARNING"
 }
 
+error_msg() {
+    local message="$1"
+    set_text_color "[ERROR] $message" "$COL_ERROR"
+}
+
 
 # ======================
 # == Install Packages ==
@@ -144,7 +150,7 @@ create_dir "$LOCAL_BIN_DIR" "$USER_HOME/.local/share/applications" "$USER_HOME/.
 # ======================
 
 # Vim
-warning_msg "Vim install instructions are missing!"
+error_msg "Vim install instructions are missing!"
 
 
 {
@@ -175,7 +181,8 @@ warning_msg "Vim install instructions are missing!"
     if command -v fdfind &> /dev/null; then
         create_link "$(which fdfind)" "$LOCAL_BIN_DIR/fd"
     else
-        warning_msg 'No binaries for fd-find (fd) were found. You might have to install it manually. After installation, create a symlink in your $PATH and name it "fd".'
+        error_msg 'No binaries for fd-find (fd) were found. You might have to install it manually.'
+        error_msg 'After installing fd-find, create a symlink in your $PATH and name it "fd".'
     fi
 }
 
@@ -200,18 +207,29 @@ IGNORED_STOW_PKGS=( installers scripts )
 DISPLAY_STOW_PKGS=$(sed -E "s/\b($(IFS='|'; echo "${IGNORED_STOW_PKGS[*]}"))\b//g" <<< "${STOW_PACKAGES[*]}" | tr -s ' ')
 
 status_msg "Running GNU Stow to symlink these packages: $DISPLAY_STOW_PKGS"
+
+stash_result=$(git stash push -m "sync-dotfiles: Before syncing dotfiles")
+stash_needs_pop=1
+if [ "$stash_result" = "No local changes to save" ]; then
+    stash_needs_pop=0
+fi
+
 stow -v --dir="$DOTFILES_DIR" --target="$USER_HOME" --adopt -R "${STOW_PACKAGES[@]}"
 
 STOW_MODIFIED_FILES=$(git status --porcelain | grep '^ M' | cut -c4-)
 
 if [[ -n $STOW_MODIFIED_FILES ]]; then
-    notice_msg "Stow might have adopted existing local files for some of your packages:"
-    awk -v notice="$COL_NOTICE" -v reset="$COL_RESET" 'NF > 0 {print "  " notice "- " $0 reset}' <<< "$STOW_MODIFIED_FILES"
+    warning_msg "Stow adopted existing local files for some of your packages because conflicting files were found in the target directory:"
+    awk -v notice="$COL_WARNING" -v reset="$COL_RESET" 'NF > 0 {print "  " notice "- " $0 reset}' <<< "$STOW_MODIFIED_FILES"
     cat <<-EOF
-		${COL_NOTICE}Your repository files might have been overwritten with their local version.
+		${COL_WARNING}Your repository files were overwritten with their local version.
 		  • To review changes: git diff
 		  • To discard local changes: git checkout -- <file>
 		  • To keep them: git add <file> && git commit -m <commit-message>${COL_RESET}
 	EOF
+fi
+
+if [[ $stash_needs_pop -eq 1 ]]; then
+    git stash pop --quiet
 fi
 
