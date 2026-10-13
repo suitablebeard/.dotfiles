@@ -29,4 +29,7 @@ WORKDIR /home/tester/.dotfiles/installers
 USER tester
 
 # Set the default command to an interactive bash shell
+# CMD ["/usr/bin/bash"]
+
+# Set the default command for testing the install script right away
 CMD ["sudo", "./install_linux.sh"]
