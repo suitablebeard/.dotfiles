@@ -7,9 +7,14 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
+if [[ -z "${DOTFILES:-}" ]]; then
+    printf '\033[0;91m%s\033[0m\n' '[ERROR] Environment variable $DOTFILES must be set to run this script.'
+    exit 1
+fi
+
 REAL_USER="${SUDO_USER:-$USER}"
 USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
-DOTFILES_DIR="${DOTFILES:-$USER_HOME/.dotfiles}"
+DOTFILES_DIR="$DOTFILES"
 SRC_DIR="$USER_HOME/src"
 LOCAL_BIN_DIR="$USER_HOME/.local/bin"
 
