@@ -11,10 +11,13 @@ export OBSIDIAN_VAULT="$HOME/obsidian"
 
 
 ADD_TO_PATH=(
-    "$HOME/.local/bin"
     "$HOME/.spicetify"
 )
 
+# Ensure binaries in ~/.local/bin are prioritized
+[[ ":$PATH:" != *":$HOME/.local/bin:"* ]] && export PATH="$HOME/.local/bin:$PATH"
+
+# Add other directories to $PATH
 for p in "${ADD_TO_PATH[@]}"; do
     [[ ":$PATH:" != *":$p:"* ]] && export PATH="$PATH:$p"
 done
