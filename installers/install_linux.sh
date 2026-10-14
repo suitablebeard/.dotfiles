@@ -33,6 +33,7 @@ UBUNTU_OPTIONAL_PKGS=(
     wmctrl
     wl-clipboard
     gnome-tweaks
+    ttf-mscorefonts-installer
     gnome-shell-extension-manager
 )
 # TEST_TOOLS=( vim )
