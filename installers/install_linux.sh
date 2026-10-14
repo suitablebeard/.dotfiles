@@ -56,12 +56,6 @@ create_link() {
     sudo -u "$REAL_USER" ln -sfn "$target" "$destiny"
 }
 
-download_file() {
-    local url="$1"
-    local name="$2"
-    sudo -u "$REAL_USER" curl -fsSL --create-dirs -o "$name" "$url"
-}
-
 delete_item() {
     sudo -u "$REAL_USER" rm -rf "$@" 
 }
@@ -84,6 +78,25 @@ extract_archive() {
         echo "Unsupported archive format: $archive" >&2
         return 1
         ;;
+    esac
+}
+
+download_file() {
+    local url="$1"
+    local name="$2"
+    local dest="$3"
+
+    create_dir "$dest"
+
+    case "$name" in
+        *.tar.gz|*.tgz|*.gz|*.zip)
+            sudo -u "$REAL_USER" curl -fsSL -o "$name" "$url"
+            extract_archive "$name" "$dest"
+            delete_item "$name" 
+            ;;
+        *)
+            sudo -u "$REAL_USER" curl -fsSL --create-dirs -o "$dest/$name" "$url"
+            ;;
     esac
 }
 
@@ -178,23 +191,15 @@ error_msg "Vim install instructions are missing!"
     NVIM_DOWNLOAD_LINK='https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz'
     TREESITTER_DOWNLOAD_LINK='https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-cli-linux-x64.zip'
 
-    create_dir "$SRC_DIR/nvim"
-    download_file "$NVIM_DOWNLOAD_LINK" 'nvim-linux-x86_64.tar.gz'  && {
-        extract_archive nvim-linux-x86_64.tar.gz "$SRC_DIR/nvim"
-        delete_item nvim-linux-x86_64.tar.gz
-
+    download_file "$NVIM_DOWNLOAD_LINK" 'nvim-linux-x86_64.tar.gz' "$SRC_DIR/nvim" && {
         # setup and expose to desktop
         create_link "$SRC_DIR/nvim/bin/nvim" "$LOCAL_BIN_DIR/nvim"
         create_link "$SRC_DIR/nvim/share/applications/nvim.desktop" "$USER_HOME/.local/share/applications/"
         create_link "$SRC_DIR/nvim/share/icons/hicolor" "$USER_HOME/.local/share/icons/"
     }
 
-    download_file "$TREESITTER_DOWNLOAD_LINK" 'tree-sitter-cli-linux-x64.zip' && {
-        create_dir "$SRC_DIR/tree-sitter-cli/"
-        extract_archive tree-sitter-cli-linux-x64.zip "$SRC_DIR/tree-sitter-cli/"
-        delete_item tree-sitter-cli-linux-x64.zip
+    download_file "$TREESITTER_DOWNLOAD_LINK" 'tree-sitter-cli-linux-x64.zip' "$SRC_DIR/tree-sitter-cli/" &&
         create_link "$SRC_DIR/tree-sitter-cli/tree-sitter" "$LOCAL_BIN_DIR/tree-sitter"
-    }
 
     if command -v fdfind &> /dev/null; then
         create_link "$(which fdfind)" "$LOCAL_BIN_DIR/fd"
@@ -207,8 +212,8 @@ error_msg "Vim install instructions are missing!"
 # ==== Command-line Tools ====
 # yt-dlp
 YTDLP_DOWNLOAD_LINK='https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp'
-download_file "$YTDLP_DOWNLOAD_LINK" "$SRC_DIR/yt-dlp"
-create_link "$SRC_DIR/yt-dlp" "$LOCAL_BIN_DIR/yt-dlp"
+download_file "$YTDLP_DOWNLOAD_LINK" "yt-dlp" "$SRC_DIR/yt-dlp"
+create_link "$SRC_DIR/yt-dlp/yt-dlp" "$LOCAL_BIN_DIR/yt-dlp"
 chmod a+x "$LOCAL_BIN_DIR/yt-dlp"
 
 # Remove Windows-specific config files
