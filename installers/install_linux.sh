@@ -3,12 +3,12 @@
 set -euo pipefail
 
 if [ "$EUID" -ne 0 ]; then
-    printf '\033[0;91m%s\033[0m\n' "[Error] Please run this script with sudo."
+    printf '\033[0;91m%s\033[0m\n' "[ERROR] This script must be run with root privileges (use sudo)." >&2
     exit 1
 fi
 
 if [[ -z "${DOTFILES:-}" ]]; then
-    printf '\033[0;91m%s\033[0m\n' '[ERROR] Environment variable $DOTFILES must be set to run this script.'
+    printf '\033[0;91m%s\033[0m\n' '[ERROR] Environment variable $DOTFILES must be set to run this script.' >&2
     exit 1
 fi
 
@@ -109,12 +109,12 @@ notice_msg() {
 
 warning_msg() {
     local message="$1"
-    set_text_color "[WARNING] $message" "$COL_WARNING"
+    set_text_color "[WARNING] $message" "$COL_WARNING" >&2
 }
 
 error_msg() {
     local message="$1"
-    set_text_color "[ERROR] $message" "$COL_ERROR"
+    set_text_color "[ERROR] $message" "$COL_ERROR" >&2
 }
 
 
