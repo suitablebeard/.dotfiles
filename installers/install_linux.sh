@@ -161,6 +161,13 @@ create_dir "$LOCAL_BIN_DIR" "$USER_HOME/.local/share/applications" "$USER_HOME/.
 # ======================
 
 # Vim
+# TODO:
+# - create the '.vim/spell' directory with mkdir -p ~/.vim/spell otherwise the
+# spellfiles form Vim will be saved in '.vim/plugged/catppuccin/spell' which is
+# weird; then it should open a .md file and run ':set spelllang=en,pt,es,fr' to
+# download the spellfiles
+# - Open Vim with the +PlugInstallargument (should also ignore any errors and then close it)
+
 error_msg "Vim install instructions are missing!"
 
 
@@ -243,4 +250,14 @@ fi
 if [[ $stash_needs_pop -eq 1 ]]; then
     git stash pop --quiet
 fi
+
+# =================================
+# ==== Post Installation Guide ====
+# =================================
+
+# TODO:
+# - warn about all binaries that are missing in the machine;
+# - it shoul warn about what environment variables should be declared in bash (e.g. $EDITOR, $OBSIDIAN_VAULT)
+# - create ~/.gitconfig.local and add username and email
+# - setup git with ssh
 
