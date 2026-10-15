@@ -17,6 +17,18 @@ vim.keymap.set("n", "<leader>Y", "\"+Y")
 vim.keymap.set('n', '<leader>d', '"_d')
 vim.keymap.set('v', '<leader>d', '"_d')
 
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set('x', '<leader>s', function()
+    vim.cmd('normal! y')
+    local selected = vim.fn.getreg('"')
+    local escaped = vim.fn.escape(selected, [[/\]])
+    local cmd = ':%s/' .. escaped .. '/' .. escaped .. '/gI<Left><Left><Left>'
+    local cmd_to_populate = vim.api.nvim_replace_termcodes(cmd, true, false, true)
+    vim.fn.feedkeys(cmd_to_populate, 'n')
+end, {
+    desc = 'Substitute visually selected text throughout file',
+})
+
 vim.keymap.set("x", "I", function()
     return vim.fn.mode() == "V" and "^<C-v>I" or "I"
 end, { expr = true, desc = "Prepend to selection in line-visual mode" })
