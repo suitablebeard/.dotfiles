@@ -100,9 +100,15 @@ download_file() {
     esac
 }
 
-remove_repo_file_locally() {
-    local file="$1"
-    git update-index --skip-worktree "$file" && delete_item "$file"
+remove_repo_files_locally() {
+    [[ $# -eq 0 ]] && return
+    status_msg "Removing unnecessary files from local repo..."
+
+    for file in "$@"; do
+        if [[ -f "$file" ]]; then
+            git update-index --skip-worktree "$file" && delete_item "$file"
+        fi
+    done
 }
 
 set_text_color() {
@@ -163,11 +169,21 @@ if [[ -n "${XDG_CURRENT_DESKTOP-}" ]] && [[ "${XDG_CURRENT_DESKTOP,,}" == *gnome
     done
 
     gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-6 "['<Super><Shift>6', '<Super><Shift>#15']"
+else
+    notice_msg 'Desktop Environment is not GNOME. Skipping GNOME customization.'
 fi
+
+
+# Locally remove files in dotfiles repo (e.g. windows-specific files)
+remove_locally=()
+
+remove_repo_files_locally "${remove_locally[@]}"
+
 
 # Create necessary directories
 create_dir "$SRC_DIR"
 create_dir "$LOCAL_BIN_DIR" "$USER_HOME/.local/share/applications" "$USER_HOME/.local/share/icons"
+
 
 # ======================
 # == Program Specific ==
@@ -186,23 +202,26 @@ error_msg "Vim install instructions are missing!"
 
 {
     # ===== Neovim =====
-    status_msg "Downloading Neovim..."
+    if ! command -v 'nvim' &> /dev/null; then
+        status_msg "Installing Neovim..."
+        NVIM_DOWNLOAD_LINK='https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz'
+        download_file "$NVIM_DOWNLOAD_LINK" 'nvim-linux-x86_64.tar.gz' "$SRC_DIR/nvim" && {
+            # setup and expose to desktop
+            create_link "$SRC_DIR/nvim/bin/nvim" "$LOCAL_BIN_DIR/nvim"
+            create_link "$SRC_DIR/nvim/share/applications/nvim.desktop" "$USER_HOME/.local/share/applications/"
+            create_link "$SRC_DIR/nvim/share/icons/hicolor" "$USER_HOME/.local/share/icons/"
+        }
+    fi
 
-    NVIM_DOWNLOAD_LINK='https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz'
-    TREESITTER_DOWNLOAD_LINK='https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-cli-linux-x64.zip'
-
-    download_file "$NVIM_DOWNLOAD_LINK" 'nvim-linux-x86_64.tar.gz' "$SRC_DIR/nvim" && {
-        # setup and expose to desktop
-        create_link "$SRC_DIR/nvim/bin/nvim" "$LOCAL_BIN_DIR/nvim"
-        create_link "$SRC_DIR/nvim/share/applications/nvim.desktop" "$USER_HOME/.local/share/applications/"
-        create_link "$SRC_DIR/nvim/share/icons/hicolor" "$USER_HOME/.local/share/icons/"
-    }
-
-    download_file "$TREESITTER_DOWNLOAD_LINK" 'tree-sitter-cli-linux-x64.zip' "$SRC_DIR/tree-sitter-cli/" &&
+    if ! command -v 'tree-sitter' &> /dev/null; then
+        status_msg "Installing Neovim dependency: tree-sitter"
+        TREESITTER_DOWNLOAD_LINK='https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-cli-linux-x64.zip'
+        download_file "$TREESITTER_DOWNLOAD_LINK" 'tree-sitter-cli-linux-x64.zip' "$SRC_DIR/tree-sitter-cli/" &&
         create_link "$SRC_DIR/tree-sitter-cli/tree-sitter" "$LOCAL_BIN_DIR/tree-sitter"
+    fi
 
-    if command -v fdfind &> /dev/null; then
-        create_link "$(which fdfind)" "$LOCAL_BIN_DIR/fd"
+    if command -v 'fdfind' &> /dev/null; then
+        ! command -v 'fd' &> /dev/null && create_link "$(which fdfind)" "$LOCAL_BIN_DIR/fd"
     else
         error_msg 'No binaries for fd-find (fd) were found. You might have to install it manually.'
         error_msg 'After installing fd-find, create a symlink in your $PATH and name it "fd".'
@@ -211,14 +230,13 @@ error_msg "Vim install instructions are missing!"
 
 # ==== Command-line Tools ====
 # yt-dlp
-YTDLP_DOWNLOAD_LINK='https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp'
-download_file "$YTDLP_DOWNLOAD_LINK" "yt-dlp" "$SRC_DIR/yt-dlp"
-create_link "$SRC_DIR/yt-dlp/yt-dlp" "$LOCAL_BIN_DIR/yt-dlp"
-chmod a+x "$LOCAL_BIN_DIR/yt-dlp"
-
-# Remove Windows-specific config files
-status_msg "Removing unnecessary files from local repo..."
-remove_repo_file_locally "$DOTFILES_DIR/bash/windows-terminal-split-in-cwd.sh"
+if ! command -v 'yt-dlp' &> /dev/null; then
+    status_msg "Installing yt-dlp..."
+    YTDLP_DOWNLOAD_LINK='https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp'
+    download_file "$YTDLP_DOWNLOAD_LINK" "yt-dlp" "$SRC_DIR/yt-dlp"
+    create_link "$SRC_DIR/yt-dlp/yt-dlp" "$LOCAL_BIN_DIR/yt-dlp"
+    chmod a+x "$LOCAL_BIN_DIR/yt-dlp"
+fi
 
 
 # =================================
@@ -252,9 +270,8 @@ if [[ -n $STOW_MODIFIED_FILES ]]; then
 	EOF
 fi
 
-if [[ $stash_needs_pop -eq 1 ]]; then
-    git stash pop --quiet
-fi
+[[ "$stash_needs_pop" -eq 1 ]] && git stash pop --quiet
+
 
 # =================================
 # ==== Post Installation Guide ====
