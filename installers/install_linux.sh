@@ -257,7 +257,7 @@ fi
 
 stow -v --dir="$DOTFILES_DIR" --target="$USER_HOME" --adopt -R "${STOW_PACKAGES[@]}"
 
-STOW_MODIFIED_FILES=$(git status --porcelain | grep '^ M' | cut -c4-)
+STOW_MODIFIED_FILES=$(git status --porcelain | grep '^ M' | cut -c4- || :)
 
 if [[ -n $STOW_MODIFIED_FILES ]]; then
     warning_msg "Stow adopted existing local files for some of your packages because conflicting files were found in the target directory:"
