@@ -76,7 +76,7 @@ extract_archive() {
 #       gzip -dc "$archive" > "$dest/${archive%.gz}"
 #       ;;
       *)
-        echo "Unsupported archive format: $archive" >&2
+        error_log "Unsupported archive format: $archive" >&2
         return 1
         ;;
     esac
@@ -103,7 +103,8 @@ download_file() {
 
 remove_repo_files_locally() {
     [[ $# -eq 0 ]] && return
-    status_msg "Removing unnecessary files from local repo..."
+
+    status_log "Removing unnecessary files from local repo..."
 
     for file in "$@"; do
         if [[ -f "$file" ]]; then
@@ -118,24 +119,29 @@ set_text_color() {
     printf '%s%s%s\n' "$color" "$text" "$COL_RESET"
 }
 
-status_msg() {
+status_log() {
     local message="$1"
     set_text_color "[STATUS] $message" "$COL_STATUS"
 }
 
-notice_msg() {
+notice_log() {
     local message="$1"
     set_text_color "[NOTICE] $message" "$COL_NOTICE"
 }
 
-warning_msg() {
+warning_log() {
     local message="$1"
     set_text_color "[WARNING] $message" "$COL_WARNING" >&2
 }
 
-error_msg() {
+error_log() {
     local message="$1"
     set_text_color "[ERROR] $message" "$COL_ERROR" >&2
+}
+
+debub_log() {
+    local message="$1"
+    printf '\n%s%s%s\n\n' "$COL_ERROR" "⛔ [DEBUG] ⛔ $message" "$COL_RESET"
 }
 
 
@@ -145,7 +151,7 @@ error_msg() {
 
 sudo apt-get update
 
-status_msg "(apt) Installing the following packages: ${UBUNTU_PACKAGES[*]}"
+status_log "(apt) Installing the following packages: ${UBUNTU_PACKAGES[*]}"
 
 sudo apt-get install -y "${UBUNTU_PACKAGES[@]}"
 
@@ -156,7 +162,7 @@ sudo apt-get install -y "${UBUNTU_PACKAGES[@]}"
 
 # GNOME
 if [[ -n "${XDG_CURRENT_DESKTOP-}" ]] && [[ "${XDG_CURRENT_DESKTOP,,}" == *gnome* ]]; then
-    status_msg "Customizing the GNOME Desktop"
+    status_log "Customizing the GNOME Desktop"
 
     # Workspaces
     gsettings set org.gnome.mutter dynamic-workspaces false
@@ -171,7 +177,7 @@ if [[ -n "${XDG_CURRENT_DESKTOP-}" ]] && [[ "${XDG_CURRENT_DESKTOP,,}" == *gnome
 
     gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-6 "['<Super><Shift>6', '<Super><Shift>#15']"
 else
-    notice_msg 'Desktop Environment is not GNOME. Skipping GNOME customization.'
+    notice_log 'Desktop Environment is not GNOME. Skipping GNOME customization.'
 fi
 
 
@@ -198,13 +204,13 @@ create_dir "$LOCAL_BIN_DIR" "$HOME/.local/share/applications" "$HOME/.local/shar
 # download the spellfiles
 # - Open Vim with the +PlugInstallargument (should also ignore any errors and then close it)
 
-error_msg "Vim install instructions are missing!"
+error_log "Vim install instructions are missing!"
 
 
 {
     # ===== Neovim =====
     if ! command -v 'nvim' &> /dev/null; then
-        status_msg "Installing Neovim..."
+        status_log "Installing Neovim..."
         NVIM_DOWNLOAD_LINK='https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz'
         download_file "$NVIM_DOWNLOAD_LINK" 'nvim-linux-x86_64.tar.gz' "$SRC_DIR/nvim" && {
             # setup and expose to desktop
@@ -212,31 +218,37 @@ error_msg "Vim install instructions are missing!"
             create_link "$SRC_DIR/nvim/share/applications/nvim.desktop" "$HOME/.local/share/applications/"
             create_link "$SRC_DIR/nvim/share/icons/hicolor" "$HOME/.local/share/icons/"
         }
+    else
+        notice_log 'neovim already installed, skipping its installation.'
     fi
 
     if ! command -v 'tree-sitter' &> /dev/null; then
-        status_msg "Installing Neovim dependency: tree-sitter"
+        status_log "Installing Neovim dependency: tree-sitter"
         TREESITTER_DOWNLOAD_LINK='https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-cli-linux-x64.zip'
         download_file "$TREESITTER_DOWNLOAD_LINK" 'tree-sitter-cli-linux-x64.zip' "$SRC_DIR/tree-sitter-cli/" &&
         create_link "$SRC_DIR/tree-sitter-cli/tree-sitter" "$LOCAL_BIN_DIR/tree-sitter"
+    else
+        notice_log 'tre-sitter already installed, skipping its installation.'
     fi
 
     if command -v 'fdfind' &> /dev/null; then
         ! command -v 'fd' &> /dev/null && create_link "$(which fdfind)" "$LOCAL_BIN_DIR/fd"
     else
-        error_msg 'No binaries for fd-find (fd) were found. You might have to install it manually.'
-        error_msg 'After installing fd-find, create a symlink in your $PATH and name it "fd".'
+        error_log 'No binaries for fd-find (fd) were found. You might have to install it manually.'
+        error_log 'After installing fd-find, create a symlink in your $PATH and name it "fd".'
     fi
 }
 
 # ==== Command-line Tools ====
 # yt-dlp
 if ! command -v 'yt-dlp' &> /dev/null; then
-    status_msg "Installing yt-dlp..."
+    status_log "Installing yt-dlp..."
     YTDLP_DOWNLOAD_LINK='https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp'
     download_file "$YTDLP_DOWNLOAD_LINK" "yt-dlp" "$SRC_DIR/yt-dlp"
     create_link "$SRC_DIR/yt-dlp/yt-dlp" "$LOCAL_BIN_DIR/yt-dlp"
     chmod a+x "$LOCAL_BIN_DIR/yt-dlp"
+else
+    notice_log 'yt-dlp already installed, skipping its installation.'
 fi
 
 
@@ -248,7 +260,7 @@ STOW_PACKAGES=($(basename -a "$DOTFILES_DIR"/*/))
 IGNORED_STOW_PKGS=( installers scripts )
 DISPLAY_STOW_PKGS=$(sed -E "s/\b($(IFS='|'; echo "${IGNORED_STOW_PKGS[*]}"))\b//g" <<< "${STOW_PACKAGES[*]}" | tr -s ' ')
 
-status_msg "Running GNU Stow to symlink these packages: $DISPLAY_STOW_PKGS"
+status_log "Running GNU Stow to symlink these packages: $DISPLAY_STOW_PKGS"
 
 stash_result=$(git stash push -m "sync-dotfiles: Before syncing dotfiles")
 stash_needs_pop=1
@@ -261,7 +273,7 @@ stow -v --dir="$DOTFILES_DIR" --target="$HOME" --adopt -R "${STOW_PACKAGES[@]}"
 STOW_MODIFIED_FILES=$(git status --porcelain | grep '^ M' | cut -c4- || :)
 
 if [[ -n $STOW_MODIFIED_FILES ]]; then
-    warning_msg "Stow adopted existing local files for some of your packages because conflicting files were found in the target directory:"
+    warning_log "Stow adopted existing local files for some of your packages because conflicting files were found in the target directory:"
     awk -v notice="$COL_WARNING" -v reset="$COL_RESET" 'NF > 0 {print "  " notice "- " $0 reset}' <<< "$STOW_MODIFIED_FILES"
     cat <<-EOF
 		${COL_WARNING}Your repository files were overwritten with their local version.
