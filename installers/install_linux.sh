@@ -2,8 +2,8 @@
 
 set -euo pipefail
 
-if [ "$EUID" -ne 0 ]; then
-    printf '\033[0;91m%s\033[0m\n' "[ERROR] This script must be run with root privileges (use sudo)." >&2
+if ((EUID == 0)); then
+    printf '\033[0;91m%s\033[0m\n' '[ERROR] Run this script as your regular user, without sudo.' >&2
     exit 1
 fi
 
@@ -12,11 +12,12 @@ if [[ -z "${DOTFILES:-}" ]]; then
     exit 1
 fi
 
-REAL_USER="${SUDO_USER:-$USER}"
-USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
+# Request authentication upfront and cache sudo credentials
+sudo -v
+
 DOTFILES_DIR="$DOTFILES"
-SRC_DIR="$USER_HOME/src"
-LOCAL_BIN_DIR="$USER_HOME/.local/bin"
+SRC_DIR="$HOME/src"
+LOCAL_BIN_DIR="$HOME/.local/bin"
 
 COL_STATUS=$'\033[0;32m' # green
 COL_NOTICE=$'\033[0;94m' # blue
@@ -47,17 +48,17 @@ UBUNTU_PACKAGES=(
 
 
 create_dir() {
-    sudo -u "$REAL_USER" mkdir -p "$@"
+    mkdir -p "$@"
 }
 
 create_link() {
     local target="$1"
     local destiny="$2"
-    sudo -u "$REAL_USER" ln -sfn "$target" "$destiny"
+    ln -sfn "$target" "$destiny"
 }
 
 delete_item() {
-    sudo -u "$REAL_USER" rm -rf "$@" 
+    rm -rf "$@" 
 }
 
 extract_archive() {
@@ -66,13 +67,13 @@ extract_archive() {
 
     case "$archive" in
       *.tar.gz|*.tgz)
-        sudo -u "$REAL_USER" tar xzf "$archive" -C "$dest" --strip-components=1
+        tar xzf "$archive" -C "$dest" --strip-components=1
         ;;
       *.zip)
-        sudo -u "$REAL_USER" unzip -oq "$archive" -d "$dest"
+        unzip -oq "$archive" -d "$dest"
         ;;
 #     *.gz)
-#       sudo -u "$REAL_USER" gzip -dc "$archive" > "$dest/${archive%.gz}"
+#       gzip -dc "$archive" > "$dest/${archive%.gz}"
 #       ;;
       *)
         echo "Unsupported archive format: $archive" >&2
@@ -90,12 +91,12 @@ download_file() {
 
     case "$name" in
         *.tar.gz|*.tgz|*.gz|*.zip)
-            sudo -u "$REAL_USER" curl -fsSL -o "$name" "$url"
+            curl -fsSL -o "$name" "$url"
             extract_archive "$name" "$dest"
             delete_item "$name" 
             ;;
         *)
-            sudo -u "$REAL_USER" curl -fsSL --create-dirs -o "$dest/$name" "$url"
+            curl -fsSL --create-dirs -o "$dest/$name" "$url"
             ;;
     esac
 }
@@ -142,11 +143,11 @@ error_msg() {
 # == Install Packages ==
 # ======================
 
-apt-get update
+sudo apt-get update
 
 status_msg "(apt) Installing the following packages: ${UBUNTU_PACKAGES[*]}"
 
-apt-get install -y "${UBUNTU_PACKAGES[@]}"
+sudo apt-get install -y "${UBUNTU_PACKAGES[@]}"
 
 
 # ======================
@@ -182,7 +183,7 @@ remove_repo_files_locally "${remove_locally[@]}"
 
 # Create necessary directories
 create_dir "$SRC_DIR"
-create_dir "$LOCAL_BIN_DIR" "$USER_HOME/.local/share/applications" "$USER_HOME/.local/share/icons"
+create_dir "$LOCAL_BIN_DIR" "$HOME/.local/share/applications" "$HOME/.local/share/icons"
 
 
 # ======================
@@ -208,8 +209,8 @@ error_msg "Vim install instructions are missing!"
         download_file "$NVIM_DOWNLOAD_LINK" 'nvim-linux-x86_64.tar.gz' "$SRC_DIR/nvim" && {
             # setup and expose to desktop
             create_link "$SRC_DIR/nvim/bin/nvim" "$LOCAL_BIN_DIR/nvim"
-            create_link "$SRC_DIR/nvim/share/applications/nvim.desktop" "$USER_HOME/.local/share/applications/"
-            create_link "$SRC_DIR/nvim/share/icons/hicolor" "$USER_HOME/.local/share/icons/"
+            create_link "$SRC_DIR/nvim/share/applications/nvim.desktop" "$HOME/.local/share/applications/"
+            create_link "$SRC_DIR/nvim/share/icons/hicolor" "$HOME/.local/share/icons/"
         }
     fi
 
@@ -255,7 +256,7 @@ if [ "$stash_result" = "No local changes to save" ]; then
     stash_needs_pop=0
 fi
 
-stow -v --dir="$DOTFILES_DIR" --target="$USER_HOME" --adopt -R "${STOW_PACKAGES[@]}"
+stow -v --dir="$DOTFILES_DIR" --target="$HOME" --adopt -R "${STOW_PACKAGES[@]}"
 
 STOW_MODIFIED_FILES=$(git status --porcelain | grep '^ M' | cut -c4- || :)
 
