@@ -4,6 +4,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 vim.keymap.set('i', 'kj', '<Esc>')
+vim.keymap.set('n', 'R', '<C-r>')
 vim.keymap.set('v', '<Enter>', '<Esc>')
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
