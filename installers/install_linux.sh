@@ -58,7 +58,7 @@ create_link() {
 }
 
 delete_item() {
-    rm -rf "$@" 
+    rm -rf "$@"
 }
 
 extract_archive() {
@@ -93,7 +93,7 @@ download_file() {
         *.tar.gz|*.tgz|*.gz|*.zip)
             curl -fsSL -o "$name" "$url"
             extract_archive "$name" "$dest"
-            delete_item "$name" 
+            delete_item "$name"
             ;;
         *)
             curl -fsSL --create-dirs -o "$dest/$name" "$url"
