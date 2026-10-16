@@ -198,11 +198,7 @@ create_dir "$LOCAL_BIN_DIR" "$HOME/.local/share/applications" "$HOME/.local/shar
 
 # Vim
 # TODO:
-# - create the '.vim/spell' directory with mkdir -p ~/.vim/spell otherwise the
-# spellfiles form Vim will be saved in '.vim/plugged/catppuccin/spell' which is
-# weird; then it should open a .md file and run ':set spelllang=en,pt,es,fr' to
-# download the spellfiles
-# - Open Vim with the +PlugInstallargument (should also ignore any errors and then close it)
+# -
 
 error_log "Vim install instructions are missing!"
 

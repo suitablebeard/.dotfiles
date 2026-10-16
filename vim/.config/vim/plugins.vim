@@ -1,6 +1,8 @@
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  silent execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC | qa
+
+  call mkdir(expand('~/.vim/spell'), 'p') 
 endif
 
 function! s:FindLocalPlugins(plugins)
@@ -49,7 +51,7 @@ Plug 'junegunn/goyo.vim'
 " =============== My own Plugins and Forks===============
 " Auto installs plugins if you don't have them locally
 
-let s:local_plugins = [ 
+let s:local_plugins = [
 \     { 
 \         'name': 'vim-obsidian',
 \         'github': 'suitablebeard/vim-obsidian',
