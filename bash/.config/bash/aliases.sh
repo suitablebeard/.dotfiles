@@ -66,6 +66,7 @@ on() {
 # ==== Git Aliases ====
 # =====================
 
+alias gcl='git clone'
 alias ga='git add'
 alias gap='git add -p'
 alias gp='git push && git push --tags'
