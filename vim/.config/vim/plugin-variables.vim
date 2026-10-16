@@ -53,17 +53,6 @@ nnoremap <leader>n :NERDTreeFocus<CR>
 augroup NerdTreeConf
     autocmd!
     autocmd BufEnter * call CloseNerdTreeWhenLastWindow()
-
-    autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * {
-        if argc() == 0 && !exists('s:std_in')
-            NERDTree
-            wincmd p
-        elseif argc() > 0 && !isdirectory(argv()[0])
-            NERDTree
-            wincmd p
-        endif
-    }
 augroup END
 
 function! CloseNerdTreeWhenLastWindow()
