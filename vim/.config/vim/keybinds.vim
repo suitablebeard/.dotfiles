@@ -7,7 +7,7 @@ let mapleader = " "|                                                 " sets spac
 inoremap kj <Esc>|                                                   " exits insert mode with 'kj'
 nnoremap Q  @@|                                                      " replace Ex mode with playing the last recorded macro
 nnoremap R <C-r>|                                                    " replace Replace mode with redo mapping
-vnoremap <space> <Esc>|                                              " exits visual mode with space
+vnoremap <CR> <Esc>|                                                 " exits visual mode with space
 nnoremap <silent> <Esc> :noh<CR>|                                    " removes highlights after a search
 nnoremap <silent> <leader>no :noh<CR>|                               " removes highlights after a search
 
