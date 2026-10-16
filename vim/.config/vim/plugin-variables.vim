@@ -1,6 +1,7 @@
 " ========================
 " ==== For my scripts ====
 " ========================
+
 " executes current file according to filetype
 nnoremap <silent> <leader>x :call ExecFile(fnamemodify(expand('%'), ':p'))<CR>
 
@@ -20,11 +21,13 @@ command! FuzzyGrepNotes call fuzzbox#Launch('grep', #{ cwd: expand($OBSIDIAN_VAU
 " =============================
 " ==== Third-party Plugins ====
 " =============================
+
 " HightlightedYank
 let g:highlightedyank_highlight_duration = 250
 
 " Fugitive
-nnoremap <silent> <leader>0g :0G<CR>|                                              " open fugitive's status
+nnoremap <silent> <leader>0g :0G<CR>
+nnoremap <silent> <leader>gl :G log --oneline<CR>
 command! Gl G log --oneline
 
 " Fuzzbox
