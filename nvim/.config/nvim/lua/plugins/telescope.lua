@@ -1,3 +1,11 @@
+-- Fix for searching and grepping hidden files and dirs
+-- except for the .git/ directory (since it isn't '.gitignore'd)
+local vimgrep_arguments = { unpack( require("telescope.config").values.vimgrep_arguments) }
+table.insert(vimgrep_arguments, "--hidden")
+table.insert(vimgrep_arguments, "--glob")
+table.insert(vimgrep_arguments, "!**/.git/*")
+
+
 return {
     'nvim-telescope/telescope.nvim', version = '*',
     dependencies = {
@@ -16,10 +24,11 @@ return {
                     preview_cutoff = 20,
                 },
             },
+            vimgrep_arguments = vimgrep_arguments,
         },
         pickers = {
             find_files = {
-                hidden = true,
+                find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
                 -- Optional: also include files in .gitignore if needed
                 -- no_ignore = true, 
             }
