@@ -63,19 +63,23 @@ let s:local_plugins = [
 
 let s:parsed_plugins = s:FindLocalPlugins(s:local_plugins)
 for s:plugin in s:parsed_plugins
-    let s:is_local_plugin = !empty(s:plugin.local_path)
-    if s:is_local_plugin
-        let s:vimplug_dir = expand('~/.vim/plugged/' . s:plugin.name)
+    let s:has_plugin_locally = !empty(s:plugin.local_path)
 
-        if isdirectory(s:vimplug_dir)
-            call delete(s:vimplug_dir, 'rf')
-            echom 'Removed remote plugin copy from ' . s:vimplug_dir 
-        endif
-
-        execute 'Plug ' . string(s:plugin.local_path)
-    else
+    if !s:has_plugin_locally
         execute 'Plug ' . string(s:plugin.github)
+        continue
     endif
+
+    let s:plugin_dir = expand('~/.vim/plugged/' . s:plugin.name)
+
+    if isdirectory(s:plugin_dir)
+        call delete(s:plugin_dir, 'rf')
+        echom 'Removed remote plugin copy from ' . s:plugin_dir 
+    endif
+
+    execute 'Plug ' . string(s:plugin.local_path)
+
+    continue
 endfor
 
 call plug#end()
