@@ -15,6 +15,7 @@ ADD_TO_PATH=(
 )
 
 # Ensure binaries in ~/.local/bin are prioritized
+# if it's not already in the $PATH
 [[ ":$PATH:" != *":$HOME/.local/bin:"* ]] && export PATH="$HOME/.local/bin:$PATH"
 
 # Add other directories to $PATH

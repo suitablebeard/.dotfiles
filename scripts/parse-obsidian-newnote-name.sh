@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ -z "$*" ]; then
     echo "Error: note name must be provided." >&2

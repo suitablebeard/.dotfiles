@@ -59,7 +59,7 @@ alias ooi='cd $OBSIDIAN_VAULT && cd ./\+ && $EDITOR .'
 on() {
     # Creates new note in $OBSIDIAN_VAULT
     local newnote_creator="$DOTFILES/scripts/parse-obsidian-newnote-name.sh"
-    "$newnote_creator" "$*"
+    "$newnote_creator" "$@"
 }
 
 # =====================

@@ -17,9 +17,8 @@ endfor
 " Source everything else, skipping what we already loaded
 " for file in glob(s:configDir . '/*.vim', 0, 1)
 for file in globpath(s:configDir, '**/*.vim', 0, 1)
-    if index(s:priority, fnamemodify(file, ':t')) == -1
-        execute 'source ' . fnameescape(file)
-    endif
+    let s:not_loaded = index(s:priority, fnamemodify(file, ':t')) == -1
+    if s:not_loaded | execute 'source ' . fnameescape(file) | endif
 endfor
 
 " Load a local config file
