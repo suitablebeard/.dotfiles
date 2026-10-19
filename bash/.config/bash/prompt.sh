@@ -5,45 +5,43 @@ export GIT_PS1_SHOWSTASHSTATE=1      # shows $ if stash exists
 export GIT_PS1_SHOWUNTRACKEDFILES=1  # shows % if untracked files
 export GIT_PS1_SHOWUPSTREAM=""   # shows ahead/behind
 
+COL_RED=$'\033[0;91m'
+COL_GREEN=$'\033[32m'
+COL_BLUE=$'\033[34m'
+COL_YELLOW=$'\033[33m'
+COL_CYAN=$'\033[36m'
+COL_RESET=$'\033[0m'
 
-# Add blank between command runs
-last_cmd=""
-PROMPT_COMMAND='
-current_cmd=$(history 1 | sed "s/^[ ]*[0-9]\+[ ]*//")
-if [[ "$current_cmd" != "$last_cmd" ]]; then
-    [[ ! "$current_cmd" =~ ^(clear|reset|cls)$ ]] && echo
-fi
-last_cmd="$current_cmd"
-'
+__add_line_between_cmds() {
+  current_cmd=$(history 1 | sed "s/^[ ]*[0-9]\+[ ]*//")
+  [[ ! "$current_cmd" =~ ^(clear|reset|cls)$ ]] && echo
+}
 
-# Custom PS1
-GREEN="\[\e[32m\]"
-BLUE="\[\e[34m\]"
-YELLOW="\[\e[33m\]"
-CYAN="\[\e[36m\]"
-RESETCOLOR="\[\e[0m\]"
+__show_exit_code() {
+  local exit_code="$?"
+  (( exit_code != 0 )) && printf '%s(%d)%s ' "$COL_RED" "$exit_code" "$COL_RESET"
+}
+
+__short_pwd() {
+  # replace home path with ~
+  local current_path="${PWD/#$HOME/\~}"
+
+  IFS="/" read -ra path_segments <<< "$current_path"
+
+  if (( ${#path_segments[@]} <= 2 )); then
+    echo "$current_path"
+    return
+  fi
+
+  echo "${path_segments[-2]}/${path_segments[-1]}"
+}
+
+PROMPT_COMMAND="__add_line_between_cmds${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
 
 PS1=""
-PS1+="${GREEN}\u@\h${RESETCOLOR} " # username@host
-PS1+="${YELLOW}\$(short_path)${RESETCOLOR}" # path
-PS1+="${CYAN}\$(__git_ps1 ' (%s)')${RESETCOLOR}" # git branch
+PS1+="\$(__show_exit_code)" # last cmd's exit code
+PS1+="${COL_GREEN}\u@\h${COL_RESET} " # username@host
+PS1+="${COL_YELLOW}\$(__short_pwd)${COL_RESET}" # path
+PS1+="${COL_CYAN}\$(__git_ps1 ' (%s)')${COL_RESET}" # git branch
 PS1+=" \$ " # prompt symbol
-
-short_path() {
-  local p="$PWD"
-
-  # replace home path with ~
-  case "$p" in
-    "$HOME"*) p="~${p#$HOME}" ;;
-  esac
-
-  IFS="/" read -ra parts <<< "$p"
-  local n=${#parts[@]}
-
-  if (( n <= 2 )); then
-    echo "$p"
-  else
-    echo "${parts[n-2]}/${parts[n-1]}"
-  fi
-}
 
