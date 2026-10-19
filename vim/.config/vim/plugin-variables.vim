@@ -9,14 +9,26 @@ nnoremap <silent> <leader>x :call ExecFile(fnamemodify(expand('%'), ':p'))<CR>
 let g:obsidian_vault_dir = $OBSIDIAN_VAULT
 let g:obsidian_newfile_dir = $OBSIDIAN_VAULT .. '/+'
 
-let move_note_cmd = printf("!mv '%s' '%s/Atlas/Notes'", expand('%'), $OBSIDIAN_VAULT)
-nnoremap <leader>om :execute move_note_cmd<CR>
-
+nnoremap <leader>om :call MoveObsidianNote()<CR>
 nnoremap <leader>of :FuzzyFindNotes<CR>
 nnoremap <leader>og :FuzzyGrepNotes<CR>
 
 command! FuzzyFindNotes call fuzzbox#Launch('files', #{ cwd: expand($OBSIDIAN_VAULT), title: 'Find Notes' })
 command! FuzzyGrepNotes call fuzzbox#Launch('grep', #{ cwd: expand($OBSIDIAN_VAULT), title: 'Grep Notes' })
+
+function! MoveObsidianNote()
+    let b:final_path = printf("%s/Atlas/Notes/%s", $OBSIDIAN_VAULT, fnamemodify(expand('%'), ':t'))
+    let b:file_exists = filereadable(b:final_path) == 1
+
+    if b:file_exists
+        echohl WarningMsg
+        echo 'Error: a file already exists in `Atlas/Notes`'
+        echohl None
+        return
+    endif
+
+    execute printf("!mv '%s' '%s'", expand('%'), b:final_path)
+endfunction
 
 " =============================
 " ==== Third-party Plugins ====

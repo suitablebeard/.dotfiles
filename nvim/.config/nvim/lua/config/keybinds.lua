@@ -71,7 +71,15 @@ vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<CR>')
 
 -- Obsidian
 vim.keymap.set('n', '<leader>om', function()
-    vim.cmd(string.format("!mv '%s' '%s/Atlas/Notes'", vim.fn.expand('%'), vim.env.OBSIDIAN_VAULT))
+    local final_path = string.format("%s/Atlas/Notes/%s", vim.env.OBSIDIAN_VAULT, vim.fn.fnamemodify(vim.fn.expand('%'), ':t'))
+    local file_exists = vim.fn.filereadable(final_path) == 1
+
+    if file_exists then
+        vim.api.nvim_echo({ { 'Error: a file already exists in `Atlas/Notes`.', 'WarningMsg' } }, true, {})
+        return
+    end
+
+    vim.cmd(string.format("!mv '%s' '%s'", vim.fn.expand('%'), final_path))
 end)
 
 -- Popups
