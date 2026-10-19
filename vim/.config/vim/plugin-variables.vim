@@ -49,6 +49,8 @@ let g:table_mode_eval_formula_map = '<Char-230>'|                         " work
 let g:UltiSnipsExpandTrigger="<C-0>"
 
 " NerdTree
+let NERDTreeShowHidden = 1
+
 nnoremap <leader>n :NERDTreeFocus<CR>
 augroup NerdTreeConf
     autocmd!
