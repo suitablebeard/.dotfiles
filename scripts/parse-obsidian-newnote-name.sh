@@ -5,7 +5,45 @@ if [ -z "$*" ]; then
     exit 1
 fi
 
-filename="${*%.md}.md"
+if [ -z "$OBSIDIAN_VAULT" ]; then
+    echo "Error: OBSIDIAN_VAULT environment variable is not set." >&2
+    exit 1
+fi
 
-cd "$OBSIDIAN_VAULT" && $EDITOR "$OBSIDIAN_VAULT/+/$filename"
+
+USER_INPUT="$*"
+NEW_NOTES_DIR="$OBSIDIAN_VAULT/+"
+
+
+generate_title() {
+    local parsed_input="$(tr -s '_-' '  ' <<< $USER_INPUT)"
+
+    local camel_case=''
+    for word in $parsed_input; do
+        camel_case+="${word^} "
+    done
+    camel_case="${camel_case% }"
+    camel_case="${camel_case%.md}"
+
+    echo "$camel_case"
+}
+
+generate_filename() {
+    local parsed_input="$(tr -s ' ' <<< $USER_INPUT)"
+    local clean_filename="${parsed_input%.md}.md"
+
+    echo "$clean_filename"
+}
+
+mkdir -p "$NEW_NOTES_DIR"
+
+file_title=$(generate_title)
+filename=$(generate_filename)
+
+if [[ -f "$NEW_NOTES_DIR/$filename" ]]; then
+    echo "Error: a note with the name provided already exists." >&2
+    exit 1
+fi
+
+cd "$OBSIDIAN_VAULT" && $EDITOR -c "call setline(1, ['# $file_title', '']) | call cursor(2, 1)" "$NEW_NOTES_DIR/$filename"
 
