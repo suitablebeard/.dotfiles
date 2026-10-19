@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+# tl;dr: Meaning of symbols in the prompt
+#   *       unstaged files               [GIT_PS1_SHOWDIRTYSTATE]
+#   +       staged files                 [GIT_PS1_SHOWDIRTYSTATE]
+#   $       stashed changes              [GIT_PS1_SHOWSTASHSTATE]
+#   %       untracked files              [GIT_PS1_SHOWUNTRACKEDFILES]
+#   <       behind upstream              [GIT_PS1_SHOWUPSTREAM]
+#   >       ahed of upstream             [GIT_PS1_SHOWUPSTREAM]
+#   <>      diverged from upstream       [GIT_PS1_SHOWUPSTREAM]
+#   =       equal to upstream            [GIT_PS1_SHOWUPSTREAM]
+
 # bash/zsh git prompt support
 #
 # Copyright (C) 2006,2007 Shawn O. Pearce <spearce@spearce.org>
