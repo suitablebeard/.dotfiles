@@ -1,4 +1,7 @@
-# Tell Windows Terminal the current working directory
+# This scripts is a Windows-specific workaround where it ensures
+# that the Windows Terminal opens in the same directory whenever I
+# do a split
+
 WT_PROMPT_SET_CWD() {
     local pwd_uri
     # Convert standard paths to an format Windows Terminal understands

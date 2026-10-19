@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# This script creates a new markdown note inside my $OBSIDIAN_VAULT,
+# specifically, in the new notes dir '+'. While doing so, it parses
+# the file name provided and, then, uses it to insert the file name
+# as a title inside the note.
+
 if [ -z "$*" ]; then
     echo "Error: note name must be provided." >&2
     exit 1

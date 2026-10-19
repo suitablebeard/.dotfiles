@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This script is a workaround for turning off the health charging mode
+# on my Acer Go 15 laptop while on Linux.
+
 USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
 BATTERY_HEALTH_EXTENSION_DIR="$USER_HOME/.local/share/gnome-shell/extensions/Battery-Health-Charging@maniacx.github.com/schemas"
 ACER_BATTERY_DRIVER="$USER_HOME/src/acer-wmi-battery/acer-wmi-battery.ko"

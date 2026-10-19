@@ -19,8 +19,6 @@ alias so='source ~/.bashrc'
 alias dot='cd $DOTFILES'
 alias cdcode='cd ~/myFiles/Programming'
 
-alias battery='sudo $DOTFILES/scripts/battery-health-charging.sh'
-
 # fix blank page when opening Electron apps
 alias fixfonts='rm -rf ~/.cache/fontconfig ~/.var/app/*/cache/fontconfig && fc-cache -r -v'
 
@@ -55,12 +53,6 @@ alias coo='cd $OBSIDIAN_VAULT'
 alias oo='cd $OBSIDIAN_VAULT && $EDITOR .'
 alias foo='cd $OBSIDIAN_VAULT && $EDITOR -c "autocmd VimEnter * call feedkeys(g:mapleader . \"of\")"'
 alias ooi='cd $OBSIDIAN_VAULT && cd ./\+ && $EDITOR .'
-
-on() {
-    # Creates new note in $OBSIDIAN_VAULT
-    local newnote_creator="$DOTFILES/scripts/parse-obsidian-newnote-name.sh"
-    "$newnote_creator" "$@"
-}
 
 # =====================
 # ==== Git Aliases ====
