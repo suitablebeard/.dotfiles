@@ -1,41 +1,94 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This script is a workaround for turning off the health charging mode
 # on my Acer Go 15 laptop while on Linux.
+#
+# OBS: the module file must be rebuilt after a kernel update since it
+# only works for the version it was built for:
+#
+# 1. Follow the instructions for compiling the module in the git repo bellow
+#    https://github.com/frederik-h/acer-wmi-battery.git
+#
+# 2. Place the module file in the right place:
+#    $ sudo install -D -m 644 <MODULE_PATH> "/lib/modules/$(uname -r)/updates/<MODELU_NAME.KO>"
+#
+# 3. Update the modules dependency database
+#    $ sudo depmod -a
+#
+# 4. Make the module load on boot by adding its INTERNAL name inside a .conf file
+#    in the modules-load.d directory:
+#
+#    - to get the INTERNAL name:
+#    $ modinfo -F name <module_file.ko>
+#
+#    - create/edit the .conf file and add the INTERNAL name inside:
+#    $ sudo nvim /etc/modules-load.d/<module_name.conf>
+#
+#    - check if it's working:
+#    $ sudo modprobe <INTERNAL NAME>
+#    $ lsmod | grep <INTERNAL NAME>
 
-USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
-BATTERY_HEALTH_EXTENSION_DIR="$USER_HOME/.local/share/gnome-shell/extensions/Battery-Health-Charging@maniacx.github.com/schemas"
-ACER_BATTERY_DRIVER="$USER_HOME/src/acer-wmi-battery/acer-wmi-battery.ko"
+ACER_BATTERY_DRIVER="$HOME/src/acer-wmi-battery/acer-wmi-battery.ko"
 SYSTEM_HEALTH_MODE_FILE="/sys/bus/wmi/drivers/acer-wmi-battery/health_mode"
 
-if [ "$EUID" -ne 0 ]; then
-    echo "Error: This script must be run with sudo."
+if [[ "$EUID" -eq 0 ]]; then
+    echo "Error: This script must be run as a regular user (without sudo)."
     exit 1
 fi
 
-if [ -f "$SYSTEM_HEALTH_MODE_FILE" ] && [ "$(cat "$SYSTEM_HEALTH_MODE_FILE")" -eq 1 ]; then
+sudo -v || exit 1
+
+notify_error() {
+    command -v notify-send &> /dev/null || return 1
+
+    local header="Battery Health Charging Script"
+    local msg="Battery Health mode was NOT enabled."
+    notify-send -i dialog-warning -u critical -a "$header" "$msg"
+}
+
+notify_success() {
+    command -v notify-send &> /dev/null || return 1
+
+    local header="Battery Health Charging Script"
+    local msg="Battery Health mode is active."
+    notify-send -i dialog-information -a "$header" "$msg"
+}
+
+set_battery_health_gnome_extension() {
+    local extension_uuid='Battery-Health-Charging@maniacx.github.com'
+    local gsettings_name='org.gnome.shell.extensions.Battery-Health-Charging'
+    local extension_dir="$HOME/.local/share/gnome-shell/extensions/$extension_uuid"
+    local extension_schema_dir="$extension_dir/schemas"
+
+    [[ ! -d "$extension_dir" ]] && return 1
+
+    gsettings --schemadir "$extension_schema_dir" set "$gsettings_name" charging-mode 'max' &&
+    gnome-extensions disable "$extension_uuid" &&
+    gnome-extensions enable "$extension_uuid"
+}
+
+if [[ "$(cat "$SYSTEM_HEALTH_MODE_FILE" 2> /dev/null)" == "1" ]]; then
+    notify_success
     echo 'Battery Health is already active.'
     exit 0
 fi
 
-if [ ! -e "$SYSTEM_HEALTH_MODE_FILE" ]; then
-    insmod $ACER_BATTERY_DRIVER enable_health_mode=1
-fi
-
-run_as_user() {
-    systemd-run --user --machine="${SUDO_USER}@.host" --quiet --collect "$@"
-}
-
-run_as_user gsettings --schemadir "$BATTERY_HEALTH_EXTENSION_DIR" \
-    set org.gnome.shell.extensions.Battery-Health-Charging charging-mode 'max'
-run_as_user gnome-extensions disable Battery-Health-Charging@maniacx.github.com
-run_as_user gnome-extensions enable Battery-Health-Charging@maniacx.github.com
-
-if [ "$(cat $SYSTEM_HEALTH_MODE_FILE)" -eq 1 ]; then
-    echo 'Battery Health mode ACTIVATED.'
-    exit 0
-else
+if [[ ! -e "$SYSTEM_HEALTH_MODE_FILE" ]]; then
+    notify_error
+    echo 'Error: acer-wmi-battery module was not found.'
     echo 'Error: Battery Health mode was NOT enabled.'
     exit 1
 fi
+
+if ! echo 1 | sudo tee "$SYSTEM_HEALTH_MODE_FILE" > /dev/null; then
+    notify_error
+    echo 'Error: could not change to "healthy" charging mode.'
+    echo 'Error: Battery Health mode was NOT enabled.'
+    exit 1
+fi
+
+set_battery_health_gnome_extension
+notify_success
+echo 'Battery Health mode ACTIVATED.'
+exit 0
 
