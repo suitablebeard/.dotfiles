@@ -26,14 +26,18 @@ alias fixfonts='rm -rf ~/.cache/fontconfig ~/.var/app/*/cache/fontconfig && fc-c
 # ==== VIM Aliases ====
 # ======================
 
-alias v.='$EDITOR .'
-alias v='$EDITOR'
-alias vi='$EDITOR'
-alias nv='nvim'
+alias v.='vim .'
+alias vi='v'
 alias nivm='nvim'
 
-0g() {
-    "$EDITOR" -c "autocmd VimEnter * call feedkeys(g:mapleader . \"0g\")"
+v() {
+    [[ $# != 0 ]] && vim "$@" && return
+    vim . -c "autocmd VimEnter * call feedkeys(g:mapleader . \"ff\")"
+}
+
+nv() {
+    [[ $# != 0 ]] && nvim "$@" && return
+    nvim . -c "autocmd VimEnter * call feedkeys(g:mapleader . \"ff\")" 
 }
 
 vimplug() {
@@ -41,6 +45,10 @@ vimplug() {
     vim "$target" +PlugClean +wqa && \
     vim +PlugInstall +wqa && \
     vim "$target"
+}
+
+0g() {
+    "$EDITOR" -c "autocmd VimEnter * call feedkeys(g:mapleader . \"0g\")"
 }
 
 # ========================
