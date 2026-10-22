@@ -59,7 +59,7 @@ vimplug() {
 # not when the terminal starts (avoids order-of-sourcing bugs).
 alias coo='cd $OBSIDIAN_VAULT'
 alias oo='cd $OBSIDIAN_VAULT && $EDITOR .'
-alias foo='cd $OBSIDIAN_VAULT && $EDITOR -c "autocmd VimEnter * call feedkeys(g:mapleader . \"of\")"'
+alias foo='$EDITOR -c "autocmd VimEnter * call feedkeys(g:mapleader . \"of\")"'
 alias ooi='cd $OBSIDIAN_VAULT && cd ./\+ && $EDITOR .'
 
 # =====================
