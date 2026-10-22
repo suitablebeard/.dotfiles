@@ -12,6 +12,14 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     vim.fn.getchar()
     os.exit(1)
   end
+
+  -- First Open Setup
+  vim.fn.mkdir(vim.fn.stdpath("data") .. "site/spell", "p")
+  local spell_langs = { 'en', 'pt', 'es', 'fr' }
+  for _, lang in ipairs(spell_langs) do
+    require('nvim.spellfile').config({ confirm=false })
+    require('nvim.spellfile').get(lang)
+  end
 end
 vim.opt.rtp:prepend(lazypath)
 

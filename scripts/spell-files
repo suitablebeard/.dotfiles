@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+if [[ $# == 0 ]]; then
+    echo 'spell-files: usage: you must provide which editor you wish to get the spell files for.'
+    read -n 1 -s -r -p "Press any key to exit..."
+    echo
+    exit 1
+fi
+
+if [[ ! $1 =~ ^(all|vim|nvim)$ ]]; then
+    echo 'spell-files: usage: the only editors available are `vim` or `nvim`.'
+    echo 'spell-files: usage: you can also use the keyword `all` which will do all editors available.'
+    read -n 1 -s -r -p "Press any key to exit..."
+    echo
+    exit 1
+fi
+
+AVAILABLE_EDITORS=( vim nvim )
+SPELL_LANGS=( en_us pt_br es_es fr_fr )
+CHOSEN_EDITOR="$1"
+
+case "$CHOSEN_EDITOR" in
+    vim|nvim)
+        for lang in "${SPELL_LANGS[@]}"; do
+            "$CHOSEN_EDITOR" -c "set spelllang=$lang | set spell | qa"
+        done
+        exit 0
+        ;;
+    all)
+        for editor in "${AVAILABLE_EDITORS[@]}"; do
+            for lang in "${SPELL_LANGS[@]}"; do
+                "$editor" -c "set spelllang=$lang | set spell | qa"
+            done
+        done
+        exit 0
+        ;;
+    *)
+        echo 'spell-files: error: editor provided is not supported.'
+        read -n 1 -s -r -p "Press any key to exit..."
+        echo
+        exit 1
+        ;;
+esac
+
