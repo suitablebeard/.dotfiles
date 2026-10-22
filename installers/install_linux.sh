@@ -247,6 +247,18 @@ else
     notice_log 'yt-dlp already installed, skipping its installation.'
 fi
 
+# fzf
+if ! command -v 'fzf' &> /dev/null; then
+    status_log "Installing fzf..."
+    FZF_LATEST_VERSION=$(curl -fsSL https://api.github.com/repos/junegunn/fzf/releases/latest | jq -r '.tag_name') &&
+    FZF_DOWNLOAD_LINK="https://github.com/junegunn/fzf/releases/latest/download/fzf-${FZF_LATEST_VERSION#v}-linux_amd64.tar.gz"
+    download_file "$FZF_DOWNLOAD_LINK" "fzf" "$SRC_DIR/fzf"
+    create_link "$SRC_DIR/fzf/fzf" "$LOCAL_BIN_DIR/fzf"
+    chmod a+x "$LOCAL_BIN_DIR/fzf"
+else
+    notice_log 'fzf already installed, skipping its installation.'
+fi
+
 
 # =================================
 # == Create Symlinks w/ GNU Stow ==
