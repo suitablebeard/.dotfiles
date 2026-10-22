@@ -1,8 +1,20 @@
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC | qa
+    silent execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC | call s:FirstOpenSetup() | qa
 
-  call mkdir(expand('~/.vim/spell'), 'p') 
+    function! s:FirstOpenSetup()
+        call mkdir(expand('~/.vim/spell'), 'p') 
+
+        if filereadable(expand('~/.local/bin/spell-files'))
+            execute '!bash ~/.local/bin/spell-files vim'
+        else
+            echohl WarningMsg
+            echom 'Error: script for setting up spell files was not found.'
+            echohl None
+        endif
+
+        return
+    endfunction
 endif
 
 function! s:FindLocalPlugins(plugins)
