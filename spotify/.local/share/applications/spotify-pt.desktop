@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Spotify Portuguese
+Comment=Spotify — Portuguese account
+Exec=bash -c 'exec flatpak run --command=/app/extra/bin/spotify com.spotify.Client --mu=pt'
+Icon=com.spotify.Client
+Terminal=false
+Type=Application
+Categories=AudioVideo;Audio;Player;
