@@ -252,18 +252,15 @@ fi
 # == Create Symlinks w/ GNU Stow ==
 # =================================
 
-STOW_PACKAGES=($(basename -a "$DOTFILES_DIR"/*/))
-IGNORED_STOW_PKGS=( installers scripts )
-DISPLAY_STOW_PKGS=$(sed -E "s/\b($(IFS='|'; echo "${IGNORED_STOW_PKGS[*]}"))\b//g" <<< "${STOW_PACKAGES[*]}" | tr -s ' ')
-
-status_log "Running GNU Stow to symlink these packages: $DISPLAY_STOW_PKGS"
-
 stash_result=$(git stash push -m "sync-dotfiles: Before syncing dotfiles")
 stash_needs_pop=1
 if [ "$stash_result" = "No local changes to save" ]; then
     stash_needs_pop=0
 fi
 
+status_log "Running GNU Stow to symlink your packages."
+
+STOW_PACKAGES=($(basename -a "$DOTFILES_DIR"/*/))
 stow -v --dir="$DOTFILES_DIR" --target="$HOME" --adopt -R "${STOW_PACKAGES[@]}"
 
 STOW_MODIFIED_FILES=$(git status --porcelain | grep '^ M' | cut -c4- || :)
