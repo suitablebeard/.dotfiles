@@ -90,9 +90,7 @@ vim.opt.completeopt:append('fuzzy')
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.o.inccommand = 'split'
-
---  Schedule clipboard setting after `UiEnter` because it can increase startup-time.
-vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
+vim.o.clipboard = ''
 
 vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'Highlight when yanking (copying) text',
