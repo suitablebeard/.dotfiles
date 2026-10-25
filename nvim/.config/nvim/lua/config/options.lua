@@ -50,7 +50,10 @@ vim.opt.wrap = false
 vim.opt.linebreak = true
 
 --- dev setup ---
+local dev_setup = vim.api.nvim_create_augroup("DevSetup", { clear = true })
+
 vim.api.nvim_create_autocmd("FileType", {
+  group = dev_setup,
   pattern = "make",
   callback = function()
     vim.opt_local.expandtab = false
