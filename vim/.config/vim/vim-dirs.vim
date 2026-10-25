@@ -23,3 +23,7 @@ if isdirectory($HOME . '/.vim/undos') == 0
 endif
 set undodir=~/.vim/undos//
 set undofile
+
+" Save your viminfo file in a less annoying place
+set viminfofile=~/.vim/.viminfo
+
