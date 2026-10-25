@@ -1,4 +1,14 @@
 return {
     'NMAC427/guess-indent.nvim',
-    opts = { auto_cmd = true },
+    enabled = true,
+    opts = {
+        auto_cmd = true,
+        filetype_exclude = {
+            -- defaults
+            'netrw',
+            'tutor',
+            -- my additions
+            'make'
+        },
+    },
 }
