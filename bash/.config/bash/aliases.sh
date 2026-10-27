@@ -22,6 +22,8 @@ alias cdcode='cd ~/myFiles/Programming'
 # fix blank page when opening Electron apps
 alias fixfonts='rm -rf ~/.cache/fontconfig ~/.var/app/*/cache/fontconfig && fc-cache -r -v'
 
+alias kanata='systemctl --user start kanata.service'
+
 # ======================
 # ==== VIM Aliases ====
 # ======================

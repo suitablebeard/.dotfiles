@@ -60,6 +60,17 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
+  -- For kanata config files (keyboard remapper)
+  group = dev_setup,
+  pattern = "*.kbd",
+  callback = function()
+    vim.bo.filetype = "lisp"
+    vim.bo.commentstring = ";; %s"
+    vim.fn.matchadd("Comment", ";;.*$")
+  end,
+})
+
 --- writing setup ---
 local writing_setup = vim.api.nvim_create_augroup("WritingSetup", { clear = true })
 

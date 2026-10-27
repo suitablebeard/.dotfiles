@@ -1,0 +1,98 @@
+;; If needed, you can always stop kanata from running any time by pressing:
+;; Escape + Left Control + Space
+;; This config was created based on kanata v.1.12.0, so pay attetion to
+;; breaking changes when using a different version.
+
+(defcfg
+    process-unmapped-keys yes)
+
+(deflocalkeys-linux
+    ´   26
+    [   27
+    ç   39
+    ~   40
+    '   41
+    ]   43
+    ;   53
+    \   86
+    /   89
+)
+
+(defsrc ;; brazillian-abnt2
+  esc   f1    f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12 ins
+  '     1     2    3    4    5    6    7    8    9    0    -    =   bspc
+  tab   q     w    e    r    t    y    u    i    o    p    ´    [   enter
+  caps  a     s    d    f    g    h    j    k    l    ç    ~    ]
+  lsft  \     z    x    c    v    b    n    m    ,    .    ;        rsft
+  lctl lmet  lalt           spc                         ralt   /
+)
+
+(defvar
+  tap-repress-timeout   150
+  hold-timeout  200
+  tt $tap-repress-timeout
+  ht $hold-timeout
+)
+
+(defalias
+  ;; home row mods
+  a (tap-hold $tt $ht a lmet)
+  r (tap-hold $tt $ht r lalt)
+  s (tap-hold $tt $ht s lsft)
+  t (tap-hold $tt $ht t lctl)
+  n (tap-hold $tt $ht n rctl)
+  e (tap-hold $tt $ht e rsft)
+  i (tap-hold $tt $ht i ralt)
+  o (tap-hold $tt $ht o lmet)
+
+  ;; chords
+  c_cedll_c (chord cedille c)
+  c_cedll_d (chord cedille d)
+
+  ;; other layers
+  l_cmd (layer-toggle cmd)
+  l_num (layer-toggle num)
+
+  spc (tap-hold $tt $ht spc @l_cmd)
+  f (tap-hold $tt $ht f @l_num))
+
+(defchords cedille 25
+  ( c   ) c
+  (   d ) d
+  ( c d ) ç)
+
+;; (deflayer colemak-template
+;;     esc     f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  lrld
+;;     '       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+;;     tab     q    w    f    p    b    j    l    u    y    ;    ´    [    enter
+;;     caps    a    r    s    t    g    m    n    e    i    o    ~    ]
+;;     XX   z  x    c    d    v    \    k    h    ,    .    /            XX
+;;     XX    XX   lalt            spc                            XX  XX
+;; )
+
+(deflayer colemak
+    caps    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  lrld
+    '       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+    tab     q    w    @f   p    b    j    l    u    y    ;    ´    [    enter
+    esc     @a   @r   @s   @t   g    m    @n   @e   @i   @o   ~    ]
+    XX   z  x    @c_cedll_c    @c_cedll_d    v    \    k    h    ,    .    /    XX
+    XX    XX   lalt            @spc                            XX  XX
+)
+
+(deflayer cmd
+    XX     XX   XX   XX   XX   XX   XX   XX   XX   XX   XX  XX  XX  XX
+    XX       XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX
+    XX        XX    XX    XX    XX    XX    XX    home     up      end    XX    XX    XX    XX
+    XX    XX    lalt    lsft    lctl    XX    XX    left    down    right    XX    XX    XX
+    XX   XX  XX    XX    XX    XX    XX    XX      del    XX    XX    XX            XX
+    XX    XX   XX            XX                            XX  XX
+)
+
+(deflayer num
+    XX     XX   XX   XX   XX   XX   XX   XX   XX   XX   XX  XX  XX  XX
+    XX       XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX
+    XX     XX    XX    XX    XX    XX    XX    7    8    9    0    XX    XX    XX
+    XX      XX    XX    XX    XX    XX    XX    4    5    6    .    XX    XX
+    XX   XX  XX    XX    XX    XX    XX    XX    1    2    3    XX            XX
+    XX    XX   XX            XX                            XX  XX
+)
