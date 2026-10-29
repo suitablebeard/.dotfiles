@@ -30,6 +30,7 @@
 
 ACER_BATTERY_DRIVER="$HOME/src/acer-wmi-battery/acer-wmi-battery.ko"
 SYSTEM_HEALTH_MODE_FILE="/sys/bus/wmi/drivers/acer-wmi-battery/health_mode"
+SOURCE_CODE_BATTERY_DRIVER="$HOME/src/acer-wmi-battery"
 
 if [[ "$EUID" -eq 0 ]]; then
     echo "Error: This script must be run as a regular user (without sudo)."
@@ -51,6 +52,37 @@ handle_error() {
 trap handle_error EXIT
 
 sudo -v || exit 1
+
+compile_driver() {
+    if [[ ! -d "$SOURCE_CODE_BATTERY_DRIVER" ]]; then
+        echo "Error: The sourde code to compile the battery driver was not found."
+        return 1
+    fi
+
+    if ! command -v make &> /dev/null; then
+        echo "Error: The 'make' binary is needed to compile the driver."
+        return 1
+    fi
+
+    make -C "$SOURCE_CODE_BATTERY_DRIVER" clean &> /dev/null &&
+    make -C "$SOURCE_CODE_BATTERY_DRIVER" &> /dev/null ||
+    return 1
+
+    local module_fname="$(ls "$SOURCE_CODE_BATTERY_DRIVER" | grep .ko)"
+    local module_path="$SOURCE_CODE_BATTERY_DRIVER/$module_fname"
+    local module_internal_name="$(modinfo -F name "$module_path")"
+
+    sudo install -D -m 644 "$module_path" "/lib/modules/$(uname -r)/updates/$module_fname"
+
+    sudo depmod -a
+
+    echo "$module_internal_name" | sudo tee /etc/modules-load.d/acer-wmi-battery.conf > /dev/null
+
+    sudo modprobe "$module_internal_name"
+
+    return 0
+}
+
 notify_success() {
     command -v notify-send &> /dev/null || return 1
 
@@ -79,8 +111,8 @@ if [[ "$(cat "$SYSTEM_HEALTH_MODE_FILE" 2> /dev/null)" == "1" ]]; then
 fi
 
 if [[ ! -e "$SYSTEM_HEALTH_MODE_FILE" ]]; then
-    echo 'Error: acer-wmi-battery module was not found.'
-    exit 1
+    echo 'Status: The acer-wmi-battery module was not found. Trying to compile it from source.'
+    compile_driver || exit 1
 fi
 
 if ! echo 1 | sudo tee "$SYSTEM_HEALTH_MODE_FILE" > /dev/null; then
