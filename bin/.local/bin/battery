@@ -4,13 +4,13 @@
 # on my Acer Go 15 laptop while on Linux.
 #
 # OBS: the module file must be rebuilt after a kernel update since it
-# only works for the version it was built for:
+# only works for the version it was built for. To do it manually do this:
 #
 # 1. Follow the instructions for compiling the module in the git repo bellow
 #    https://github.com/frederik-h/acer-wmi-battery.git
 #
 # 2. Place the module file in the right place:
-#    $ sudo install -D -m 644 <MODULE_PATH> "/lib/modules/$(uname -r)/updates/<MODELU_NAME.KO>"
+#    $ sudo install -D -m 644 <MODULE_PATH> "/lib/modules/$(uname -r)/updates/<MODULE_NAME.KO>"
 #
 # 3. Update the modules dependency database
 #    $ sudo depmod -a
@@ -18,15 +18,15 @@
 # 4. Make the module load on boot by adding its INTERNAL name inside a .conf file
 #    in the modules-load.d directory:
 #
-#    - to get the INTERNAL name:
-#    $ modinfo -F name <module_file.ko>
+#    - for ease of use, create a variable for the INTERNAL NAME:
+#    $ MODULE_INTERNAL_NAME="$(modinfo -F name <MODULE_FILE.KO>)"
 #
 #    - create/edit the .conf file and add the INTERNAL name inside:
-#    $ sudo nvim /etc/modules-load.d/<module_name.conf>
+#    $ echo "$MODULE_INTERNAL_NAME" | sudo tee /etc/modules-load.d/acer-wmi-battery.conf
 #
 #    - check if it's working:
-#    $ sudo modprobe <INTERNAL NAME>
-#    $ lsmod | grep <INTERNAL NAME>
+#    $ sudo modprobe "$MODULE_INTERNAL_NAME"
+#    $ lsmod | grep "$MODULE_INTERNAL_NAME"
 
 ACER_BATTERY_DRIVER="$HOME/src/acer-wmi-battery/acer-wmi-battery.ko"
 SYSTEM_HEALTH_MODE_FILE="/sys/bus/wmi/drivers/acer-wmi-battery/health_mode"
