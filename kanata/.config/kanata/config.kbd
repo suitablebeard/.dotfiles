@@ -46,8 +46,8 @@
   o (tap-hold $tt $ht o lmet)
 
   ;; chords
-  c_cedll_c (chord cedille c)
-  c_cedll_d (chord cedille d)
+  c_cedll_s (chord cedille s)
+  c_cedll_t (chord cedille t)
 
   ;; other layers
   l_cmd (layer-toggle cmd)
@@ -57,9 +57,9 @@
   f (tap-hold $tt $ht f @l_num))
 
 (defchords cedille 25
-  ( c   ) c
-  (   d ) d
-  ( c d ) ç)
+  ( s   ) @s
+  (   t ) @t
+  ( s t ) ç)
 
 ;; (deflayer colemak-template
 ;;     esc     f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  lrld
@@ -74,8 +74,8 @@
     caps    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  lrld
     '       1    2    3    4    5    6    7    8    9    0    -    =    bspc
     tab     q    w    @f   p    b    j    l    u    y    ;    ´    [    enter
-    esc     @a   @r   @s   @t   g    m    @n   @e   @i   @o   ~    ]
-    XX   z  x    @c_cedll_c    @c_cedll_d    v    \    k    h    ,    .    /    XX
+    esc     @a   @r   @c_cedll_s   @c_cedll_t   g    m    @n   @e   @i   @o   ~    ]
+    XX   z  x    c    d    v    \    k    h    ,    .    /    XX
     XX    XX   lalt            @spc                            XX  XX
 )
 
