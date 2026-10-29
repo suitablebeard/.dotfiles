@@ -36,22 +36,27 @@ if [[ "$EUID" -eq 0 ]]; then
     exit 1
 fi
 
-sudo -v || exit 1
+handle_error() {
+    (( $? == 0 )) && return
 
-notify_error() {
+    echo "Error: Battery Health mode was NOT enabled." >&2
+
     command -v notify-send &> /dev/null || return 1
 
-    local header="Battery Health Charging Script"
-    local msg="Battery Health mode was NOT enabled."
-    notify-send -i dialog-warning -u critical -a "$header" "$msg"
+    local notification_header="Battery Health Charging Script"
+    local notification_msg="Battery Health mode was NOT enabled."
+    notify-send -i dialog-warning -u critical -a "$notification_header" "$notification_msg"
 }
 
+trap handle_error EXIT
+
+sudo -v || exit 1
 notify_success() {
     command -v notify-send &> /dev/null || return 1
 
-    local header="Battery Health Charging Script"
-    local msg="Battery Health mode is active."
-    notify-send -i dialog-information -a "$header" "$msg"
+    local notification_header="Battery Health Charging Script"
+    local notification_msg="Battery Health mode is active."
+    notify-send -i dialog-information -a "$notification_header" "$notification_msg"
 }
 
 set_battery_health_gnome_extension() {
@@ -74,16 +79,12 @@ if [[ "$(cat "$SYSTEM_HEALTH_MODE_FILE" 2> /dev/null)" == "1" ]]; then
 fi
 
 if [[ ! -e "$SYSTEM_HEALTH_MODE_FILE" ]]; then
-    notify_error
     echo 'Error: acer-wmi-battery module was not found.'
-    echo 'Error: Battery Health mode was NOT enabled.'
     exit 1
 fi
 
 if ! echo 1 | sudo tee "$SYSTEM_HEALTH_MODE_FILE" > /dev/null; then
-    notify_error
     echo 'Error: could not change to "healthy" charging mode.'
-    echo 'Error: Battery Health mode was NOT enabled.'
     exit 1
 fi
 
