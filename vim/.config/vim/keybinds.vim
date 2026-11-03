@@ -30,7 +30,7 @@ nnoremap N Nzzzv|                                                    " centers s
 " Buffers
 nnoremap <silent> <leader>h :bprevious<CR>|                          " goes to previous buffer
 nnoremap <silent> <leader>l :bnext<CR>|                              " goes to next buffer
-nnoremap <silent> <leader>bd :bdelete<CR>|                           " delete buffer
+nnoremap <silent> <leader>bb :bdelete<CR>|                           " delete buffer
 nnoremap <script> <leader>v :vnew<CR>|                               " opens empty buffer in vertical split (on the left)
 
 " Windows

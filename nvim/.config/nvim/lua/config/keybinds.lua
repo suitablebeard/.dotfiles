@@ -48,7 +48,7 @@ vim.keymap.set('n', 'N', 'Nzzzv')
 -- Buffers
 vim.keymap.set('n', '<leader>h', vim.cmd.bprevious)
 vim.keymap.set('n', '<leader>l', vim.cmd.bnext)
-vim.keymap.set('n', '<leader>bd', vim.cmd.bdelete)
+vim.keymap.set('n', '<leader>bb', vim.cmd.bdelete)
 vim.keymap.set('n', '<leader>v', vim.cmd.vnew)
 
 -- Windows
