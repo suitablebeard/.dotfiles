@@ -46,6 +46,7 @@
   o (tap-hold $tt $ht o lmet)
 
   ;; chords
+  cedille_mod (tap-hold $tt $ht ç (multi lctrl lsft))
   c_cedll_s (chord cedille s)
   c_cedll_t (chord cedille t)
 
@@ -59,7 +60,7 @@
 (defchords cedille 25
   ( s   ) @s
   (   t ) @t
-  ( s t ) ç)
+  ( s t ) @cedille_mod)
 
 ;; (deflayer colemak-template
 ;;     esc     f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  lrld
