@@ -85,7 +85,7 @@
     XX       XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX
     XX        XX    XX    XX    XX    XX    XX    home     up      end    XX    XX    XX    XX
     XX    XX    lalt    lsft    lctl    XX    XX    left    down    right    XX    XX    XX
-    XX   XX  XX    XX    XX    XX    XX    XX      del    XX    XX    XX            XX
+    XX   XX  XX    XX    XX    XX    XX    XX      del    pgdn    pgup    XX            XX
     XX    XX   XX            XX                            XX  XX
 )
 
