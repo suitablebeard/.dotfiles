@@ -8,7 +8,6 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
-alias files='explorer'
 
 alias ls='ls --color=auto'
 alias ll='ls --color=auto -lah'
