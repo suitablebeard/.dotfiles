@@ -8,12 +8,17 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+alias cd-='cd -'
 
 alias ls='ls --color=auto'
 alias ll='ls --color=auto -lah'
 alias cls='clear'
 alias grep='grep --color=auto'
 alias so='source ~/.bashrc'
+
+alias fd='fd --hidden --exclude .git'
+alias rg='rg --hidden -g "!.git/**"'
+alias tree='tree -a -I ".git"'
 
 alias dot='cd $DOTFILES'
 alias cdcode='cd ~/myFiles/Programming'
