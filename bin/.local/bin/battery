@@ -55,12 +55,12 @@ sudo -v || exit 1
 
 compile_driver() {
     if [[ ! -d "$SOURCE_CODE_BATTERY_DRIVER" ]]; then
-        echo "Error: The sourde code to compile the battery driver was not found."
+        echo "Error: The sourde code to compile the battery driver was not found." >&2
         return 1
     fi
 
     if ! command -v make &> /dev/null; then
-        echo "Error: The 'make' binary is needed to compile the driver."
+        echo "Error: The 'make' binary is needed to compile the driver." >&2
         return 1
     fi
 
@@ -79,6 +79,8 @@ compile_driver() {
     echo "$module_internal_name" | sudo tee /etc/modules-load.d/acer-wmi-battery.conf > /dev/null
 
     sudo modprobe "$module_internal_name"
+
+    echo "Compiled the driver succesfully."
 
     return 0
 }
@@ -116,7 +118,7 @@ if [[ ! -e "$SYSTEM_HEALTH_MODE_FILE" ]]; then
 fi
 
 if ! echo 1 | sudo tee "$SYSTEM_HEALTH_MODE_FILE" > /dev/null; then
-    echo 'Error: could not change to "healthy" charging mode.'
+    echo 'Error: could not change to "healthy" charging mode.' >&2
     exit 1
 fi
 
