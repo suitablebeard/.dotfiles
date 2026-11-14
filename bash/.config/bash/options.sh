@@ -21,3 +21,12 @@ ADD_TO_PATH=(
 for p in "${ADD_TO_PATH[@]}"; do
     [[ ":$PATH:" != *":$p:"* ]] && export PATH="$PATH:$p"
 done
+
+# FZF
+# Enables the following keybindings:
+# CTRL-t  -> fzf select
+# CTRL-r  -> fzf history
+# ALT-c   -> fzf cd
+command -v fzf &> /dev/null && eval "$(fzf --bash)"
+export FZF_DEFAULT_OPTS="--layout=reverse --border=bold --border=rounded --margin=3% --color=dark"
+
