@@ -1,5 +1,6 @@
 return {
     'mfussenegger/nvim-dap',
+    enable = false,
     dependencies = {
         -- 'rcarriga/nvim-dap-ui',
         --'nvim-neotest/nvim-nio',
