@@ -136,7 +136,7 @@ return {
         'mason-org/mason-lspconfig.nvim',
         -- Change this to true if you want to automatically enable servers
         -- that are installed manually (e.g. via :Mason / :MasonInstall)
-        opts = { automatic_enable = false },
+        opts = { automatic_enable = true },
         dependencies = {
             { 'mason-org/mason.nvim', opts = {} },
             { 'neovim/nvim-lspconfig' },
