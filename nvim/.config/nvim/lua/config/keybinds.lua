@@ -75,7 +75,11 @@ vim.keymap.set('n', '<leader>om', function()
     local file_exists = vim.fn.filereadable(final_path) == 1
 
     if file_exists then
-        vim.api.nvim_echo({ { 'Error: a file already exists in `Atlas/Notes`.', 'WarningMsg' } }, true, {})
+        vim.api.nvim_echo(
+            { { 'Error: a file with the same name already exists in `Atlas/Notes`.', 'WarningMsg' } },
+            true,
+            {}
+        )
         return
     end
 
