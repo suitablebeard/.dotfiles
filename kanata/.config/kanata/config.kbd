@@ -76,8 +76,8 @@
     '       1    2    3    4    5    6    7    8    9    0    -    =    bspc
     tab     q    w    @f   p    b    j    l    u    y    ;    ´    [    enter
     esc     @a   @r   @c_cedll_s   @c_cedll_t   g    m    @n   @e   @i   @o   ~    ]
-    XX   z  x    c    d    v    \    k    h    ,    .    /    XX
-    XX    XX   lalt            @spc                            XX  XX
+    _   z  x    c    d    v    \    k    h    ,    .    /           _
+    _    _   _            @spc                            _  _
 )
 
 (deflayer cmd
