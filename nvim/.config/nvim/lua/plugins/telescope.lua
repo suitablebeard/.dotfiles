@@ -25,12 +25,19 @@ return {
                 },
             },
             vimgrep_arguments = vimgrep_arguments,
+            winblend = 10,
         },
         pickers = {
             find_files = {
                 find_command = { 'rg', '--files', '--hidden', '--glob', '!**/.git/*' },
                 -- Optional: also include files in .gitignore if needed
                 -- no_ignore = true,
+            },
+            builtin = {
+                previewer = false,
+            },
+            current_buffer_fuzzy_find = {
+                previewer = false,
             },
         },
         extensions = {
@@ -49,20 +56,11 @@ return {
         vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
         vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
         vim.keymap.set('n', '<leader>fp', builtin.resume, { desc = 'Telescope previous picker' })
-        vim.keymap.set('n', '<leader>ft', function()
-            builtin.builtin(require('telescope.themes').get_dropdown({
-                previewer = false,
-            }))
-        end, { desc = 'Telescope builtins' })
+        vim.keymap.set('n', '<leader>ft', builtin.builtin, { desc = 'Telescope builtins' })
+        vim.keymap.set('n', '<leader>fi', builtin.current_buffer_fuzzy_find, { desc = 'Telescope in-buffer' })
         vim.keymap.set('n', '<leader>fn', function()
             builtin.find_files({ cwd = vim.env.DOTFILES, follow = true })
         end, { desc = 'Telescope dotfiles' })
-        vim.keymap.set('n', '<leader>fi', function()
-            builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
-                winblend = 10,
-                previewer = false,
-            }))
-        end, { desc = 'Telescope in-buffer' })
 
         -- Obsidian Vault
         vim.keymap.set('n', '<leader>of', function()
