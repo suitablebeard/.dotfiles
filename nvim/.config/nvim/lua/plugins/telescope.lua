@@ -48,6 +48,12 @@ return {
         vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
         vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
         vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+        vim.keymap.set('n', '<leader>fp', builtin.resume, { desc = 'Telescope previous picker' })
+        vim.keymap.set('n', '<leader>ft', function()
+            builtin.builtin(require('telescope.themes').get_dropdown({
+                previewer = false,
+            }))
+        end, { desc = 'Telescope builtins' })
         vim.keymap.set('n', '<leader>fn', function()
             builtin.find_files({ cwd = vim.env.DOTFILES, follow = true })
         end, { desc = 'Telescope dotfiles' })
