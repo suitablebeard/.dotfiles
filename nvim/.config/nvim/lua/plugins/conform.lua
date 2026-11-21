@@ -1,16 +1,18 @@
 return {
     'stevearc/conform.nvim',
+    event = { 'BufWritePre' },
+    cmd = { 'ConformInfo' },
     keys = {
         {
             '<leader>ft',
             function()
                 require('conform').format({ async = true })
             end,
-            mode = { 'n', 'v' },
+            mode = '',
+            desc = 'Format buffer',
         },
     },
     opts = {
-        notify_on_error = false,
         format_on_save = function(bufnr)
             local ignored_filetypes = {}
 
