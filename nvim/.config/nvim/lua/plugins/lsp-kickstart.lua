@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end
 
         map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
-        map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+        map('<leader>ca', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
 
         -- WARN: This is not Goto Definition, this is Goto Declaration.
         map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -125,8 +125,8 @@ vim.diagnostic.config({
     },
 })
 
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float, { desc = 'Show Diagnostic (floating)' })
+vim.keymap.set('n', '<leader>gq', vim.diagnostic.setloclist, { desc = '[G]o to [Q]uickfix diagnostic list' })
+vim.keymap.set('n', 'gl', vim.diagnostic.open_float, { desc = '[G]o to [L]ine diagnostic (floating)' })
 
 for name, server in pairs(servers) do
     vim.lsp.config(name, server)
