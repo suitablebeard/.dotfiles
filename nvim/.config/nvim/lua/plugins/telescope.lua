@@ -1,13 +1,13 @@
 -- Fix for searching and grepping hidden files and dirs
 -- except for the .git/ directory (since it isn't '.gitignore'd)
-local vimgrep_arguments = { unpack( require("telescope.config").values.vimgrep_arguments) }
-table.insert(vimgrep_arguments, "--hidden")
-table.insert(vimgrep_arguments, "--glob")
-table.insert(vimgrep_arguments, "!**/.git/*")
-
+local vimgrep_arguments = { unpack(require('telescope.config').values.vimgrep_arguments) }
+table.insert(vimgrep_arguments, '--hidden')
+table.insert(vimgrep_arguments, '--glob')
+table.insert(vimgrep_arguments, '!**/.git/*')
 
 return {
-    'nvim-telescope/telescope.nvim', version = '*',
+    'nvim-telescope/telescope.nvim',
+    version = '*',
     dependencies = {
         'nvim-lua/plenary.nvim',
         -- optional but recommended
@@ -16,7 +16,7 @@ return {
     },
     opts = {
         defaults = {
-            layout_strategy = "vertical",
+            layout_strategy = 'vertical',
             layout_config = {
                 vertical = {
                     width = 0.65,
@@ -28,13 +28,13 @@ return {
         },
         pickers = {
             find_files = {
-                find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+                find_command = { 'rg', '--files', '--hidden', '--glob', '!**/.git/*' },
                 -- Optional: also include files in .gitignore if needed
-                -- no_ignore = true, 
-            }
+                -- no_ignore = true,
+            },
         },
         extensions = {
-         --   ['ui-select'] = { require('telescope.themes').get_dropdown() },
+            --   ['ui-select'] = { require('telescope.themes').get_dropdown() },
         },
     },
     config = function(_, opts)
@@ -58,18 +58,18 @@ return {
             builtin.find_files({ cwd = vim.env.DOTFILES, follow = true })
         end, { desc = 'Telescope dotfiles' })
         vim.keymap.set('n', '<leader>fi', function()
-            builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+            builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
                 winblend = 10,
                 previewer = false,
-            })
+            }))
         end, { desc = 'Telescope in-buffer' })
 
         -- Obsidian Vault
         vim.keymap.set('n', '<leader>of', function()
-            builtin.find_files { cwd = vim.env.OBSIDIAN_VAULT, follow = true }
+            builtin.find_files({ cwd = vim.env.OBSIDIAN_VAULT, follow = true })
         end, { desc = 'Telescope Obsidian files' })
         vim.keymap.set('n', '<leader>og', function()
-            builtin.live_grep { cwd = vim.env.OBSIDIAN_VAULT, follow = true }
+            builtin.live_grep({ cwd = vim.env.OBSIDIAN_VAULT, follow = true })
         end, { desc = 'Telescope Obsidian grep files' })
 
         -- Add Telescope-based LSP pickers when an LSP attaches to a buffer.
@@ -80,12 +80,31 @@ return {
 
                 vim.keymap.set('n', 'grr', builtin.lsp_references, { buffer = buf, desc = '[G]oto [R]eferences' })
                 vim.keymap.set('n', 'grd', builtin.lsp_definitions, { buffer = buf, desc = '[G]oto [D]efinition' })
-                vim.keymap.set('n', 'gO', builtin.lsp_document_symbols, { buffer = buf, desc = 'Open Document Symbols' })
-                vim.keymap.set('n', 'gW', builtin.lsp_dynamic_workspace_symbols, { buffer = buf, desc = 'Open Workspace Symbols' })
-                vim.keymap.set('n', 'grt', builtin.lsp_type_definitions, { buffer = buf, desc = '[G]oto [T]ype Definition' })
-                vim.keymap.set('n', 'gri', builtin.lsp_implementations, { buffer = buf, desc = '[G]oto [I]mplementation' })
-            end
+                vim.keymap.set(
+                    'n',
+                    'gO',
+                    builtin.lsp_document_symbols,
+                    { buffer = buf, desc = 'Open Document Symbols' }
+                )
+                vim.keymap.set(
+                    'n',
+                    'gW',
+                    builtin.lsp_dynamic_workspace_symbols,
+                    { buffer = buf, desc = 'Open Workspace Symbols' }
+                )
+                vim.keymap.set(
+                    'n',
+                    'grt',
+                    builtin.lsp_type_definitions,
+                    { buffer = buf, desc = '[G]oto [T]ype Definition' }
+                )
+                vim.keymap.set(
+                    'n',
+                    'gri',
+                    builtin.lsp_implementations,
+                    { buffer = buf, desc = '[G]oto [I]mplementation' }
+                )
+            end,
         })
-    end
+    end,
 }
-

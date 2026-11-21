@@ -10,10 +10,10 @@ vim.opt.scrolloff = 999
 vim.opt.relativenumber = true
 vim.opt.mouse = 'nc'
 vim.opt.guicursor = {
-    "n-v-c-sm:block",
-    "i-ci-ve:block",
-    "r-cr-o:hor20",
-    "t:block-blinkon500-blinkoff500-TermCursor",
+    'n-v-c-sm:block',
+    'i-ci-ve:block',
+    'r-cr-o:hor20',
+    't:block-blinkon500-blinkoff500-TermCursor',
 }
 
 vim.opt.showmode = false
@@ -50,40 +50,40 @@ vim.opt.wrap = false
 vim.opt.linebreak = true
 
 --- dev setup ---
-local dev_setup = vim.api.nvim_create_augroup("DevSetup", { clear = true })
+local dev_setup = vim.api.nvim_create_augroup('DevSetup', { clear = true })
 
-vim.api.nvim_create_autocmd("FileType", {
-  group = dev_setup,
-  pattern = "make",
-  callback = function()
-    vim.opt_local.expandtab = false
-  end,
+vim.api.nvim_create_autocmd('FileType', {
+    group = dev_setup,
+    pattern = 'make',
+    callback = function()
+        vim.opt_local.expandtab = false
+    end,
 })
 
-vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
-  -- For kanata config files (keyboard remapper)
-  group = dev_setup,
-  pattern = "*.kbd",
-  callback = function()
-    vim.bo.filetype = "lisp"
-    vim.bo.commentstring = ";; %s"
-    vim.fn.matchadd("Comment", ";;.*$")
-  end,
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+    -- For kanata config files (keyboard remapper)
+    group = dev_setup,
+    pattern = '*.kbd',
+    callback = function()
+        vim.bo.filetype = 'lisp'
+        vim.bo.commentstring = ';; %s'
+        vim.fn.matchadd('Comment', ';;.*$')
+    end,
 })
 
 --- writing setup ---
-local writing_setup = vim.api.nvim_create_augroup("WritingSetup", { clear = true })
+local writing_setup = vim.api.nvim_create_augroup('WritingSetup', { clear = true })
 
-vim.api.nvim_create_autocmd("FileType", {
+vim.api.nvim_create_autocmd('FileType', {
     group = writing_setup,
-    pattern = { "markdown", "text", "gitcommit" },
+    pattern = { 'markdown', 'text', 'gitcommit' },
     callback = function()
         vim.opt_local.spell = true
         vim.opt_local.wrap = true
         vim.opt_local.breakindent = true
 
-        if vim.bo.filetype ~= "gitcommit" then
-            vim.opt_local.colorcolumn = ""
+        if vim.bo.filetype ~= 'gitcommit' then
+            vim.opt_local.colorcolumn = ''
         end
     end,
 })
@@ -106,6 +106,7 @@ vim.o.clipboard = ''
 vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'Highlight when yanking (copying) text',
     group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-    callback = function() vim.hl.on_yank({ timeout = 250 }) end,
+    callback = function()
+        vim.hl.on_yank({ timeout = 250 })
+    end,
 })
-

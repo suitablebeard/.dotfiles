@@ -25,7 +25,7 @@ return {
             end
         end,
         default_format_opts = {
-            lsp_format = "fallback",
+            lsp_format = 'fallback',
         },
         -- You can also specify external formatters in here.
         formatters_by_ft = {

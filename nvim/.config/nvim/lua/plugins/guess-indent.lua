@@ -8,7 +8,7 @@ return {
             'netrw',
             'tutor',
             -- my additions
-            'make'
+            'make',
         },
     },
 }
