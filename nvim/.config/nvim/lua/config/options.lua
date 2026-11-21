@@ -4,7 +4,7 @@
 
 vim.opt.number = true
 vim.opt.cursorline = true
-vim.opt.colorcolumn = '80'
+vim.opt.colorcolumn = '75'
 vim.o.signcolumn = 'yes'
 vim.opt.scrolloff = 999
 vim.opt.relativenumber = true
