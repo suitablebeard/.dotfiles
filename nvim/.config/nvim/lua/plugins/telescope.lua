@@ -56,7 +56,7 @@ return {
         vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
         vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
         vim.keymap.set('n', '<leader>fp', builtin.resume, { desc = 'Telescope previous picker' })
-        vim.keymap.set('n', '<leader>ft', builtin.builtin, { desc = 'Telescope builtins' })
+        vim.keymap.set('n', '<leader>f/', builtin.builtin, { desc = 'Telescope builtins' })
         vim.keymap.set('n', '<leader>fi', builtin.current_buffer_fuzzy_find, { desc = 'Telescope in-buffer' })
         vim.keymap.set('n', '<leader>fn', function()
             builtin.find_files({ cwd = vim.env.DOTFILES, follow = true })
