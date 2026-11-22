@@ -5,6 +5,7 @@ return {
     dependencies = {
         -- 'saghen/blink.lib', -- required only for blink.cmp v2 users
         'bydlw98/blink-cmp-env',
+        'disrupted/blink-cmp-conventional-commits',
     },
     opts = {
         keymap = { preset = 'default' },
@@ -15,7 +16,14 @@ return {
             documentation = { auto_show = true, auto_show_delay_ms = 500 },
         },
         sources = {
-            default = { 'lsp', 'path', 'snippets', 'buffer', 'env' },
+            default = {
+                'lsp',
+                'path',
+                'snippets',
+                'buffer',
+                'env',
+                'conventional_commits',
+            },
             providers = {
                 path = { opts = { show_hidden_files_by_default = true } },
                 env = {
@@ -27,6 +35,19 @@ return {
                         item_kind = 6, -- HACK: it can't find the types module; idk why tho
                         show_braces = false,
                         show_documentation_window = true,
+                    },
+                },
+                conventional_commits = {
+                    name = 'Conventional Commits',
+                    module = 'blink-cmp-conventional-commits',
+                    score_offset = 10,
+                    enabled = function()
+                        return vim.bo.filetype == 'gitcommit'
+                    end,
+                    ---@module 'blink-cmp-conventional-commits'
+                    ---@type blink-cmp-conventional-commits.Options
+                    opts = {
+                        -- See Configuration section below for available options
                     },
                 },
             },
