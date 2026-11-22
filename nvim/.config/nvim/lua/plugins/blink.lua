@@ -31,8 +31,14 @@ return {
                     module = 'blink-cmp-env',
                     --- @type blink-cmp-env.Options
                     opts = {
+                        -- HACK:
+                        -- The original for `item_kind` is:
                         -- item_kind = require('blink.cmp.types').CompletionItemKind.Variable,
-                        item_kind = 6, -- HACK: it can't find the types module; idk why tho
+                        -- However, for some reason it cannot get the value for the
+                        -- completion item of the type `Variable`, making the auto
+                        -- completion go completely crazy. And therefore, I'm
+                        -- hardcoding the types module value here
+                        item_kind = 6,
                         show_braces = false,
                         show_documentation_window = true,
                     },
