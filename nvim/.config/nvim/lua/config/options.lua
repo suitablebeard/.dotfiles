@@ -52,14 +52,6 @@ vim.opt.linebreak = true
 --- dev setup ---
 local dev_setup = vim.api.nvim_create_augroup('DevSetup', { clear = true })
 
-vim.api.nvim_create_autocmd('FileType', {
-    group = dev_setup,
-    pattern = 'make',
-    callback = function()
-        vim.opt_local.expandtab = false
-    end,
-})
-
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
     -- For kanata config files (keyboard remapper)
     group = dev_setup,
