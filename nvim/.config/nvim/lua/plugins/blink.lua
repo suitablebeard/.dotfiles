@@ -3,7 +3,7 @@ return {
     enabled = true,
     version = '1.*',
     dependencies = {
-        'saghen/blink.lib', -- required only for blink.cmp v2 users
+        -- 'saghen/blink.lib', -- required only for blink.cmp v2 users
         'bydlw98/blink-cmp-env',
     },
     opts = {
