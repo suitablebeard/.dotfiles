@@ -28,7 +28,6 @@
 #    $ sudo modprobe "$MODULE_INTERNAL_NAME"
 #    $ lsmod | grep "$MODULE_INTERNAL_NAME"
 
-ACER_BATTERY_DRIVER="$HOME/src/acer-wmi-battery/acer-wmi-battery.ko"
 SYSTEM_HEALTH_MODE_FILE="/sys/bus/wmi/drivers/acer-wmi-battery/health_mode"
 SOURCE_CODE_BATTERY_DRIVER="$HOME/src/acer-wmi-battery"
 
@@ -68,9 +67,13 @@ compile_driver() {
     make -C "$SOURCE_CODE_BATTERY_DRIVER" &> /dev/null ||
     return 1
 
-    local module_fname="$(ls "$SOURCE_CODE_BATTERY_DRIVER" | grep .ko)"
-    local module_path="$SOURCE_CODE_BATTERY_DRIVER/$module_fname"
-    local module_internal_name="$(modinfo -F name "$module_path")"
+    local module_fname
+    local module_path
+    local module_internal_name
+
+    module_fname='acer-wmi-battery.ko'
+    module_path="$SOURCE_CODE_BATTERY_DRIVER/$module_fname"
+    module_internal_name="$(modinfo -F name "$module_path")"
 
     sudo install -D -m 644 "$module_path" "/lib/modules/$(uname -r)/updates/$module_fname"
 
