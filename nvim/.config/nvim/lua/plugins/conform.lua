@@ -20,6 +20,13 @@ return {
                 return nil
             end
 
+            if
+                vim.g.disable_autoformat
+                or vim.b[bufnr].disable_autoformat
+            then
+                return
+            end
+
             return { timeout_ms = 500 }
         end,
         default_format_opts = {
@@ -41,4 +48,28 @@ return {
             -- python = { "isort", "black" },
         },
     },
+    init = function()
+        vim.api.nvim_create_user_command(
+            'ConformFormatDisable',
+            function(args)
+                if args.bang then
+                    -- FormatDisable! will disable formatting just for this buffer
+                    vim.b.disable_autoformat = true
+                else
+                    vim.g.disable_autoformat = true
+                end
+            end,
+            {
+                desc = 'Disable autoformat-on-save',
+                bang = true,
+            }
+        )
+
+        vim.api.nvim_create_user_command('ConformFormatEnable', function()
+            vim.b.disable_autoformat = false
+            vim.g.disable_autoformat = false
+        end, {
+            desc = 'Re-enable autoformat-on-save',
+        })
+    end,
 }
