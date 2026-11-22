@@ -1,4 +1,5 @@
-quote_style = 'AutoPreferSingle'
-indent_type = "Spaces"
 column_width = 75
 indent_width = 4
+indent_type = "Spaces"
+quote_style = 'AutoPreferSingle'
+collapse_simple_statement = "Always"

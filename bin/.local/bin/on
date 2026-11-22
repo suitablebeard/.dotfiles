@@ -15,13 +15,12 @@ if [ -z "$OBSIDIAN_VAULT" ]; then
     exit 1
 fi
 
-
 USER_INPUT="$*"
 NEW_NOTES_DIR="$OBSIDIAN_VAULT/+"
 
-
 generate_title() {
-    local parsed_input="$(tr -s '_-' '  ' <<< $USER_INPUT)"
+    local parsed_input
+    parsed_input="$(tr -s '_-' '  ' <<< "$USER_INPUT")"
 
     local camel_case=''
     for word in $parsed_input; do
@@ -34,7 +33,9 @@ generate_title() {
 }
 
 generate_filename() {
-    local parsed_input="$(tr -s ' ' <<< $USER_INPUT)"
+    local parsed_input
+    parsed_input="$(tr -s ' ' <<< "$USER_INPUT")"
+
     local clean_filename="${parsed_input%.md}.md"
 
     echo "$clean_filename"
@@ -51,4 +52,3 @@ if [[ -f "$NEW_NOTES_DIR/$filename" ]]; then
 fi
 
 cd "$OBSIDIAN_VAULT" && $EDITOR -c "call setline(1, ['# $file_title', '']) | call cursor(2, 1)" "$NEW_NOTES_DIR/$filename"
-

@@ -5,9 +5,7 @@ return {
     keys = {
         {
             '<leader>ft',
-            function()
-                require('conform').format({ async = true })
-            end,
+            function() require('conform').format({ async = true }) end,
             mode = '',
             desc = 'Format buffer',
         },
@@ -15,8 +13,9 @@ return {
     opts = {
         format_on_save = function(bufnr)
             local ignored_filetypes = {}
+            local ftype = vim.bo[bufnr].filetype
 
-            if vim.tbl_contains(ignored_filetypes, vim.bo[bufnr].filetype) then
+            if vim.tbl_contains(ignored_filetypes, ftype) then
                 return nil
             end
 

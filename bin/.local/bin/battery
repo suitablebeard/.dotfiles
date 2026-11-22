@@ -31,13 +31,13 @@
 SYSTEM_HEALTH_MODE_FILE="/sys/bus/wmi/drivers/acer-wmi-battery/health_mode"
 SOURCE_CODE_BATTERY_DRIVER="$HOME/src/acer-wmi-battery"
 
-if [[ "$EUID" -eq 0 ]]; then
+if [[ $EUID -eq 0 ]]; then
     echo "Error: This script must be run as a regular user (without sudo)."
     exit 1
 fi
 
 handle_error() {
-    (( $? == 0 )) && return
+    (($? == 0)) && return
 
     echo "Error: Battery Health mode was NOT enabled." >&2
 
@@ -53,7 +53,7 @@ trap handle_error EXIT
 sudo -v || exit 1
 
 compile_driver() {
-    if [[ ! -d "$SOURCE_CODE_BATTERY_DRIVER" ]]; then
+    if [[ ! -d $SOURCE_CODE_BATTERY_DRIVER ]]; then
         echo "Error: The sourde code to compile the battery driver was not found." >&2
         return 1
     fi
@@ -63,9 +63,9 @@ compile_driver() {
         return 1
     fi
 
-    make -C "$SOURCE_CODE_BATTERY_DRIVER" clean &> /dev/null &&
-    make -C "$SOURCE_CODE_BATTERY_DRIVER" &> /dev/null ||
-    return 1
+    make -C "$SOURCE_CODE_BATTERY_DRIVER" clean &> /dev/null \
+        && make -C "$SOURCE_CODE_BATTERY_DRIVER" &> /dev/null \
+        || return 1
 
     local module_fname
     local module_path
@@ -102,11 +102,11 @@ set_battery_health_gnome_extension() {
     local extension_dir="$HOME/.local/share/gnome-shell/extensions/$extension_uuid"
     local extension_schema_dir="$extension_dir/schemas"
 
-    [[ ! -d "$extension_dir" ]] && return 1
+    [[ ! -d $extension_dir ]] && return 1
 
-    gsettings --schemadir "$extension_schema_dir" set "$gsettings_name" charging-mode 'max' &&
-    gnome-extensions disable "$extension_uuid" &&
-    gnome-extensions enable "$extension_uuid"
+    gsettings --schemadir "$extension_schema_dir" set "$gsettings_name" charging-mode 'max' \
+        && gnome-extensions disable "$extension_uuid" \
+        && gnome-extensions enable "$extension_uuid"
 }
 
 if [[ "$(cat "$SYSTEM_HEALTH_MODE_FILE" 2> /dev/null)" == "1" ]]; then
@@ -115,7 +115,7 @@ if [[ "$(cat "$SYSTEM_HEALTH_MODE_FILE" 2> /dev/null)" == "1" ]]; then
     exit 0
 fi
 
-if [[ ! -e "$SYSTEM_HEALTH_MODE_FILE" ]]; then
+if [[ ! -e $SYSTEM_HEALTH_MODE_FILE ]]; then
     echo 'Status: The acer-wmi-battery module was not found. Trying to compile it from source.'
     compile_driver || exit 1
 fi
@@ -129,4 +129,3 @@ set_battery_health_gnome_extension
 notify_success
 echo 'Battery Health mode ACTIVATED.'
 exit 0
-

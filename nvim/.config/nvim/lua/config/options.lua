@@ -64,7 +64,8 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 })
 
 --- writing setup ---
-local writing_setup = vim.api.nvim_create_augroup('WritingSetup', { clear = true })
+local writing_setup =
+    vim.api.nvim_create_augroup('WritingSetup', { clear = true })
 
 vim.api.nvim_create_autocmd('FileType', {
     group = writing_setup,
@@ -97,8 +98,9 @@ vim.o.clipboard = ''
 
 vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'Highlight when yanking (copying) text',
-    group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-    callback = function()
-        vim.hl.on_yank({ timeout = 250 })
-    end,
+    group = vim.api.nvim_create_augroup(
+        'kickstart-highlight-yank',
+        { clear = true }
+    ),
+    callback = function() vim.hl.on_yank({ timeout = 250 }) end,
 })
