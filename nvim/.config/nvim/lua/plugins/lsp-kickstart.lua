@@ -113,6 +113,7 @@ return {
             'stylua',
             'shellcheck',
             'prettierd',
+            'shfmt',
         })
 
         require('mason-lspconfig').setup({ automatic_enable = true })
