@@ -1,6 +1,7 @@
 -- Fix for searching and grepping hidden files and dirs
 -- except for the .git/ directory (since it isn't '.gitignore'd)
-local vimgrep_arguments = { unpack(require('telescope.config').values.vimgrep_arguments) }
+local vimgrep_arguments =
+    { unpack(require('telescope.config').values.vimgrep_arguments) }
 table.insert(vimgrep_arguments, '--hidden')
 table.insert(vimgrep_arguments, '--glob')
 table.insert(vimgrep_arguments, '!**/.git/*')
@@ -29,7 +30,13 @@ return {
         },
         pickers = {
             find_files = {
-                find_command = { 'rg', '--files', '--hidden', '--glob', '!**/.git/*' },
+                find_command = {
+                    'rg',
+                    '--files',
+                    '--hidden',
+                    '--glob',
+                    '!**/.git/*',
+                },
                 -- Optional: also include files in .gitignore if needed
                 -- no_ignore = true,
             },
@@ -51,34 +58,111 @@ return {
         pcall(require('telescope').load_extension, 'ui-select')
 
         local builtin = require('telescope.builtin')
-        vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
-        vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-        vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
-        vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
-        vim.keymap.set('n', '<leader>fp', builtin.resume, { desc = 'Telescope previous picker' })
-        vim.keymap.set('n', '<leader>f/', builtin.builtin, { desc = 'Telescope builtins' })
-        vim.keymap.set('n', '<leader>fi', builtin.current_buffer_fuzzy_find, { desc = 'Telescope in-buffer' })
-        vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = 'Telescope keymaps' })
-        vim.keymap.set('n', '<leader>fn', function()
-            builtin.find_files({ cwd = vim.env.DOTFILES, follow = true })
-        end, { desc = 'Telescope dotfiles' })
+        vim.keymap.set(
+            'n',
+            '<leader>ff',
+            builtin.find_files,
+            { desc = 'Telescope find files' }
+        )
+        vim.keymap.set(
+            'n',
+            '<leader>fg',
+            builtin.live_grep,
+            { desc = 'Telescope live grep' }
+        )
+        vim.keymap.set(
+            'n',
+            '<leader>fb',
+            builtin.buffers,
+            { desc = 'Telescope buffers' }
+        )
+        vim.keymap.set(
+            'n',
+            '<leader>fh',
+            builtin.help_tags,
+            { desc = 'Telescope help tags' }
+        )
+        vim.keymap.set(
+            'n',
+            '<leader>fp',
+            builtin.resume,
+            { desc = 'Telescope previous picker' }
+        )
+        vim.keymap.set(
+            'n',
+            '<leader>f/',
+            builtin.builtin,
+            { desc = 'Telescope builtins' }
+        )
+        vim.keymap.set(
+            'n',
+            '<leader>fi',
+            builtin.current_buffer_fuzzy_find,
+            { desc = 'Telescope in-buffer' }
+        )
+        vim.keymap.set(
+            'n',
+            '<leader>fk',
+            builtin.keymaps,
+            { desc = 'Telescope keymaps' }
+        )
+        vim.keymap.set(
+            'n',
+            '<leader>fn',
+            function()
+                builtin.find_files({
+                    cwd = vim.env.DOTFILES,
+                    follow = true,
+                })
+            end,
+            { desc = 'Telescope dotfiles' }
+        )
 
         -- Obsidian Vault
-        vim.keymap.set('n', '<leader>of', function()
-            builtin.find_files({ cwd = vim.env.OBSIDIAN_VAULT, follow = true })
-        end, { desc = 'Telescope Obsidian files' })
-        vim.keymap.set('n', '<leader>og', function()
-            builtin.live_grep({ cwd = vim.env.OBSIDIAN_VAULT, follow = true })
-        end, { desc = 'Telescope Obsidian grep files' })
+        vim.keymap.set(
+            'n',
+            '<leader>of',
+            function()
+                builtin.find_files({
+                    cwd = vim.env.OBSIDIAN_VAULT,
+                    follow = true,
+                })
+            end,
+            { desc = 'Telescope Obsidian files' }
+        )
+        vim.keymap.set(
+            'n',
+            '<leader>og',
+            function()
+                builtin.live_grep({
+                    cwd = vim.env.OBSIDIAN_VAULT,
+                    follow = true,
+                })
+            end,
+            { desc = 'Telescope Obsidian grep files' }
+        )
 
         -- Add Telescope-based LSP pickers when an LSP attaches to a buffer.
         vim.api.nvim_create_autocmd('LspAttach', {
-            group = vim.api.nvim_create_augroup('telescope-lsp-attach', { clear = true }),
+            group = vim.api.nvim_create_augroup(
+                'telescope-lsp-attach',
+                { clear = true }
+            ),
             callback = function(event)
                 local buf = event.buf
 
-                vim.keymap.set('n', 'grr', builtin.lsp_references, { buffer = buf, desc = '[G]oto [R]eferences' })
-                vim.keymap.set('n', 'grd', builtin.lsp_definitions, { buffer = buf, desc = '[G]oto [D]efinition' })
+                vim.keymap.set(
+                    'n',
+                    'grr',
+                    builtin.lsp_references,
+                    { buffer = buf, desc = '[G]oto [R]eferences' }
+                )
+                vim.keymap.set(
+                    'n',
+                    'grd',
+                    builtin.lsp_definitions,
+                    { buffer = buf, desc = '[G]oto [D]efinition' }
+                )
                 vim.keymap.set(
                     'n',
                     'gO',

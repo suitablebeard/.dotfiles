@@ -38,23 +38,23 @@ alias nivm='nvim'
 
 v() {
     [[ $# != 0 ]] && vim "$@" && return
-    vim . -c "autocmd VimEnter * call feedkeys(g:mapleader . \"ff\")"
+    vim . -c 'autocmd VimEnter * call feedkeys(g:mapleader . "ff")'
 }
 
 nv() {
     [[ $# != 0 ]] && nvim "$@" && return
-    nvim . -c "autocmd VimEnter * call feedkeys(g:mapleader . \"ff\")" 
+    nvim . -c 'autocmd VimEnter * call feedkeys(g:mapleader . "ff")'
 }
 
 vimplug() {
     local target="${@:-.}"
-    vim "$target" +PlugClean +wqa && \
-    vim +PlugInstall +wqa && \
-    vim "$target"
+    vim "$target" +PlugClean +wqa \
+        && vim +PlugInstall +wqa \
+        && vim "$target"
 }
 
 0g() {
-    "$EDITOR" -c "autocmd VimEnter * call feedkeys(g:mapleader . \"0g\")"
+    "$EDITOR" -c 'autocmd VimEnter * call feedkeys(g:mapleader . "0g")'
 }
 
 # ========================
@@ -95,21 +95,21 @@ alias gra='git rebase --abort'
 
 gc() {
     if [ -z "$*" ]; then
-        echo "Usage: gc \"commit message\""
+        echo 'Usage: gc "commit message"'
         return 1
     fi
     git commit -m "$*"
 }
 gac() {
     if [ -z "$*" ]; then
-        echo "Usage: gac \"commit message\""
+        echo 'Usage: gac "commit message"'
         return 1
     fi
     git add . && git commit -m "$*"
 }
 
 # ====================================
-# ===== yt-dlp aliases (youtube) ===== 
+# ===== yt-dlp aliases (youtube) =====
 # ====================================
 
 # Update yt-dlp directly
