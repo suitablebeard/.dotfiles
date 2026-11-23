@@ -10,3 +10,8 @@ help:
 link stow:
 	@stow -R */
 	@echo 'status: updated all symlinks'
+
+.PHONY: unlink
+unlink:
+	@stow -D */
+	@echo 'status: deleted all symlinks'
