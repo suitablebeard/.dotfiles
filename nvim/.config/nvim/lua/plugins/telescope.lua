@@ -26,7 +26,7 @@ return {
                 },
             },
             vimgrep_arguments = vimgrep_arguments,
-            winblend = 10,
+            -- winblend = 10,
         },
         pickers = {
             find_files = {
