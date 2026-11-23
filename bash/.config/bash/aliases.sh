@@ -9,6 +9,14 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias cd-='cd -'
+mkcd() {
+    if (($# != 1)); then
+        echo 'usage: provide a directory to be created.'
+        return 1
+    fi
+
+    mkdir "$1" && cd "$1" || return
+}
 
 alias ls='ls --color=auto'
 alias ll='ls --color=auto -lah'
