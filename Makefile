@@ -8,4 +8,5 @@ help:
 
 .PHONY: link stow
 link stow:
-	stow -vR */
+	@stow -R */
+	@echo 'status: updated all symlinks'
