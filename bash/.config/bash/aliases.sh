@@ -17,7 +17,7 @@ alias grep='grep --color=auto'
 alias so='source ~/.bashrc'
 
 alias fd='fd --hidden --exclude .git'
-alias rg='rg --hidden -g "!.git/**"'
+alias rg='rg -S --hidden -g "!.git/**"'
 alias tree='tree -a -I ".git"'
 
 alias dot='cd $DOTFILES'
