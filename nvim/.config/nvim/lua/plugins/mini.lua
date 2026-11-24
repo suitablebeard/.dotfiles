@@ -21,7 +21,7 @@ return {
         -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
         -- require('mini.surround').setup()
         -- workaround for substitute character since mini.surround remaps 's' to '<Nop>'
-        vim.keymap.set('n', 'ss', 's')
+        -- vim.keymap.set('n', 'ss', 's')
 
         require('mini.pairs').setup()
 
