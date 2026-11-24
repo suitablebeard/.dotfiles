@@ -35,6 +35,14 @@ alias cdcode='cd ~/myFiles/Programming'
 alias fixfonts='rm -rf ~/.cache/fontconfig ~/.var/app/*/cache/fontconfig && fc-cache -r -v'
 
 alias kanata='systemctl --user start kanata.service'
+tmux() {
+    if (("$#" == 0)); then
+        echo 'warning: you should give a name to your session.' >&2
+        return 1
+    fi
+
+    command tmux "$@"
+}
 
 # ======================
 # ==== VIM Aliases ====
