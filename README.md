@@ -1,3 +1,6 @@
+> [!WARNING]
+> This `README` file is deprecated and needs to be updated.
+
 # How to use this repo
 
 For Bash you simply create a symlink of the .bashrc file to `~/.bashrc`.
