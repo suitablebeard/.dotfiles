@@ -23,7 +23,8 @@ return {
         -- workaround for substitute character since mini.surround remaps 's' to '<Nop>'
         -- vim.keymap.set('n', 'ss', 's')
 
-        require('mini.pairs').setup()
+        -- `mini.pairs` is disabled in favor of `nvim-autopairs`
+        -- require('mini.pairs').setup()
 
         -- Simple and easy statusline.
         local statusline = require('mini.statusline')
