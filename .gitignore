@@ -1,3 +1,4 @@
+*.bak
+
 lazy-lock.json
 example-kitty.conf
-*.bak
