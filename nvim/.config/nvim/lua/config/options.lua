@@ -86,6 +86,8 @@ vim.api.nvim_create_autocmd('FileType', {
 -------------------
 
 vim.opt.undofile = true
+vim.opt.fixendofline = true
+vim.opt.endofline = true
 
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
