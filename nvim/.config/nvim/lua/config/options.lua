@@ -22,6 +22,8 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.g.have_nerd_font = true
 vim.opt.conceallevel = 1
+
+vim.g.netrw_liststyle = 3
 vim.g.markdown_fenced_languages = {
     'json',
     'javascript',
